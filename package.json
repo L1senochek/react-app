@@ -10,7 +10,8 @@
     "lint:fix": "npm run lint -- --fix",
     "preview": "vite preview",
     "prettier": "npx prettier src --check",
-    "prettier:fix": "npm run prettier -- --write"
+    "prettier:fix": "npm run prettier -- --write",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
