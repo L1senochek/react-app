@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.search {
+  display: flex;
+  &__loupe {
+    display: flex;
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+  }
+}
