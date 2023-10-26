@@ -1,9 +1,7 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixin/flex-direction-column.scss';
 
-.top-section {
-  display: flex;
-  flex-direction: column;
-}
+@include flex-direction-column('.top-section');
 
 .separator {
   border-color: $semi-transparent-line-color;

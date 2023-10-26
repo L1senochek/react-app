@@ -1,6 +1,4 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixin/flex-direction-column.scss';
 
-.main-page {
-  display: flex;
-  flex-direction: column;
-}
+@include flex-direction-column('.main-page');
