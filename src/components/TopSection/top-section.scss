@@ -3,8 +3,10 @@
 
 @include flex-direction-column('.top-section');
 
-.separator {
-  border-color: $semi-transparent-line-color;
-  margin: $semi-transparent-line-margin 0;
-  width: 94%;
+.top-section {
+  &__separator {
+    border-color: $semi-transparent-line-color;
+    margin: $semi-transparent-line-margin 0;
+    width: 94%;
+  }
 }
