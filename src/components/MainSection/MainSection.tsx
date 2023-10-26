@@ -1,7 +1,11 @@
 import React from 'react';
 
 const MainSection = (): JSX.Element => {
-  return <div>MainSection</div>;
+  return (
+    <div className="main-section">
+      <div>MainSection</div>
+    </div>
+  );
 };
 
 export default MainSection;
