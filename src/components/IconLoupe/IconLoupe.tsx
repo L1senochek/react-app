@@ -15,6 +15,7 @@ const IconLoupe = (): JSX.Element => {
         transform="translate(0.000000,1270.000000) scale(0.100000,-0.100000)"
         fill="#15ff005e"
         stroke="none"
+        className="loupe"
       >
         <path
           d="M4895 12689 c-1613 -102 -3112 -968 -4012 -2319 -694 -1043 -991

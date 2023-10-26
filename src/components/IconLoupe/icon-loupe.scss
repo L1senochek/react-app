@@ -1,7 +1,8 @@
 @import '../../styles/variables.scss';
 
-.search__loupe:hover > .icon-loupe > g,
-.icon-loupe:hover > g {
+.search__loupe:hover > .icon-loupe > .loupe,
+.icon-loupe:hover > .loupe,
+.loupe:hover {
   fill: $main-color;
   transition: $transitionAll;
 }
