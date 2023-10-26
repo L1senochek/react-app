@@ -1,5 +1,2 @@
-$background-color: #131016;
-
-* {
-  background-color: $background-color;
-}
+@import './styles/variables.scss';
+@import './styles/base/base.scss';
