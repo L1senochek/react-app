@@ -1,10 +1,14 @@
 import React from 'react';
+import './top-section.scss';
 
-export default function TopSection() {
+const TopSection = (): JSX.Element => {
   return (
     <div className="top-section">
       <div>TopSection</div>
       {/* <Search /> */}
+      <hr className="separator" />
     </div>
   );
-}
+};
+
+export default TopSection;

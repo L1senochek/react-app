@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.separator {
-  border-color: $semi-transparent-line-color;
-  margin: $semi-transparent-line-margin;
+.main-page {
+  display: flex;
+  flex-direction: column;
 }

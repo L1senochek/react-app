@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.top-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.separator {
+  border-color: $semi-transparent-line-color;
+  margin: $semi-transparent-line-margin;
+}
