@@ -1,8 +1,23 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
+import { SearchProps, SearchState } from '../../model/components/Search/Search';
 
-class Search extends Component {
+class Search extends Component<SearchProps, SearchState> {
+  constructor(props: SearchProps) {
+    super(props);
+    this.state = {
+      searchValue: '',
+    };
+  }
+
+  searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value;
+    this.setState({ searchValue: value });
+    console.log(111, value);
+    this.props.onSearchChange(value);
+  };
+
   render(): JSX.Element {
     return (
       <div className="search">
@@ -14,6 +29,8 @@ class Search extends Component {
           type="search"
           placeholder="Search..."
           id="search"
+          value={this.state.searchValue}
+          onChange={this.searchChange}
         />
       </div>
     );
