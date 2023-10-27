@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MainPage from './pages/MainPage/MainPage';
 
-const App = (): JSX.Element => {
-  return (
-    <>
-      <MainPage />
-    </>
-  );
-};
+class App extends Component {
+  render() {
+    return (
+      <>
+        <MainPage />
+      </>
+    );
+  }
+}
 
 export default App;
