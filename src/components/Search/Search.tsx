@@ -3,7 +3,6 @@ import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import { SearchProps } from '../../model/components/Search/Search';
-import getPlanets from '../../api/getPlanets';
 import getSearch from '../../api/getSearch';
 
 class Search extends Component {
@@ -16,16 +15,11 @@ class Search extends Component {
   declare context: ContextType<typeof MainPageContext>;
 
   async buttonClick() {
-    const planet = await getPlanets();
-    const getSearchRes = await getSearch('Tat');
-    console.log(planet, getSearchRes);
+    this.context.setIsLoading(true);
+    const getSearchRes = await getSearch(this.context.searchValue);
+    console.log(getSearchRes);
+    console.log(222, this.context.searchValue, this.context.isLoading);
     this.context.setIsLoading(false);
-    console.log(
-      222,
-      this.context.searchValue,
-      this.context.searchValue,
-      this.context.isLoading
-    );
   }
 
   keyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
