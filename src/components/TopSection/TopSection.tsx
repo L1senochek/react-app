@@ -7,7 +7,6 @@ class TopSection extends Component {
     return (
       <div className="top-section">
         <div className="top-section__search_wrapper">
-          TopSection
           <Search />
         </div>
         <hr className="top-section__separator" />

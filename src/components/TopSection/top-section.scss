@@ -4,6 +4,9 @@
 @include flex-direction-column('.top-section');
 
 .top-section {
+  &__search_wrapper {
+    padding: $search-wrapper-padding 0;
+  }
   &__separator {
     border-color: $semi-transparent-line-color;
     margin: $semi-transparent-line-margin 0;

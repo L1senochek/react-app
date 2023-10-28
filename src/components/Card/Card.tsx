@@ -9,28 +9,28 @@ class Card extends Component<CardProps> {
       <div className="card">
         <h3 className="card__name">{name}</h3>
         {diameter && (
-          <div className="card__description diameter">
+          <h4 className="card__description diameter">
             <span className="card__description_title">Diameter: </span>
             {diameter}
-          </div>
+          </h4>
         )}
         {climate && (
-          <div className="card__description climate">
+          <h4 className="card__description climate">
             <span className="card__description_title">Climate: </span>
             {climate}
-          </div>
+          </h4>
         )}
         {surfaceWater && (
-          <div className="card__description surface-water">
+          <h4 className="card__description surface-water">
             <span className="card__description_title">Surface water: </span>
             {surfaceWater}
-          </div>
+          </h4>
         )}
         {terrain && (
-          <div className="card__description terrain">
+          <h4 className="card__description terrain">
             <span className="card__description_title">Terrain: </span>
             {terrain}
-          </div>
+          </h4>
         )}
       </div>
     );
