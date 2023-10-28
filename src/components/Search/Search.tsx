@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component, ContextType } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
-import { SearchContext } from '../../context/SearchContext/SearchContext';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import { SearchProps } from '../../model/components/Search/Search';
 
 class Search extends Component {
@@ -10,11 +10,17 @@ class Search extends Component {
     this.buttonClick = this.buttonClick.bind(this);
   }
 
-  static contextType = SearchContext;
-  declare context: ContextType<typeof SearchContext>;
+  static contextType = MainPageContext;
+  declare context: ContextType<typeof MainPageContext>;
 
   buttonClick() {
-    console.log(222, this.context.searchValue, this.context.searchValue);
+    this.context.setIsLoading(false);
+    console.log(
+      222,
+      this.context.searchValue,
+      this.context.searchValue,
+      this.context.isLoading
+    );
   }
 
   keyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
