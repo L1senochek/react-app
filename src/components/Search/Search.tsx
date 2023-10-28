@@ -1,21 +1,23 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, { ChangeEvent, Component, ContextType } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
-import { SearchProps, SearchState } from '../../model/components/Search/Search';
+import { SearchContext } from '../../context/SearchContext/SearchContext';
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    this.state = {
-      searchValue: localStorage.getItem('searchValue') || '',
-    };
+class Search extends Component {
+  static contextType = SearchContext;
+  declare context: ContextType<typeof SearchContext>;
+
+  checkLocalStorage() {
+    const localStorageSearchValue = localStorage.getItem('searchValue');
+    if (localStorageSearchValue) {
+      this.context.setSearchValue(localStorageSearchValue);
+    }
   }
 
   searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    this.setState({ searchValue: value });
-    console.log(111, value);
-    this.props.onSearchChange(value);
+    this.context.setSearchValue(value);
+    console.log(111, value, this.context);
   };
 
   render(): JSX.Element {
@@ -29,7 +31,7 @@ class Search extends Component<SearchProps, SearchState> {
           type="search"
           placeholder="Search..."
           id="search"
-          value={this.state.searchValue}
+          value={this.context.searchValue}
           onChange={this.searchChange}
         />
       </div>
