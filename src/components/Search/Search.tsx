@@ -3,6 +3,7 @@ import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import { SearchProps } from '../../model/components/Search/Search';
+import getPlanets from '../../api/getPlanets';
 
 class Search extends Component {
   constructor(props: SearchProps) {
@@ -13,7 +14,9 @@ class Search extends Component {
   static contextType = MainPageContext;
   declare context: ContextType<typeof MainPageContext>;
 
-  buttonClick() {
+  async buttonClick() {
+    const planet = await getPlanets();
+    console.log(planet);
     this.context.setIsLoading(false);
     console.log(
       222,
