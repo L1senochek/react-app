@@ -3,12 +3,15 @@ import {
   IMainPageContextState,
   IMainPageProviderProps,
 } from '../../model/context/MainPageContext/MainPageContext';
+import IPlanets from '../../model/api/IPlanets';
 
 export const MainPageContext = createContext<IMainPageContextState>({
   searchValue: '',
   setSearchValue: () => {},
   isLoading: true,
   setIsLoading: () => {},
+  arrRes: [],
+  setArrRes: () => {},
 });
 
 export class MainPageProvider extends Component<
@@ -22,6 +25,8 @@ export class MainPageProvider extends Component<
       setSearchValue: this.setSearchValue,
       isLoading: true,
       setIsLoading: this.setIsLoading,
+      arrRes: [],
+      setArrRes: this.setArrRes,
     };
   }
 
@@ -35,6 +40,10 @@ export class MainPageProvider extends Component<
     this.setState({ isLoading: value });
   };
 
+  setArrRes = (value: IPlanets[]) => {
+    this.setState({ arrRes: value });
+  };
+
   render() {
     return (
       <MainPageContext.Provider
@@ -43,6 +52,8 @@ export class MainPageProvider extends Component<
           setSearchValue: this.setSearchValue,
           isLoading: this.state.isLoading,
           setIsLoading: this.setIsLoading,
+          arrRes: this.state.arrRes,
+          setArrRes: this.setArrRes,
         }}
       >
         {this.props.children}

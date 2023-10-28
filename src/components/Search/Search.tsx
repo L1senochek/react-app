@@ -17,8 +17,8 @@ class Search extends Component {
   async buttonClick() {
     this.context.setIsLoading(true);
     const getSearchRes = await getSearch(this.context.searchValue);
-    console.log(getSearchRes);
-    console.log(222, this.context.searchValue, this.context.isLoading);
+    this.context.setArrRes(getSearchRes.results);
+    console.log(222, this.context.searchValue, this.context.arrRes);
     this.context.setIsLoading(false);
   }
 
