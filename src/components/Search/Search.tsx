@@ -22,6 +22,12 @@ class Search extends Component {
     console.log(this.context.searchValue, this.context.searchValue);
   }
 
+  keyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      this.buttonClick();
+    }
+  };
+
   searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     this.context.setSearchValue(value);
@@ -41,6 +47,7 @@ class Search extends Component {
           id="search"
           value={this.context.searchValue}
           onChange={this.searchChange}
+          onKeyUp={this.keyUp}
         />
       </div>
     );
