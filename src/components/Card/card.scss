@@ -17,6 +17,10 @@
     justify-content: center;
     padding: $card-padding;
   }
+  &__img {
+    display: flex;
+    justify-content: center;
+  }
   &__description {
     display: flex;
     padding: $card-description-padding;

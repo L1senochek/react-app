@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './card.scss';
 import CardProps from '../../model/components/Card/Card';
+import IconPlanet from '../IconPlanet/IconPlanet';
 
 class Card extends Component<CardProps> {
   render(): JSX.Element {
@@ -8,6 +9,9 @@ class Card extends Component<CardProps> {
     return (
       <div className="card">
         <h3 className="card__name">{name}</h3>
+        <div className="card__img">
+          <IconPlanet />
+        </div>
         {diameter && (
           <h4 className="card__description diameter">
             <span className="card__description_title">Diameter: </span>
