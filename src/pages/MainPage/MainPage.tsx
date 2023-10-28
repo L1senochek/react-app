@@ -3,6 +3,7 @@ import TopSection from '../../components/TopSection/TopSection';
 import './main-page.scss';
 import MainSection from '../../components/MainSection/MainSection';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
+import Loading from '../../components/Loading/Loading';
 
 class MainPage extends Component<Record<string, never>> {
   static contextType = MainPageContext;
@@ -16,7 +17,7 @@ class MainPage extends Component<Record<string, never>> {
     return (
       <main className="main-page">
         <TopSection />
-        {this.context.isLoading ? <div>Loading...</div> : <MainSection />}
+        {this.context.isLoading ? <Loading /> : <MainSection />}
       </main>
     );
   }
