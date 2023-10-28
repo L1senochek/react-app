@@ -4,6 +4,7 @@ import './search.scss';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import { SearchProps } from '../../model/components/Search/Search';
 import getPlanets from '../../api/getPlanets';
+import getSearch from '../../api/getSearch';
 
 class Search extends Component {
   constructor(props: SearchProps) {
@@ -16,7 +17,8 @@ class Search extends Component {
 
   async buttonClick() {
     const planet = await getPlanets();
-    console.log(planet);
+    const getSearchRes = await getSearch('Tat');
+    console.log(planet, getSearchRes);
     this.context.setIsLoading(false);
     console.log(
       222,
