@@ -1,6 +1,10 @@
 $background-color: #0c100c;
 $background-image-card: radial-gradient(ellipse at 30% 10%, #0e120d, #0f2903);
-$background-image-card-hover: radial-gradient(ellipse at 30% 10%, #043c00, #050505);
+$background-image-card-hover: radial-gradient(
+  ellipse at 30% 10%,
+  #043c00,
+  #050505
+);
 
 $font-size-px: 16px;
 
