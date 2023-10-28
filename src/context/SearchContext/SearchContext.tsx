@@ -16,13 +16,15 @@ export class SearchProvider extends Component<
   constructor(props: ISearchProviderProps) {
     super(props);
     this.state = {
-      searchValue: '',
+      searchValue: localStorage.getItem('searchValue') || '',
       setSearchValue: this.setSearchValue,
     };
   }
 
   setSearchValue = (value: string) => {
-    this.setState({ searchValue: value });
+    this.setState({ searchValue: value }, () => {
+      localStorage.setItem('searchValue', value);
+    });
   };
 
   render() {

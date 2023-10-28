@@ -5,21 +5,16 @@ import { SearchContext } from '../../context/SearchContext/SearchContext';
 import { SearchProps } from '../../model/components/Search/Search';
 
 class Search extends Component {
-  static contextType = SearchContext;
-  declare context: ContextType<typeof SearchContext>;
   constructor(props: SearchProps) {
     super(props);
     this.buttonClick = this.buttonClick.bind(this);
   }
-  checkLocalStorage() {
-    const localStorageSearchValue = localStorage.getItem('searchValue');
-    if (localStorageSearchValue) {
-      this.context.setSearchValue(localStorageSearchValue);
-    }
-  }
+
+  static contextType = SearchContext;
+  declare context: ContextType<typeof SearchContext>;
 
   buttonClick() {
-    console.log(this.context.searchValue, this.context.searchValue);
+    console.log(222, this.context.searchValue, this.context.searchValue);
   }
 
   keyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
