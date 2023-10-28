@@ -2,16 +2,24 @@ import React, { ChangeEvent, Component, ContextType } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
 import { SearchContext } from '../../context/SearchContext/SearchContext';
+import { SearchProps } from '../../model/components/Search/Search';
 
 class Search extends Component {
   static contextType = SearchContext;
   declare context: ContextType<typeof SearchContext>;
-
+  constructor(props: SearchProps) {
+    super(props);
+    this.buttonClick = this.buttonClick.bind(this);
+  }
   checkLocalStorage() {
     const localStorageSearchValue = localStorage.getItem('searchValue');
     if (localStorageSearchValue) {
       this.context.setSearchValue(localStorageSearchValue);
     }
+  }
+
+  buttonClick() {
+    console.log(this.context.searchValue, this.context.searchValue);
   }
 
   searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -23,7 +31,7 @@ class Search extends Component {
   render(): JSX.Element {
     return (
       <div className="search">
-        <button className="search__loupe">
+        <button className="search__loupe" onClick={this.buttonClick}>
           <IconLoupe />
         </button>
         <input
