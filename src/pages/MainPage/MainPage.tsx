@@ -12,8 +12,16 @@ class MainPage extends Component<Record<string, never>, SearchState> {
     };
   }
 
+  checkLocalStorage() {
+    const storedSearchValue = localStorage.getItem('searchValue');
+    if (storedSearchValue) {
+      this.setState({ searchValue: storedSearchValue });
+    }
+  }
+
   handleSearchChange = (value: string) => {
     this.setState({ searchValue: value }, () => {
+      localStorage.setItem('searchValue', value);
       console.log(222, this.state.searchValue);
     });
   };
