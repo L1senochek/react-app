@@ -1,0 +1,32 @@
+@import '../../styles/variables.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 30%;
+  border: $border-width $border-style $main-color;
+  margin: $card-margin;
+  padding: $card-padding;
+  border-radius: $border-radius;
+  background-image: $background-image-card;
+  transition: $transitionAll;
+  cursor: pointer;
+  &__name {
+    display: flex;
+    justify-content: center;
+    padding: $card-padding;
+  }
+  &__description {
+    display: flex;
+    padding: $card-description-padding;
+    &_title {
+      font-weight: bold;
+      padding-right: $card-description-title-padding;
+    }
+  }
+  &:hover {
+    box-shadow: $box-shadow-card;
+    background-image: $background-image-card-hover;
+  }
+}

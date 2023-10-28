@@ -7,10 +7,10 @@
   width: 20vw;
   padding: 5px;
   color: $main-color;
-  border-radius: $search-border-radius;
+  border-radius: $border-radius;
   border-color: $main-color;
-  border-width: $search-border-width;
-  border-style: $search-border-style;
+  border-width: $border-width;
+  border-style: $border-style;
   &__loupe {
     display: flex;
     background: transparent;

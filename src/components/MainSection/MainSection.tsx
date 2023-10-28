@@ -6,7 +6,7 @@ class MainSection extends Component {
   render(): JSX.Element {
     return (
       <div className="main-section">
-        <div>MainSection</div>
+        <h2>Planets:</h2>
         <Cards />
       </div>
     );
