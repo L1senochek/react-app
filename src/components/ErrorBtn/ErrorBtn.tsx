@@ -7,7 +7,7 @@ class ErrorBtn extends Component {
     isError: false,
   };
 
-  clickOnBtnError = () => {
+  clickOnBtnError = (): void => {
     this.setState({ isError: true });
   };
 
