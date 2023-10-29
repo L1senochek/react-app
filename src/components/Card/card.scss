@@ -35,3 +35,19 @@
     background-image: $background-image-card-hover;
   }
 }
+
+@media (max-width: 890px) {
+  .card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 90%;
+    & > .card__img > .icon-planet {
+      height: 20vw;
+      width: 20vw;
+    }
+  }
+}
