@@ -26,7 +26,7 @@ class Search extends Component {
     this.context.setSearchValue(value);
   };
 
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <div className="search">
         <button className="search__loupe" onClick={this.buttonClick}>
@@ -43,7 +43,7 @@ class Search extends Component {
         />
       </div>
     );
-  }
+  };
 }
 
 export default Search;

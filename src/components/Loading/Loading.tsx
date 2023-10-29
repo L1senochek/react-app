@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './loading.scss';
 
 class Loading extends Component {
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <div className="loading">
         <svg
@@ -46,7 +46,7 @@ class Loading extends Component {
         </svg>
       </div>
     );
-  }
+  };
 }
 
 export default Loading;

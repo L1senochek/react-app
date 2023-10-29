@@ -7,15 +7,17 @@ class Cards extends Component {
   static contextType = MainPageContext;
   declare context: ContextType<typeof MainPageContext>;
 
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <div className="cards__wrapper">
-        {this.context.arrRes.map((item) => {
-          return <Card key={item.name + item.created} {...item} />;
-        })}
+        {this.context.arrRes.map(
+          (item): JSX.Element => (
+            <Card key={item.name + item.created} {...item} />
+          )
+        )}
       </div>
     );
-  }
+  };
 }
 
 export default Cards;

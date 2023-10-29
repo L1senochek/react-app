@@ -7,7 +7,7 @@ class IconPlanet extends PureComponent {
       .map(() => '0123456789ABCDEF'[Math.floor(Math.random() * 16)])
       .join('');
 
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     const randomColorEarth = `#${this.getRandomColor()}`;
     const randomColorWater = `#${this.getRandomColor()}`;
     return (
@@ -140,6 +140,6 @@ class IconPlanet extends PureComponent {
         </svg>
       </>
     );
-  }
+  };
 }
 export default IconPlanet;

@@ -30,20 +30,20 @@ export class MainPageProvider extends Component<
     };
   }
 
-  setSearchValue = (value: string) => {
+  setSearchValue = (value: string): void => {
     this.setState({ searchValue: value });
     localStorage.setItem('searchValue', value);
   };
 
-  setIsLoading = (value: boolean) => {
+  setIsLoading = (value: boolean): void => {
     this.setState({ isLoading: value });
   };
 
-  setArrRes = (value: IPlanets[]) => {
+  setArrRes = (value: IPlanets[]): void => {
     this.setState({ arrRes: value });
   };
 
-  render() {
+  render = (): JSX.Element => {
     return (
       <MainPageContext.Provider
         value={{
@@ -58,5 +58,5 @@ export class MainPageProvider extends Component<
         {this.props.children}
       </MainPageContext.Provider>
     );
-  }
+  };
 }

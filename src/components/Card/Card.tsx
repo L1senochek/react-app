@@ -4,7 +4,10 @@ import CardProps from '../../model/components/Card/Card';
 import IconPlanet from '../IconPlanet/IconPlanet';
 
 class Card extends Component<CardProps> {
-  createStructureRender(propsTitle: string, propsValue: string | undefined) {
+  createStructureRender = (
+    propsTitle: string,
+    propsValue: string | undefined
+  ): string | JSX.Element | undefined => {
     return (
       propsValue && (
         <h4 className={`card__description ${propsTitle.toLowerCase()}`}>
@@ -13,9 +16,9 @@ class Card extends Component<CardProps> {
         </h4>
       )
     );
-  }
+  };
 
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <div className="card">
         <h3 className="card__name">{this.props.name}</h3>
@@ -30,7 +33,7 @@ class Card extends Component<CardProps> {
         {this.createStructureRender('Terrain', this.props.terrain)}
       </div>
     );
-  }
+  };
 }
 
 export default Card;

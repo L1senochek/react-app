@@ -2,7 +2,7 @@ import { Component } from 'react';
 import './icon-loupe.scss';
 
 class IconLoupe extends Component {
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <svg
         version="1.0"
@@ -37,7 +37,7 @@ c834 -833 1532 -1523 1551 -1534 52 -27 193 -25 285 6 100 33 247 111 336 178
         </g>
       </svg>
     );
-  }
+  };
 }
 
 export default IconLoupe;

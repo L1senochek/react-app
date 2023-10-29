@@ -3,7 +3,7 @@ import MainPage from './pages/MainPage/MainPage';
 import { MainPageProvider } from './context/MainPageContext/MainPageContext';
 
 class App extends Component {
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <>
         <MainPageProvider>
@@ -11,7 +11,7 @@ class App extends Component {
         </MainPageProvider>
       </>
     );
-  }
+  };
 }
 
 export default App;

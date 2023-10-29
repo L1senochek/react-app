@@ -23,14 +23,14 @@ class MainPage extends Component<Record<string, never>> {
     setIsLoading(false);
   };
 
-  render(): JSX.Element {
+  render = (): JSX.Element => {
     return (
       <main className="main-page">
         <TopSection />
         {this.context.isLoading ? <Loading /> : <MainSection />}
       </main>
     );
-  }
+  };
 }
 
 export default MainPage;
