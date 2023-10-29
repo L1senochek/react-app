@@ -14,15 +14,13 @@ class MainPage extends Component<Record<string, never>> {
   async componentDidMount(): Promise<void> {
     if (this.context.searchValue === '') {
       const allPlanets = await getPlanets();
-      console.log('allPlanets', allPlanets.results);
       this.context.setArrRes(allPlanets.results);
-      this.context.setIsLoading(false);
     } else {
       const getSearchRes = await getSearch(this.context.searchValue);
       this.context.setArrRes(getSearchRes.results);
-      console.log('cards', this.context.arrRes);
-      this.context.setIsLoading(false);
     }
+    this.context.setIsLoading(false);
+    this.setState({ componentDidMountExecuted: true });
   }
 
   render(): JSX.Element {

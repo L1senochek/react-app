@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import './icon-planet.scss';
 
-class IconPlanet extends Component {
+class IconPlanet extends PureComponent {
   getRandomColor = () => {
     const letters = '0123456789ABCDEF';
     return [...Array(6)]
