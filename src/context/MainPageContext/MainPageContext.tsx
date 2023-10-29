@@ -31,9 +31,8 @@ export class MainPageProvider extends Component<
   }
 
   setSearchValue = (value: string) => {
-    this.setState({ searchValue: value }, () => {
-      localStorage.setItem('searchValue', value);
-    });
+    this.setState({ searchValue: value });
+    localStorage.setItem('searchValue', value);
   };
 
   setIsLoading = (value: boolean) => {
