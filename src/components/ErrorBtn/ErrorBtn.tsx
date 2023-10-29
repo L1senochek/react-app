@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './error-btn.scss';
+import Btn from '../Button/Btn';
 
 class ErrorBtn extends Component {
   state = {
@@ -17,9 +18,11 @@ class ErrorBtn extends Component {
   render = (): JSX.Element => {
     return (
       <div className="error-btn">
-        <button className="error-btn__btn" onClick={this.clickOnBtnError}>
-          Error
-        </button>
+        <Btn
+          classNameBtn="error-btn__btn"
+          onClick={this.clickOnBtnError}
+          text="Error"
+        />
         {this.state.isError && this.generateError()}
       </div>
     );

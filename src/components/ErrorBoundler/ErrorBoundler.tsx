@@ -5,6 +5,7 @@ import {
   IErrorBoundaryProps,
   IErrorBoundaryState,
 } from '../../model/components/ErrorBoundary/ErrorBoundary';
+import Btn from '../Button/Btn';
 
 export class ErrorBoundary extends Component<
   IErrorBoundaryProps,
@@ -45,9 +46,11 @@ export class ErrorBoundary extends Component<
           <div className="error__img-wrapper">
             <IconErrorDino />
           </div>
-          <button className="error__btn btn" onClick={this.handleReloadClick}>
-            Back
-          </button>
+          <Btn
+            classNameBtn="error__btn"
+            onClick={this.handleReloadClick}
+            text="Back"
+          />
         </div>
       );
     }
