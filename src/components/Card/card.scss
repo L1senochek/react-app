@@ -20,6 +20,7 @@
   &__img {
     display: flex;
     justify-content: center;
+    padding-bottom: $card-img-padding;
   }
   &__description {
     display: flex;

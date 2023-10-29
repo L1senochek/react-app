@@ -21,6 +21,7 @@ class MainPage extends Component<Record<string, never>> {
     }
     this.context.setIsLoading(false);
     this.setState({ componentDidMountExecuted: true });
+    console.log(this.context.arrRes);
   }
 
   render(): JSX.Element {
