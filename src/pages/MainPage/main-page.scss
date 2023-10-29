@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin/flex-direction-column.scss';
+
+@include flex-direction-column('.main-page');
+
+.main-page {
+  padding: $main-page-padding;
+  min-height: 100vh;
+}

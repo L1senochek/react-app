@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.search__loupe:hover > .icon-loupe > .loupe,
+.icon-loupe:hover > .loupe,
+.loupe:hover,
+.loupe_path:hover {
+  fill: $main-color;
+  transition: $transitionAll;
+}

@@ -1,0 +1,32 @@
+@import '../../styles/variables.scss';
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20vw;
+  padding: 5px;
+  color: $main-color;
+  border-radius: $border-radius;
+  border-color: $main-color;
+  border-width: $border-width;
+  border-style: $border-style;
+  &__loupe {
+    display: flex;
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+  }
+  &__input {
+    width: 100%;
+    background: transparent;
+    color: $main-color;
+    padding-left: $search-input-padding;
+    border: none;
+    outline: none;
+  }
+  &:hover,
+  &:active {
+    box-shadow: $box-shadow-card;
+  }
+}
