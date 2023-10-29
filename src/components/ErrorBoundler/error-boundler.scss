@@ -1,0 +1,37 @@
+@import '../../styles/variables.scss';
+
+.error {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+  &__title {
+    padding: $error-title-padding;
+  }
+  &__img-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $error-title-padding;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $error-btn-padding;
+    border-radius: $border-radius;
+    border-width: $border-width;
+    border-style: $border-style;
+    color: $main-color;
+    border-color: $main-color;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  &__btn:hover {
+    box-shadow: $box-shadow-card;
+  }
+}
