@@ -2,27 +2,20 @@ import React, { ChangeEvent, Component, ContextType } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import './search.scss';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import { SearchProps } from '../../model/components/Search/Search';
 import getSearch from '../../api/getSearch';
 
 class Search extends Component {
-  constructor(props: SearchProps) {
-    super(props);
-    this.buttonClick = this.buttonClick.bind(this);
-  }
-
   static contextType = MainPageContext;
   declare context: ContextType<typeof MainPageContext>;
 
-  async buttonClick() {
+  buttonClick = async (): Promise<void> => {
     this.context.setIsLoading(true);
     const getSearchRes = await getSearch(this.context.searchValue);
     this.context.setArrRes(getSearchRes.results);
-    console.log(222, this.context.searchValue, this.context.arrRes);
     this.context.setIsLoading(false);
-  }
+  };
 
-  keyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  keyUp = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
       this.buttonClick();
     }
@@ -31,7 +24,6 @@ class Search extends Component {
   searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     this.context.setSearchValue(value);
-    console.log(111, value, this.context);
   };
 
   render(): JSX.Element {
