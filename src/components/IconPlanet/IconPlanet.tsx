@@ -2,17 +2,14 @@ import { PureComponent } from 'react';
 import './icon-planet.scss';
 
 class IconPlanet extends PureComponent {
-  getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    return [...Array(6)]
-      .map(() => letters[Math.floor(Math.random() * 16)])
+  getRandomColor = (): string =>
+    [...Array(6)]
+      .map(() => '0123456789ABCDEF'[Math.floor(Math.random() * 16)])
       .join('');
-  };
 
   render(): JSX.Element {
-    const randomColor = {
-      fill: `#${this.getRandomColor()}`,
-    };
+    const randomColorEarth = `#${this.getRandomColor()}`;
+    const randomColorWater = `#${this.getRandomColor()}`;
     return (
       <>
         <svg
@@ -75,7 +72,7 @@ class IconPlanet extends PureComponent {
 	C98.645,132.176,103.424,123.392,103.424,113.857z"
           />
           <path
-            fill={`#${this.getRandomColor()}`}
+            fill={randomColorEarth}
             d="M485.706,215.438c2.321,13.175,3.538,26.726,3.538,40.562c0,128.614-104.63,233.244-233.244,233.244
 	c-43.759,0-84.73-12.117-119.762-33.166l4.642-37.706c1.104-8.977-2.23-17.977-8.909-24.064c0,0-29.104-26.624-29.355-26.999
 	l-29.275-45.614c-5.166-8.055-13.961-12.857-23.518-12.857H28.797c-3.948-16.987-6.042-34.668-6.042-52.838
@@ -102,7 +99,7 @@ class IconPlanet extends PureComponent {
           />
           <g>
             <path
-              style={randomColor}
+              fill={randomColorWater}
               d="M480.654,193.24l-5.894,1.126c-8.806,1.695-15.883,8.42-18.045,17.112l-2.287,9.227
 		c-0.023,0.102-0.046,0.171-0.205,0.228c-0.171,0.057-0.228,0.011-0.307-0.046l-13.665-10.251
 		c-7.077-5.302-16.714-6.087-24.553-1.98l-17.044,8.92c-8.181,4.289-12.902,12.663-12.334,21.879
@@ -122,20 +119,20 @@ class IconPlanet extends PureComponent {
 		C432.048,93.889,465.681,139.708,480.654,193.24z"
             />
             <path
-              style={randomColor}
+              fill={randomColorWater}
               d="M290.395,25.293c0,0-2.742,2.992-3.209,3.186L260.13,39.333c-3.868,1.547-7.339,4.039-10.058,7.214
 		l-42.155,49.266c-0.569,0.671-1.411,1.081-2.287,1.115c-1.343,0.057-2.173-0.683-2.56-1.104c-1.49-1.673-0.341-4.301-0.193-4.574
 		l19.103-35.965c2.822-5.313,3.709-11.492,2.503-17.385l-2.594-12.641c11.139-1.638,22.528-2.503,34.111-2.503
 		C267.685,22.756,279.165,23.632,290.395,25.293z"
             />
             <path
-              style={randomColor}
+              fill={randomColorWater}
               d="M116.634,411.125c1.24,1.126,1.866,2.799,1.661,4.46l-3.22,26.135
 		c-36.477-27.739-64.569-65.957-79.735-110.126h14.484c1.775,0,3.413,0.899,4.369,2.389l29.275,45.613
 		c1.32,2.048,2.89,3.914,4.688,5.552L116.634,411.125z"
             />
             <path
-              style={randomColor}
+              fill={randomColorWater}
               d="M103.424,79.724v34.133c0,9.535-4.779,18.318-12.777,23.506L66.15,153.259
 		c-5.678,3.686-10.49,8.385-14.302,13.972l-22.232,32.586C41.37,152.439,67.641,110.729,103.424,79.724z"
             />
