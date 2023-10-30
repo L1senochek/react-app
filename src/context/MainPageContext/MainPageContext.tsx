@@ -13,7 +13,7 @@ export const MainPageContext = createContext<IMainPageContextState | undefined>(
 
 export const MainPageProvider: FC<IMainPageProviderProps> = ({
   children,
-}: IMainPageProviderProps): JSX.Element => {
+}): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>((): string => {
     return localStorage.getItem('searchValue') || '';
   });
@@ -21,7 +21,7 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
   const [arrRes, setArrRes] = useState<IPlanets[]>([]);
   const localStoreValue = localStorage.getItem('searchValue');
 
-  useEffect(() => {
+  useEffect((): void => {
     (async (): Promise<void> => {
       if (localStoreValue === '') {
         const allPlanets = await getPlanets();
