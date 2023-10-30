@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './card.scss';
 import CardProps from '../../model/components/Card/Card';
 import IconPlanet from '../IconPlanet/IconPlanet';
 
-class Card extends Component<CardProps> {
-  createStructureRender = (
+const Card: React.FC<CardProps> = (props): JSX.Element => {
+  const createStructureRender = (
     propsTitle: string,
     propsValue: string | undefined
   ): string | JSX.Element | undefined => {
@@ -18,22 +18,20 @@ class Card extends Component<CardProps> {
     );
   };
 
-  render = (): JSX.Element => {
-    return (
-      <div className="card">
-        <h3 className="card__name">{this.props.name}</h3>
-        <div className="card__img">
-          <IconPlanet />
-        </div>
-        {this.createStructureRender('Diameter', this.props.diameter)}
-        {this.createStructureRender('Gravity', this.props.gravity)}
-        {this.createStructureRender('Climate', this.props.climate)}
-        {this.createStructureRender('Surface water', this.props.surfaceWater)}
-        {this.createStructureRender('Population', this.props.population)}
-        {this.createStructureRender('Terrain', this.props.terrain)}
+  return (
+    <div className="card">
+      <h3 className="card__name">{props.name}</h3>
+      <div className="card__img">
+        <IconPlanet />
       </div>
-    );
-  };
-}
+      {createStructureRender('Diameter', props.diameter)}
+      {createStructureRender('Gravity', props.gravity)}
+      {createStructureRender('Climate', props.climate)}
+      {createStructureRender('Surface water', props.surfaceWater)}
+      {createStructureRender('Population', props.population)}
+      {createStructureRender('Terrain', props.terrain)}
+    </div>
+  );
+};
 
 export default Card;
