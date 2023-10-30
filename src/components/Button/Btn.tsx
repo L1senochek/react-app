@@ -2,14 +2,10 @@ import React from 'react';
 import './btn.scss';
 import BtnProps from '../../model/components/Btn/Btn';
 
-const Btn: React.FC<BtnProps> = ({
-  classNameBtn,
-  onClick,
-  text,
-}): JSX.Element => {
+const Btn: React.FC<BtnProps> = (props): JSX.Element => {
   return (
-    <button className={`${classNameBtn} btn`} onClick={onClick}>
-      {text}
+    <button className={`${props.classNameBtn} btn`} onClick={props.onClick}>
+      {props.text}
     </button>
   );
 };
