@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useContext } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
-import './search.scss';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import getSearch from '../../api/getSearch';
+import './search.scss';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
