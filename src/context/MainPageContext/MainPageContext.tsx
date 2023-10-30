@@ -1,62 +1,53 @@
-import React, { Component, createContext } from 'react';
+import React, { FC, createContext, useEffect, useState } from 'react';
 import {
   IMainPageContextState,
   IMainPageProviderProps,
 } from '../../model/context/MainPageContext/MainPageContext';
 import IPlanets from '../../model/api/IPlanets';
+import getPlanets from '../../api/getPlanets';
+import getSearch from '../../api/getSearch';
 
-export const MainPageContext = createContext<IMainPageContextState>({
-  searchValue: '',
-  setSearchValue: () => {},
-  isLoading: true,
-  setIsLoading: () => {},
-  arrRes: [],
-  setArrRes: () => {},
-});
+export const MainPageContext = createContext<IMainPageContextState | undefined>(
+  undefined
+);
 
-export class MainPageProvider extends Component<
-  IMainPageProviderProps,
-  IMainPageContextState
-> {
-  constructor(props: IMainPageProviderProps) {
-    super(props);
-    this.state = {
-      searchValue: localStorage.getItem('searchValue') || '',
-      setSearchValue: this.setSearchValue,
-      isLoading: true,
-      setIsLoading: this.setIsLoading,
-      arrRes: [],
-      setArrRes: this.setArrRes,
-    };
-  }
+export const MainPageProvider: FC<IMainPageProviderProps> = ({
+  children,
+}: IMainPageProviderProps): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>((): string => {
+    return localStorage.getItem('searchValue') || '';
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [arrRes, setArrRes] = useState<IPlanets[]>([]);
+  const localStoreValue = localStorage.getItem('searchValue');
 
-  setSearchValue = (value: string): void => {
-    this.setState({ searchValue: value });
-    localStorage.setItem('searchValue', value);
+  useEffect(() => {
+    (async (): Promise<void> => {
+      if (localStoreValue === '') {
+        const allPlanets = await getPlanets();
+        setArrRes(allPlanets.results);
+        console.log(1);
+      } else if (localStoreValue) {
+        const getSearchRes = await getSearch(localStoreValue);
+        setArrRes(getSearchRes.results);
+        console.log(2);
+      }
+      setIsLoading(false);
+    })();
+  }, [localStoreValue]);
+
+  const contextValue: IMainPageContextState = {
+    searchValue,
+    setSearchValue,
+    isLoading,
+    setIsLoading,
+    arrRes,
+    setArrRes,
   };
 
-  setIsLoading = (value: boolean): void => {
-    this.setState({ isLoading: value });
-  };
-
-  setArrRes = (value: IPlanets[]): void => {
-    this.setState({ arrRes: value });
-  };
-
-  render = (): JSX.Element => {
-    return (
-      <MainPageContext.Provider
-        value={{
-          searchValue: this.state.searchValue,
-          setSearchValue: this.setSearchValue,
-          isLoading: this.state.isLoading,
-          setIsLoading: this.setIsLoading,
-          arrRes: this.state.arrRes,
-          setArrRes: this.setArrRes,
-        }}
-      >
-        {this.props.children}
-      </MainPageContext.Provider>
-    );
-  };
-}
+  return (
+    <MainPageContext.Provider value={contextValue}>
+      {children}
+    </MainPageContext.Provider>
+  );
+};
