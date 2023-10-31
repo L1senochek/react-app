@@ -23,7 +23,7 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
 
   useEffect((): void => {
     (async (): Promise<void> => {
-      if (localStoreValue === '') {
+      if (localStoreValue === '' || !localStoreValue) {
         const allPlanets = await getPlanets();
         setArrRes(allPlanets.results);
       } else if (localStoreValue) {

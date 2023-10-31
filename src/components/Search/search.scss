@@ -30,3 +30,15 @@
     box-shadow: $box-shadow-card;
   }
 }
+
+@media (max-width: 890px) {
+  .search {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .search {
+    width: 60vw;
+  }
+}
