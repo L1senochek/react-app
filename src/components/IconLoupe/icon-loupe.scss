@@ -23,14 +23,14 @@
 }
 
 @media (width: 375px) and (height: 667px),
-(width: 320px) and (height: 480px),
-(width: 375px) and (height: 667px),
-(width: 414px) and (height: 896px),
-(width: 320px) and (height: 568px),
-(width: 375px) and (height: 667px),
-(width: 414px) and (height: 736px),
-(width: 375px) and (height: 812px),
-(width: 390px) and (height: 844px) {
+  (width: 320px) and (height: 480px),
+  (width: 375px) and (height: 667px),
+  (width: 414px) and (height: 896px),
+  (width: 320px) and (height: 568px),
+  (width: 375px) and (height: 667px),
+  (width: 414px) and (height: 736px),
+  (width: 375px) and (height: 812px),
+  (width: 390px) and (height: 844px) {
   .search__loupe {
     visibility: hidden;
   }
