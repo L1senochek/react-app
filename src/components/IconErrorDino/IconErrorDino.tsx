@@ -1,23 +1,22 @@
-import { Component } from 'react';
+import React, { FC } from 'react';
 
-class IconErrorDino extends Component {
-  render = (): JSX.Element => {
-    return (
-      <svg
-        version="1.0"
-        xmlns="http://www.w3.org/2000/svg"
-        width="25.6vw"
-        height="20.18vw"
-        viewBox="0 0 1280.000000 1009.000000"
-        preserveAspectRatio="xMidYMid meet"
+const IconErrorDino: FC = (): JSX.Element => {
+  return (
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      width="25.6vw"
+      height="20.18vw"
+      viewBox="0 0 1280.000000 1009.000000"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g
+        transform="translate(0.000000,1009.000000) scale(0.100000,-0.100000)"
+        fill="#15ff00"
+        stroke="none"
       >
-        <g
-          transform="translate(0.000000,1009.000000) scale(0.100000,-0.100000)"
-          fill="#15ff00"
-          stroke="none"
-        >
-          <path
-            d="M1055 10080 c-147 -31 -402 -180 -444 -259 -9 -16 -17 -81 -23 -175
+        <path
+          d="M1055 10080 c-147 -31 -402 -180 -444 -259 -9 -16 -17 -81 -23 -175
 l-8 -149 45 -48 c25 -26 45 -51 45 -54 0 -3 -11 -23 -25 -43 -32 -47 -32 -69
 2 -104 30 -31 67 -36 97 -13 26 20 36 19 36 -4 0 -10 7 -24 15 -31 9 -8 12
 -22 8 -41 -7 -37 19 -69 58 -69 26 0 27 -2 22 -33 -6 -40 16 -67 54 -67 14 0
@@ -133,11 +132,10 @@ l60 17 35 -27 c48 -36 125 -52 189 -38 28 6 97 34 153 61 139 69 192 83 291
 -154 67 -165 74 -252 152 -48 43 -119 96 -160 118 -40 21 -82 47 -93 58 -32
 30 -151 97 -245 137 -111 49 -174 86 -415 245 -362 239 -459 286 -600 291 -49
 2 -108 -1 -130 -6z"
-          />
-        </g>
-      </svg>
-    );
-  };
-}
+        />
+      </g>
+    </svg>
+  );
+};
 
 export default IconErrorDino;
