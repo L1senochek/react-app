@@ -26,11 +26,9 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
       if (localStoreValue === '') {
         const allPlanets = await getPlanets();
         setArrRes(allPlanets.results);
-        console.log(1);
       } else if (localStoreValue) {
         const getSearchRes = await getSearch(localStoreValue);
         setArrRes(getSearchRes.results);
-        console.log(2);
       }
       setIsLoading(false);
     })();
