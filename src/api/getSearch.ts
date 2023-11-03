@@ -1,10 +1,8 @@
-import IPlanetsResult from '../model/api/IPlanetsResult';
+import IAnime from '../model/api/IAnime';
+import { API_URL_SEARCH } from '../utils/constants/constants';
 
-const getSearch: (searchValue: string) => Promise<IPlanetsResult> = async (
+const getSearch: (searchValue: string) => Promise<IAnime> = async (
   searchValue
-): Promise<IPlanetsResult> =>
-  await (
-    await fetch(`https://swapi.dev/api/planets/?search=${searchValue}`)
-  ).json();
+) => await (await fetch(API_URL_SEARCH + searchValue)).json();
 
 export default getSearch;

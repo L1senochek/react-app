@@ -1,13 +1,13 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import IPlanets from '../../api/IPlanets';
+import IAnimeData from '../../api/IAnimeData';
 
 export interface IMainPageContextState {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  arrRes: IPlanets[];
-  setArrRes: Dispatch<SetStateAction<IPlanets[]>>;
+  arrRes: IAnimeData[];
+  setArrRes: Dispatch<SetStateAction<IAnimeData[]>>;
 }
 
 export interface IMainPageProviderProps {

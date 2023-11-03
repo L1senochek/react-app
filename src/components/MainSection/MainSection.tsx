@@ -6,7 +6,7 @@ import ErrorBtn from '../ErrorBtn/ErrorBtn';
 const MainSection: FC = (): JSX.Element => {
   return (
     <div className="main-section">
-      <h2 className="main-section__title">Planets:</h2>
+      <h2 className="main-section__title">Titles:</h2>
       <ErrorBtn />
       <Cards />
     </div>

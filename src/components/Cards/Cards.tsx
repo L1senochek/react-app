@@ -8,7 +8,7 @@ const Cards: FC = (): JSX.Element => {
   return (
     <div className="cards__wrapper">
       {context?.arrRes.map(
-        (item): JSX.Element => <Card key={item.name + item.created} {...item} />
+        (item): JSX.Element => <Card key={item.mal_id} {...item} />
       )}
     </div>
   );

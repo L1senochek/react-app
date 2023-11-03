@@ -3,10 +3,9 @@ import {
   IMainPageContextState,
   IMainPageProviderProps,
 } from '../../model/context/MainPageContext/MainPageContext';
-import IPlanets from '../../model/api/IPlanets';
-import getPlanets from '../../api/getPlanets';
 import getSearch from '../../api/getSearch';
 import getAnime from '../../api/getAnime';
+import IAnimeData from '../../model/api/IAnimeData';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
   undefined
@@ -19,19 +18,17 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
     return localStorage.getItem('searchValue') || '';
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [arrRes, setArrRes] = useState<IPlanets[]>([]);
+  const [arrRes, setArrRes] = useState<IAnimeData[]>([]);
   const localStoreValue = localStorage.getItem('searchValue');
 
   useEffect((): void => {
     (async (): Promise<void> => {
       if (localStoreValue === '' || !localStoreValue) {
-        const allPlanets = await getPlanets();
         const allAnime = await getAnime();
-        console.log(allAnime, 111);
-        setArrRes(allPlanets.results);
+        setArrRes(allAnime.data);
       } else if (localStoreValue) {
         const getSearchRes = await getSearch(localStoreValue);
-        setArrRes(getSearchRes.results);
+        setArrRes(getSearchRes.data);
       }
       setIsLoading(false);
     })();

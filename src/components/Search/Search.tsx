@@ -11,7 +11,7 @@ const Search: FC = (): JSX.Element => {
     if (context) {
       context.setIsLoading(true);
       const getSearchRes = await getSearch(context.searchValue);
-      context.setArrRes(getSearchRes.results);
+      context.setArrRes(getSearchRes.data);
       context.setIsLoading(false);
       localStorage.setItem('searchValue', context.searchValue);
     }

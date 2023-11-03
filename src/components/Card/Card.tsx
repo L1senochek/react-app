@@ -1,13 +1,12 @@
 import React from 'react';
 import './card.scss';
-import CardProps from '../../model/components/Card/Card';
-import IconPlanet from '../IconPlanet/IconPlanet';
+import IAnimeData from '../../model/api/IAnimeData';
 
-const Card: React.FC<CardProps> = (props): JSX.Element => {
+const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   const createStructureRender = (
     propsTitle: string,
-    propsValue: string | undefined
-  ): string | JSX.Element | undefined => {
+    propsValue: string | number | undefined
+  ): string | number | JSX.Element | undefined => {
     return (
       propsValue && (
         <h4 className={`card__description ${propsTitle.toLowerCase()}`}>
@@ -20,16 +19,15 @@ const Card: React.FC<CardProps> = (props): JSX.Element => {
 
   return (
     <div className="card">
-      <h3 className="card__name">{props.name}</h3>
+      <h3 className="card__name">{props.title}</h3>
       <div className="card__img">
-        <IconPlanet />
+        <img src={`${props.images.jpg.image_url}`} />
       </div>
-      {createStructureRender('Diameter', props.diameter)}
-      {createStructureRender('Gravity', props.gravity)}
-      {createStructureRender('Climate', props.climate)}
-      {createStructureRender('Surface water', props.surfaceWater)}
-      {createStructureRender('Population', props.population)}
-      {createStructureRender('Terrain', props.terrain)}
+      {createStructureRender('Score', props.score)}
+      {createStructureRender('Status', props.status)}
+      {createStructureRender('Type', props.type)}
+      {createStructureRender('Episodes', props.episodes)}
+      {createStructureRender('Duration', props.duration)}
     </div>
   );
 };
