@@ -1,7 +1,12 @@
 $background-color: #0b0c10;
 $first-color: #050505;
 $second-color: #00363c;
-$background-image-card: radial-gradient(ellipse at 30% 10%, $first-color, $second-color);
+$third-color: #defffcdb;
+$background-image-card: radial-gradient(
+  ellipse at 30% 10%,
+  $first-color,
+  $second-color
+);
 $background-image-card-hover: radial-gradient(
   ellipse at 30% 10%,
   $second-color,
@@ -11,8 +16,8 @@ $background-image-card-hover: radial-gradient(
 $font-size-px: 16px;
 
 $main-color: #66fcf1;
-$semi-transparent-line-color: #00e1ff5e;
-$semi-transparent-line-color: #45a29e;
+$semi-transparent-line-color: $second-color;
+$semi-transparent-line-color: #66fcf145;
 $box-shadow-card: 0 0 20px 1px $main-color;
 
 $border-radius: 5px;
