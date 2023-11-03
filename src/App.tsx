@@ -1,12 +1,13 @@
 import React from 'react';
-import MainPage from './pages/MainPage/MainPage';
 import { MainPageProvider } from './context/MainPageContext/MainPageContext';
+import { RouterProvider } from 'react-router-dom';
+import Router from './components/Router/Router';
 
 const App = (): JSX.Element => {
   return (
     <>
       <MainPageProvider>
-        <MainPage />
+        <RouterProvider router={Router} />
       </MainPageProvider>
     </>
   );
