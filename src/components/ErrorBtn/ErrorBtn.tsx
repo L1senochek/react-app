@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './error-btn.scss';
-import Btn from '../Button/Btn';
+import Btn from '../Btn/Btn';
 
 const ErrorBtn: FC = (): JSX.Element => {
   const [isError, setIsError] = useState(false);

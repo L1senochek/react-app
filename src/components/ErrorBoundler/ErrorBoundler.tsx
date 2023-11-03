@@ -5,7 +5,7 @@ import {
   IErrorBoundlerProps,
   IErrorBoundlerState,
 } from '../../model/components/ErrorBoundler/ErrorBoundler';
-import Btn from '../Button/Btn';
+import Btn from '../Btn/Btn';
 
 export class ErrorBoundler extends Component<
   IErrorBoundlerProps,

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useContext } from 'react';
+import React, { ChangeEvent, FC, useContext, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import getSearch from '../../api/getSearch';
@@ -6,6 +6,7 @@ import './search.scss';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
+  const [isFocused, setIsFocused] = useState(false);
 
   const buttonClick = async (): Promise<void> => {
     if (context) {
@@ -28,8 +29,10 @@ const Search: FC = (): JSX.Element => {
     context?.setSearchValue(value);
   };
 
+  const focused = isFocused ? 'focused' : '';
+
   return (
-    <div className="search">
+    <div className={`search ${focused}`}>
       <button className="search__loupe" onClick={buttonClick}>
         <IconLoupe />
       </button>
@@ -41,6 +44,8 @@ const Search: FC = (): JSX.Element => {
         value={context?.searchValue}
         onChange={searchChange}
         onKeyUp={keyUp}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
     </div>
   );
