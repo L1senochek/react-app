@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
-import './error-boundler.scss';
+import './error-boundary.scss';
 import IconErrorDino from '../IconErrorDino/IconErrorDino';
 import {
   IErrorBoundaryProps,
