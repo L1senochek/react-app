@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import './icon-error-dino.scss';
 
 const IconErrorDino: FC = (): JSX.Element => {
   return (
@@ -12,8 +13,8 @@ const IconErrorDino: FC = (): JSX.Element => {
     >
       <g
         transform="translate(0.000000,1009.000000) scale(0.100000,-0.100000)"
-        fill="#15ff00"
         stroke="none"
+        className="error-dino"
       >
         <path
           d="M1055 10080 c-147 -31 -402 -180 -444 -259 -9 -16 -17 -81 -23 -175

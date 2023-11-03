@@ -1,22 +1,22 @@
 import React, { Component, ErrorInfo } from 'react';
-import './error-boundary.scss';
+import './error-boundler.scss';
 import IconErrorDino from '../IconErrorDino/IconErrorDino';
 import {
-  IErrorBoundaryProps,
-  IErrorBoundaryState,
-} from '../../model/components/ErrorBoundary/ErrorBoundary';
+  IErrorBoundlerProps,
+  IErrorBoundlerState,
+} from '../../model/components/ErrorBoundler/ErrorBoundler';
 import Btn from '../Button/Btn';
 
-export class ErrorBoundary extends Component<
-  IErrorBoundaryProps,
-  IErrorBoundaryState
+export class ErrorBoundler extends Component<
+  IErrorBoundlerProps,
+  IErrorBoundlerState
 > {
-  public state: IErrorBoundaryState = {
+  public state: IErrorBoundlerState = {
     hasError: false,
     buttonClicked: false,
   };
 
-  public static getDerivedStateFromError = (): IErrorBoundaryState => {
+  public static getDerivedStateFromError = (): IErrorBoundlerState => {
     return { hasError: true, buttonClicked: false };
   };
 
@@ -59,4 +59,4 @@ export class ErrorBoundary extends Component<
   };
 }
 
-export default ErrorBoundary;
+export default ErrorBoundler;

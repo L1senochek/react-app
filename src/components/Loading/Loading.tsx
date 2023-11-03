@@ -15,7 +15,7 @@ const Loading: FC = (): JSX.Element => {
         enableBackground="new 0 0 0 0"
         xmlSpace="preserve"
       >
-        <circle fill="#15ff00" stroke="none" cx="20" cy="50" r="6">
+        <circle className="loading-circle" stroke="none" cx="20" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"
@@ -24,7 +24,7 @@ const Loading: FC = (): JSX.Element => {
             begin="0.1"
           />
         </circle>
-        <circle fill="#15ff00" stroke="none" cx="50" cy="50" r="6">
+        <circle className="loading-circle" stroke="none" cx="50" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"
@@ -33,7 +33,7 @@ const Loading: FC = (): JSX.Element => {
             begin="0.2"
           />
         </circle>
-        <circle fill="#15ff00" stroke="none" cx="80" cy="50" r="6">
+        <circle className="loading-circle" stroke="none" cx="80" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"

@@ -2,3 +2,7 @@
 @import '../../styles/mixin/flex-direction-column.scss';
 
 @include flex-direction-column('.loading');
+
+.loading-circle {
+  fill: $main-color;
+}

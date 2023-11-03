@@ -14,7 +14,6 @@ const IconLoupe: FC = (): JSX.Element => {
     >
       <g
         transform="translate(0.000000,1270.000000) scale(0.100000,-0.100000)"
-        fill="#15ff005e"
         stroke="none"
         className="loupe"
       >

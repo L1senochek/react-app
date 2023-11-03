@@ -1,16 +1,19 @@
-$background-color: #0c100c;
-$background-image-card: radial-gradient(ellipse at 30% 10%, #0e120d, #0f2903);
+$background-color: #0b0c10;
+$first-color: #050505;
+$second-color: #00363c;
+$background-image-card: radial-gradient(ellipse at 30% 10%, $first-color, $second-color);
 $background-image-card-hover: radial-gradient(
   ellipse at 30% 10%,
-  #043c00,
-  #050505
+  $second-color,
+  $first-color
 );
 
 $font-size-px: 16px;
 
-$main-color: #15ff00;
-$semi-transparent-line-color: #15ff005e;
-$box-shadow-card: 0 0 20px 1px #15ff00;
+$main-color: #66fcf1;
+$semi-transparent-line-color: #00e1ff5e;
+$semi-transparent-line-color: #45a29e;
+$box-shadow-card: 0 0 20px 1px $main-color;
 
 $border-radius: 5px;
 $border-width: 2px;
