@@ -6,6 +6,7 @@ import {
 import IPlanets from '../../model/api/IPlanets';
 import getPlanets from '../../api/getPlanets';
 import getSearch from '../../api/getSearch';
+import getAnime from '../../api/getAnime';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
   undefined
@@ -25,6 +26,8 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
     (async (): Promise<void> => {
       if (localStoreValue === '' || !localStoreValue) {
         const allPlanets = await getPlanets();
+        const allAnime = await getAnime();
+        console.log(allAnime, 111);
         setArrRes(allPlanets.results);
       } else if (localStoreValue) {
         const getSearchRes = await getSearch(localStoreValue);
