@@ -8,7 +8,7 @@
   padding: 5px;
   color: $main-color;
   border-radius: $border-radius;
-  border-color: $main-color;
+  border-color: $fourth-color;
   border-width: $border-width;
   border-style: $border-style;
   &__loupe {
@@ -28,6 +28,7 @@
   &:hover,
   &:active {
     box-shadow: $box-shadow-card;
+    border-color: $main-color;
   }
 }
 

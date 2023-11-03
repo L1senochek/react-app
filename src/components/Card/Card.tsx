@@ -11,7 +11,7 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
       propsValue && (
         <h4 className={`card__description ${propsTitle.toLowerCase()}`}>
           <span className="card__description_title">{propsTitle}: </span>
-          {propsValue}
+          <span className="card__description_value">{propsValue}</span>
         </h4>
       )
     );

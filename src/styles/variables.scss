@@ -2,6 +2,7 @@ $background-color: #0b0c10;
 $first-color: #050505;
 $second-color: #00363c;
 $third-color: #defffcdb;
+$fourth-color: #66fcf145;
 $background-image-card: radial-gradient(
   ellipse at 30% 10%,
   $first-color,
@@ -17,7 +18,7 @@ $font-size-px: 16px;
 
 $main-color: #66fcf1;
 $semi-transparent-line-color: $second-color;
-$semi-transparent-line-color: #66fcf145;
+$semi-transparent-line-color: $fourth-color;
 $box-shadow-card: 0 0 20px 1px $main-color;
 
 $border-radius: 5px;
