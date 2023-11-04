@@ -4,3 +4,7 @@ export const API_PAGE = 'page=';
 export const API_LIMIT = 'limit=';
 
 export const SEARCH_VALUE = 'searchValue';
+
+export const MIN_LIMIT_PAGE = 10;
+export const AVG_LIMIT_PAGE = 15;
+export const MAX_LIMIT_PAGE = 25;

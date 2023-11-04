@@ -5,7 +5,8 @@ import {
 } from '../../model/context/MainPageContext/MainPageContext';
 import getAnime from '../../api/getAnime';
 import IAnimeData from '../../model/api/IAnimeData';
-import { SEARCH_VALUE } from '../../utils/constants/constants';
+import { MAX_LIMIT_PAGE, SEARCH_VALUE } from '../../utils/constants/constants';
+import IAnime from '../../model/api/IAnime';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
   undefined
@@ -20,20 +21,24 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [arrRes, setArrRes] = useState<IAnimeData[]>([]);
   const localStoreValue = localStorage.getItem(SEARCH_VALUE);
+  const [resObj, setResObj] = useState<IAnime | undefined>(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limitPage, setLimitPage] = useState(MAX_LIMIT_PAGE);
 
   useEffect((): void => {
     (async (): Promise<void> => {
-      if (localStoreValue === '' || !localStoreValue) {
-        const allAnime = await getAnime();
-        setArrRes(allAnime.data);
-        console.log('allAnime', allAnime);
-      } else if (localStoreValue) {
-        const getSearchRes = await getAnime(localStoreValue);
-        setArrRes(getSearchRes.data);
-      }
+      const animeRes = await getAnime(
+        localStoreValue ? localStoreValue : undefined,
+        currentPage,
+        limitPage
+      );
+      setArrRes(animeRes.data);
+      setResObj(animeRes);
       setIsLoading(false);
+
+      console.log('animeRes', animeRes);
     })();
-  }, [localStoreValue]);
+  }, [currentPage, limitPage, localStoreValue]);
 
   const contextValue: IMainPageContextState = {
     searchValue,
@@ -42,6 +47,12 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
     setIsLoading,
     arrRes,
     setArrRes,
+    resObj,
+    setResObj,
+    currentPage,
+    setCurrentPage,
+    limitPage,
+    setLimitPage,
   };
 
   return (

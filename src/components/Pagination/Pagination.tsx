@@ -1,22 +1,27 @@
-import { FC } from 'react';
-import getAnime from '../../api/getAnime';
-import { SEARCH_VALUE } from '../../utils/constants/constants';
+import { FC, useContext } from 'react';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const Pagination: FC = (): JSX.Element => {
+  const context = useContext(MainPageContext);
+  const lastPage = context?.resObj?.pagination.last_visible_page;
+
+  const handlePageChange = (i: number) => {
+    console.log(i);
+    console.log(lastPage);
+  };
+
   return (
-    <ul className="pagination">
-      <button
-        onClick={async () => {
-          const local = localStorage.getItem(SEARCH_VALUE);
-          const res = await getAnime(local ? local : undefined, 1, 5);
-          // /anime?q=naruto&page=1&limit=10 || 5 || 25
-          console.log(res);
-        }}
-      >
-        btn
-      </button>
-      <li></li>
-    </ul>
+    <div className="pagination">
+      {lastPage
+        ? Array.from({
+            length: lastPage,
+          }).map((_, i) => (
+            <button key={i} onClick={() => handlePageChange(i)}>
+              {i + 1}
+            </button>
+          ))
+        : null}
+    </div>
   );
 };
 
