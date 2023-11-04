@@ -3,7 +3,6 @@ import {
   IMainPageContextState,
   IMainPageProviderProps,
 } from '../../model/context/MainPageContext/MainPageContext';
-import getSearch from '../../api/getSearch';
 import getAnime from '../../api/getAnime';
 import IAnimeData from '../../model/api/IAnimeData';
 
@@ -26,8 +25,9 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
       if (localStoreValue === '' || !localStoreValue) {
         const allAnime = await getAnime();
         setArrRes(allAnime.data);
+        console.log('allAnime', allAnime);
       } else if (localStoreValue) {
-        const getSearchRes = await getSearch(localStoreValue);
+        const getSearchRes = await getAnime(localStoreValue);
         setArrRes(getSearchRes.data);
       }
       setIsLoading(false);

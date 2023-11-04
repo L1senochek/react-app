@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useContext, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import getSearch from '../../api/getSearch';
 import './search.scss';
+import getAnime from '../../api/getAnime';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
@@ -11,7 +11,7 @@ const Search: FC = (): JSX.Element => {
   const buttonClick = async (): Promise<void> => {
     if (context) {
       context.setIsLoading(true);
-      const getSearchRes = await getSearch(context.searchValue);
+      const getSearchRes = await getAnime(context.searchValue);
       context.setArrRes(getSearchRes.data);
       context.setIsLoading(false);
       localStorage.setItem('searchValue', context.searchValue);
