@@ -1,7 +1,8 @@
-type BtnProps = {
+import { ButtonHTMLAttributes } from 'react';
+
+interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   classNameBtn: string;
-  onClick: () => void;
-};
+}
 
 export default BtnProps;

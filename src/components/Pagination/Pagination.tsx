@@ -2,6 +2,7 @@ import { FC, useContext } from 'react';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import { Link } from 'react-router-dom';
 import './pagination.scss';
+import Btn from '../Btn/Btn';
 
 const Pagination: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
@@ -33,9 +34,7 @@ const Pagination: FC = (): JSX.Element => {
         </Link>
       )}
       {startPage >= 2 && (
-        <button disabled className="pagination__btn btn">
-          ...
-        </button>
+        <Btn classNameBtn="pagination__btn" text="..." disabled />
       )}
       {Array.from({ length: endPage - startPage + 1 }).map((_, i) => (
         <Link
@@ -50,9 +49,7 @@ const Pagination: FC = (): JSX.Element => {
         </Link>
       ))}
       {startPage <= totalPages - 3 && (
-        <button disabled className="pagination__btn btn">
-          ...
-        </button>
+        <Btn classNameBtn="pagination__btn" text="..." disabled />
       )}
       {endPage < totalPages && (
         <Link
