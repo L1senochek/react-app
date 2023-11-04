@@ -5,6 +5,7 @@ import {
 } from '../../model/context/MainPageContext/MainPageContext';
 import getAnime from '../../api/getAnime';
 import IAnimeData from '../../model/api/IAnimeData';
+import { SEARCH_VALUE } from '../../utils/constants/constants';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
   undefined
@@ -14,11 +15,11 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
   children,
 }): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>((): string => {
-    return localStorage.getItem('searchValue') || '';
+    return localStorage.getItem(SEARCH_VALUE) || '';
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [arrRes, setArrRes] = useState<IAnimeData[]>([]);
-  const localStoreValue = localStorage.getItem('searchValue');
+  const localStoreValue = localStorage.getItem(SEARCH_VALUE);
 
   useEffect((): void => {
     (async (): Promise<void> => {

@@ -17,7 +17,9 @@ const getAnime: (
         searchValue ? API_SEARCH_PARAM + searchValue : ''
       }${(searchValue && pageValue) || limitValue ? '&' : ''}${
         pageValue ? API_PAGE + pageValue : ''
-      }${limitValue ? API_LIMIT + limitValue : ''}`
+      }${pageValue && limitValue ? '&' : ''}${
+        limitValue ? API_LIMIT + limitValue : ''
+      }`
     )
   ).json();
 

@@ -3,6 +3,7 @@ import IconLoupe from '../IconLoupe/IconLoupe';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import './search.scss';
 import getAnime from '../../api/getAnime';
+import { SEARCH_VALUE } from '../../utils/constants/constants';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
@@ -14,7 +15,7 @@ const Search: FC = (): JSX.Element => {
       const getSearchRes = await getAnime(context.searchValue);
       context.setArrRes(getSearchRes.data);
       context.setIsLoading(false);
-      localStorage.setItem('searchValue', context.searchValue);
+      localStorage.setItem(SEARCH_VALUE, context.searchValue);
     }
   };
 
