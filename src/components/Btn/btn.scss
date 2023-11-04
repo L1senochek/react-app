@@ -17,4 +17,9 @@
     border-color: $main-color;
     background-image: $background-image-hover;
   }
+  &:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 }

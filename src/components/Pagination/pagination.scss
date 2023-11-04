@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  &__btn {
+    display: flex;
+    width: 3vw;
+    &.active {
+      box-shadow: $box-shadow-card;
+      border-color: $main-color;
+      background-image: $background-image-hover;
+    }
+  }
+}
