@@ -6,6 +6,7 @@ const Pagination: FC = (): JSX.Element => {
   const lastPage = context?.resObj?.pagination.last_visible_page;
 
   const handlePageChange = (i: number) => {
+    context?.setCurrentPage(i);
     console.log(i);
     console.log(lastPage);
   };
@@ -16,7 +17,7 @@ const Pagination: FC = (): JSX.Element => {
         ? Array.from({
             length: lastPage,
           }).map((_, i) => (
-            <button key={i} onClick={() => handlePageChange(i)}>
+            <button key={i} onClick={() => handlePageChange(i + 1)}>
               {i + 1}
             </button>
           ))
