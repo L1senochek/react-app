@@ -1,14 +1,64 @@
 @import '../../styles/variables.scss';
 
+.background-window {
+  position: fixed; 
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+}
+
 .card-info {
   display: flex;
-  position: fixed;
-  background-color: $background-color;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  top: 0;
   right: 0;
-  padding: $card-info-padding;
-  width: 40vw;
-  height: 50vw;
-  border-radius: $border-radius;
-  border-width: $border-width;
-  border-style: $border-style;
+  &__btn {
+    position: fixed;
+    z-index: 6;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    position: fixed;
+    right: 0;
+    width: 45vw;
+    height: 100vh;
+    color: $main-color;
+    padding: $card-info-padding;
+    background-color: $background-color;
+    border-radius: $border-radius;
+    border-width: $border-width;
+    border-style: $border-style;
+    border-color: $fourth-color;
+    z-index: 5;
+  }
+  &__title {
+    display: flex;
+    justify-content: center;
+    padding: $card-info-title-padding;
+  }
+  &__img {
+    display: flex;
+    justify-content: center;
+    &_src {
+      height: 20vw;
+    }
+  }
+  &__description {
+    padding: $card-info-description-padding 0;
+    &_title {
+      padding-right: $card-info-description-padding;
+    }
+    &_value {
+      line-height: 1.5;
+    }
+  }
 }

@@ -1,28 +1,86 @@
-import { FC, Suspense } from 'react';
+import { FC, Suspense, useContext } from 'react';
 import './card-info.scss';
-import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
+import {
+  Await,
+  Link,
+  LoaderFunction,
+  defer,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import getAnimeId from '../../api/getAnimeId';
 import IAnimeData from '../../model/api/IAnimeData';
 import Loading from '../Loading/Loading';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const CardInfo: FC = (): JSX.Element => {
   const { cardId } = useLoaderData() as { cardId: Promise<IAnimeData> };
+  const context = useContext(MainPageContext);
+  const { pageNum, limitNum } = useParams();
+  const navigate = useNavigate();
 
-  console.log('cardId', cardId);
+  const createStructureRender = (
+    propsTitle: string,
+    propsValue: string | number | undefined
+  ): string | number | JSX.Element | undefined => {
+    return (
+      propsValue && (
+        <h3 className={`card-info__description ${propsTitle.toLowerCase()}`}>
+          <span className="card-info__description_title">{propsTitle}: </span>
+          <span className="card-info__description_value">{propsValue}</span>
+        </h3>
+      )
+    );
+  };
 
   return (
-    <Suspense fallback={<Loading />}>
-      <Await resolve={cardId}>
-        {(cardsInfo) => {
-          console.log('cardsInfo', cardsInfo);
-          return (
-            <div className="card-info">
-              <div>{cardsInfo.data.duration}</div>
-            </div>
-          );
-        }}
-      </Await>
-    </Suspense>
+    <>
+      <div
+        className="background-window"
+        onClick={() =>
+          navigate(
+            `/page/${pageNum}/limit/${limitNum}/query/${
+              context?.searchValue ? context?.searchValue : ''
+            }`
+          )
+        }
+      ></div>
+      <div className="card-info">
+        <Link
+          to={`/page/${pageNum}/limit/${limitNum}/query/${
+            context?.searchValue ? context?.searchValue : ''
+          }`}
+          className="card-info__btn btn"
+        >
+          x
+        </Link>
+        <Suspense fallback={<Loading />}>
+          <Await resolve={cardId}>
+            {(cardsInfo) => {
+              console.log('cardsInfo', cardsInfo);
+              return (
+                <div className="card-info__wrapper">
+                  <h1 className="card-info__title">{cardsInfo.data.title}</h1>
+                  <span className="card-info__img">
+                    <img
+                      className="card-info__img_src"
+                      src={`${cardsInfo.data.images.jpg.large_image_url}`}
+                    />
+                  </span>
+                  {createStructureRender('Score', cardsInfo.data.score)}
+                  {createStructureRender('Status', cardsInfo.data.status)}
+                  {createStructureRender('Type', cardsInfo.data.type)}
+                  {createStructureRender('Episodes', cardsInfo.data.episodes)}
+                  {createStructureRender('Duration', cardsInfo.data.duration)}
+                  {createStructureRender('Synopsis', cardsInfo.data.synopsis)}
+                </div>
+              );
+            }}
+          </Await>
+        </Suspense>
+      </div>
+    </>
   );
 };
 
