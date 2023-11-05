@@ -10,8 +10,8 @@ import { Outlet } from 'react-router-dom';
 const MainSection: FC = (): JSX.Element => {
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <div className="main-section">
+      <div className="main-section">
+        <Suspense fallback={<Loading />}>
           <h2 className="main-section__title">Titles:</h2>
           <div className="main-section__nav-btn">
             <ErrorBtn />
@@ -19,9 +19,9 @@ const MainSection: FC = (): JSX.Element => {
           </div>
           <Cards />
           <Pagination />
-        </div>
+        </Suspense>
         <Outlet />
-      </Suspense>
+      </div>
     </>
   );
 };

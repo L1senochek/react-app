@@ -12,8 +12,6 @@ const Cards: FC = (): JSX.Element => {
   return (
     <Await resolve={data.data}>
       {(cards) => {
-        console.log('cards', cards);
-
         return (
           <div className="cards__wrapper">
             {cards.data.map(
@@ -28,10 +26,7 @@ const Cards: FC = (): JSX.Element => {
   );
 };
 
-export const CardsLoader: LoaderFunction<IAnime> = async ({ params }) => {
-  const anime = getAnime(params.pageNum, params.limitNum, params.query);
-
-  return defer({ data: anime });
-};
+export const CardsLoader: LoaderFunction<IAnime> = async ({ params }) =>
+  defer({ data: getAnime(params.pageNum, params.limitNum, params.query) });
 
 export default Cards;

@@ -35,31 +35,20 @@ const CardInfo: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <div
-        className="background-window"
-        onClick={() =>
-          navigate(
-            `/page/${pageNum}/limit/${limitNum}/query/${
-              context?.searchValue ? context?.searchValue : ''
-            }`
-          )
-        }
-      ></div>
-      <div className="card-info">
-        <Link
-          to={`/page/${pageNum}/limit/${limitNum}/query/${
-            context?.searchValue ? context?.searchValue : ''
-          }`}
-          className="card-info__btn btn"
-        >
-          x
-        </Link>
-        <Suspense fallback={<Loading />}>
-          <Await resolve={cardId}>
-            {(cardsInfo) => {
-              console.log('cardsInfo', cardsInfo);
-              return (
+    <div className="card-info">
+      <Link
+        to={`/page/${pageNum}/limit/${limitNum}/query/${
+          context?.searchValue ? context?.searchValue : ''
+        }`}
+        className="card-info__btn btn"
+      >
+        x
+      </Link>
+      <Suspense fallback={<Loading />}>
+        <Await resolve={cardId}>
+          {(cardsInfo) => {
+            return (
+              <>
                 <div className="card-info__wrapper">
                   <h1 className="card-info__title">{cardsInfo.data.title}</h1>
                   <span className="card-info__img">
@@ -75,20 +64,27 @@ const CardInfo: FC = (): JSX.Element => {
                   {createStructureRender('Duration', cardsInfo.data.duration)}
                   {createStructureRender('Synopsis', cardsInfo.data.synopsis)}
                 </div>
-              );
-            }}
-          </Await>
-        </Suspense>
-      </div>
-    </>
+                <div
+                  className="background-window"
+                  onClick={() =>
+                    navigate(
+                      `/page/${pageNum}/limit/${limitNum}/query/${
+                        context?.searchValue ? context?.searchValue : ''
+                      }`
+                    )
+                  }
+                ></div>
+              </>
+            );
+          }}
+        </Await>
+      </Suspense>
+    </div>
   );
 };
 
 export default CardInfo;
 
 export const CardInfoLoader: LoaderFunction = async ({ params }) => {
-  const anime = await getAnimeId(params.cardId);
-  console.log(anime, 'animeId');
-
-  return defer({ cardId: anime });
+  return defer({ cardId: getAnimeId(params.cardId) });
 };

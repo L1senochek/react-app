@@ -9,14 +9,12 @@ const Pagination: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
   const { pageNum, limitNum } = useParams();
   const data = useLoaderData() as { data: Promise<IAnime> };
-
   const visiblePage = 3;
   const firstPage = 1;
 
   return (
     <Await resolve={data.data}>
       {(cards) => {
-        console.log(cards);
         const totalPages = cards.pagination.last_visible_page
           ? cards.pagination.last_visible_page
           : 1;
