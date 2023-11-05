@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './card.scss';
 import IAnimeData from '../../model/api/IAnimeData';
+import { Link, useParams } from 'react-router-dom';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const Card: React.FC<IAnimeData> = (props): JSX.Element => {
+  const { pageNum, limitNum } = useParams();
+  const context = useContext(MainPageContext);
+
   const createStructureRender = (
     propsTitle: string,
     propsValue: string | number | undefined
@@ -18,17 +23,22 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   };
 
   return (
-    <div className="card">
+    <Link
+      to={`/page/${pageNum}/limit/${limitNum}/query/${
+        context?.searchValue ? context?.searchValue + '/' : ''
+      }card/${props.mal_id}`}
+      className="card"
+    >
       <h3 className="card__name">{props.title}</h3>
-      <div className="card__img">
+      <span className="card__img">
         <img src={`${props.images.jpg.image_url}`} />
-      </div>
+      </span>
       {createStructureRender('Score', props.score)}
       {createStructureRender('Status', props.status)}
       {createStructureRender('Type', props.type)}
       {createStructureRender('Episodes', props.episodes)}
       {createStructureRender('Duration', props.duration)}
-    </div>
+    </Link>
   );
 };
 

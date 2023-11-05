@@ -19,6 +19,7 @@ const Cards: FC = (): JSX.Element => {
 
   data.then((res) => {
     setResObj(res);
+    console.log(res);
   });
 
   return (

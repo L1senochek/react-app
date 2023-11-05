@@ -11,6 +11,8 @@
   border-radius: $border-radius;
   background-image: $background-image;
   transition: $transitionAll;
+  text-decoration: none;
+  color: $main-color;
   cursor: pointer;
   &__name {
     display: flex;

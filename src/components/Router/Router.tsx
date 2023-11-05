@@ -17,7 +17,6 @@ import {
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {console.log('021411', localStorage.getItem('searchValue'))}
       <Route path="/" element={<MainPage />} errorElement={<div>Error</div>}>
         <Route
           path=""

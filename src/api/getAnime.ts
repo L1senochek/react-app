@@ -12,7 +12,7 @@ const getAnime: (
   searchValue?: string
 ) => Promise<IAnime> = async (pageValue, limitValue, searchValue = '') => {
   const res = await fetch(
-    `${API_URL}${searchValue || pageValue || limitValue ? '?' : ''}${
+    `${API_URL}?sfw=true${searchValue || pageValue || limitValue ? '&' : ''}${
       searchValue ? API_SEARCH_PARAM + searchValue : ''
     }${(searchValue && pageValue) || limitValue ? '&' : ''}${
       pageValue ? API_PAGE + pageValue : ''
