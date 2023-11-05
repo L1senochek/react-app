@@ -5,7 +5,7 @@ import {
 } from '../../model/context/MainPageContext/MainPageContext';
 import getAnime from '../../api/getAnime';
 import IAnimeData from '../../model/api/IAnimeData';
-import { MAX_LIMIT_PAGE, SEARCH_VALUE } from '../../utils/constants/constants';
+import { MAX_LIMIT_PAGES, SEARCH_VALUE } from '../../utils/constants/constants';
 import IAnime from '../../model/api/IAnime';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
@@ -23,7 +23,7 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
   const localStoreValue = localStorage.getItem(SEARCH_VALUE);
   const [resObj, setResObj] = useState<IAnime | undefined>(undefined);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limitPage, setLimitPage] = useState(MAX_LIMIT_PAGE);
+  const [limitPage, setLimitPage] = useState(MAX_LIMIT_PAGES);
 
   useEffect((): void => {
     (async (): Promise<void> => {

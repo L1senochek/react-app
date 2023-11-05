@@ -8,6 +8,6 @@ export const PATH_MAIN_SECTION =
 
 export const SEARCH_VALUE = 'searchValue';
 
-export const MIN_LIMIT_PAGE = 10;
-export const AVG_LIMIT_PAGE = 15;
-export const MAX_LIMIT_PAGE = 25;
+export const MIN_LIMIT_PAGES = 10;
+export const AVG_LIMIT_PAGES = 15;
+export const MAX_LIMIT_PAGES = 25;
