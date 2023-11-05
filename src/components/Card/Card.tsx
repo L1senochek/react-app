@@ -26,7 +26,7 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
     <Link
       to={`/page/${pageNum}/limit/${limitNum}/query/${
         context?.searchValue ? context?.searchValue + '/' : ''
-      }card/${props.mal_id}`}
+      }card-id/${props.mal_id}`}
       className="card"
     >
       <h3 className="card__name">{props.title}</h3>

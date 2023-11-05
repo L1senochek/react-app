@@ -1,30 +1,19 @@
 import React, { FC } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
-import {
-  Await,
-  LoaderFunction,
-  defer,
-  useLoaderData,
-  useOutletContext,
-} from 'react-router-dom';
+import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
 import getAnime from '../../api/getAnime';
 import IAnime from '../../model/api/IAnime';
 import IAnimeData from '../../model/api/IAnimeData';
-import ISetResObj from '../../model/context/ISetResObj/ISetResObj';
 
 const Cards: FC = (): JSX.Element => {
-  const { data } = useLoaderData() as { data: Promise<IAnime> };
-  const { setResObj } = useOutletContext<ISetResObj>();
-
-  data.then((res) => {
-    setResObj(res);
-    console.log(res);
-  });
+  const data = useLoaderData() as { data: Promise<IAnime> };
 
   return (
-    <Await resolve={data}>
+    <Await resolve={data.data}>
       {(cards) => {
+        console.log('cards', cards);
+
         return (
           <div className="cards__wrapper">
             {cards.data.map(

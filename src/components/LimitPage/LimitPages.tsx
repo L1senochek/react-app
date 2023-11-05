@@ -10,7 +10,7 @@ import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const LimitPages: FC = () => {
   const context = useContext(MainPageContext);
-  const { pageNum, limitNum } = useParams();
+  const { limitNum } = useParams();
   const limitArr = [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES];
 
   return (
@@ -22,7 +22,9 @@ const LimitPages: FC = () => {
           className={`limit-pages__btn btn ${
             limitNum && +limitNum === limit ? 'active' : ''
           }`}
-          to={`/page/${pageNum}/limit/${limit}/query/${context?.searchValue}`}
+          to={`/page/1/limit/${limit}/query/${
+            context?.searchValue ? context?.searchValue : ''
+          }`}
         >
           {limit}
         </Link>

@@ -13,6 +13,7 @@ import {
   PATH_MAIN_SECTION,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
+import CardInfo, { CardInfoLoader } from '../CardInfo/CardInfo';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,18 +21,30 @@ const Router = createBrowserRouter(
       <Route path="/" element={<MainPage />} errorElement={<div>Error</div>}>
         <Route
           path=""
+          index
           element={
             <Navigate
-              to={`${PATH_INITIAL}${localStorage.getItem(SEARCH_VALUE)}`}
+              to={`${PATH_INITIAL}${
+                localStorage.getItem(SEARCH_VALUE)
+                  ? localStorage.getItem(SEARCH_VALUE)
+                  : ''
+              }`}
             />
           }
         />
         <Route
-          index
+          id="cards"
           path={PATH_MAIN_SECTION}
           element={<MainSection />}
           loader={CardsLoader}
-        />
+        >
+          <Route
+            id="cardId"
+            path={`card-id/:cardId`}
+            element={<CardInfo />}
+            loader={CardInfoLoader}
+          />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     </>

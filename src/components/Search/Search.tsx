@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
   const [isFocused, setIsFocused] = useState(false);
-  const { pageNum, limitNum } = useParams();
+  const { limitNum } = useParams();
   const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
@@ -17,9 +17,7 @@ const Search: FC = (): JSX.Element => {
       if (!localStorage.getItem(SEARCH_VALUE)) {
         navigate(PATH_INITIAL);
       } else {
-        navigate(
-          `/page/${pageNum}/limit/${limitNum}/query/${context.searchValue}`
-        );
+        navigate(`/page/1/limit/${limitNum}/query/${context.searchValue}`);
       }
     }
   };
