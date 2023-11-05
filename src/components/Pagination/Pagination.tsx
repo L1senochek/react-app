@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './pagination.scss';
 import Btn from '../Btn/Btn';
 
@@ -17,6 +17,8 @@ const Pagination: FC = (): JSX.Element => {
       Math.floor(visiblePage / 2)
   );
   const endPage = Math.min(totalPages, startPage + visiblePage - 1);
+  const { limitNum } = useParams();
+  console.log('limitNumPAGINATION', limitNum);
 
   const handlePageChange = (pageNum: number) => {
     context?.setCurrentPage(pageNum);
@@ -26,7 +28,7 @@ const Pagination: FC = (): JSX.Element => {
     <div className="pagination">
       {startPage > 1 && (
         <Link
-          to={`?page=${firstPage}`}
+          to={`/page/${firstPage}/limit/${limitNum}`}
           className="pagination__btn btn"
           onClick={() => handlePageChange(firstPage)}
         >
@@ -39,7 +41,7 @@ const Pagination: FC = (): JSX.Element => {
       {Array.from({ length: endPage - startPage + 1 }).map((_, i) => (
         <Link
           key={i}
-          to={`?page=${startPage + i}`}
+          to={`/page/${startPage + i}/limit/${limitNum}`}
           className={`pagination__btn btn ${
             startPage + i === context?.currentPage ? 'active' : ''
           }`}
@@ -53,7 +55,7 @@ const Pagination: FC = (): JSX.Element => {
       )}
       {endPage < totalPages && (
         <Link
-          to={`?page=${totalPages}`}
+          to={`/page/${totalPages}/limit/${limitNum}`}
           className="pagination__btn btn"
           onClick={() => handlePageChange(totalPages)}
         >

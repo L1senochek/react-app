@@ -10,17 +10,17 @@ const getAnime: (
   searchValue?: string,
   pageValue?: number | string,
   limitValue?: number | string
-) => Promise<IAnime> = async (searchValue, pageValue, limitValue) =>
-  await (
-    await fetch(
-      `${API_URL}${searchValue || pageValue || limitValue ? '?' : ''}${
-        searchValue ? API_SEARCH_PARAM + searchValue : ''
-      }${(searchValue && pageValue) || limitValue ? '&' : ''}${
-        pageValue ? API_PAGE + pageValue : ''
-      }${pageValue && limitValue ? '&' : ''}${
-        limitValue ? API_LIMIT + limitValue : ''
-      }`
-    )
-  ).json();
+) => Promise<IAnime> = async (searchValue = '', pageValue, limitValue) => {
+  const res = await fetch(
+    `${API_URL}${searchValue || pageValue || limitValue ? '?' : ''}${
+      searchValue ? API_SEARCH_PARAM + searchValue : ''
+    }${(searchValue && pageValue) || limitValue ? '&' : ''}${
+      pageValue ? API_PAGE + pageValue : ''
+    }${pageValue && limitValue ? '&' : ''}${
+      limitValue ? API_LIMIT + limitValue : ''
+    }`
+  );
+  return res.json();
+};
 
 export default getAnime;

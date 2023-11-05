@@ -1,16 +1,13 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import TopSection from '../../components/TopSection/TopSection';
 import './main-page.scss';
-import MainSection from '../../components/MainSection/MainSection';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import Loading from '../../components/Loading/Loading';
+import { Outlet } from 'react-router-dom';
 
 const MainPage: FC = (): JSX.Element => {
-  const context = useContext(MainPageContext);
   return (
     <main className="main-page">
       <TopSection />
-      {context?.isLoading ? <Loading /> : <MainSection />}
+      <Outlet />
     </main>
   );
 };
