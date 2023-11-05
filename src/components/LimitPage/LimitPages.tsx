@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   AVG_LIMIT_PAGES,
@@ -6,8 +6,10 @@ import {
   MIN_LIMIT_PAGES,
 } from '../../utils/constants/constants';
 import './limit-pages.scss';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const LimitPages: FC = () => {
+  const context = useContext(MainPageContext);
   const { pageNum, limitNum } = useParams();
   const limitArr = [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES];
 
@@ -20,7 +22,7 @@ const LimitPages: FC = () => {
           className={`limit-pages__btn btn ${
             limitNum && +limitNum === limit ? 'active' : ''
           }`}
-          to={`/page/${pageNum}/limit/${limit}`}
+          to={`/page/${pageNum}/limit/${limit}/query/${context?.searchValue}`}
         >
           {limit}
         </Link>

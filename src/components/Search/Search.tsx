@@ -2,20 +2,25 @@ import React, { ChangeEvent, FC, useContext, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import './search.scss';
-import getAnime from '../../api/getAnime';
-import { SEARCH_VALUE } from '../../utils/constants/constants';
+import { PATH_INITIAL, SEARCH_VALUE } from '../../utils/constants/constants';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
   const [isFocused, setIsFocused] = useState(false);
+  const { pageNum, limitNum } = useParams();
+  const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
     if (context) {
-      context.setIsLoading(true);
-      const getSearchRes = await getAnime(context.searchValue);
-      context.setArrRes(getSearchRes.data);
-      context.setIsLoading(false);
       localStorage.setItem(SEARCH_VALUE, context.searchValue);
+      if (!localStorage.getItem(SEARCH_VALUE)) {
+        navigate(PATH_INITIAL);
+      } else {
+        navigate(
+          `/page/${pageNum}/limit/${limitNum}/query/${context.searchValue}`
+        );
+      }
     }
   };
 

@@ -1,5 +1,5 @@
 import {
-  // Navigate,
+  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -8,22 +8,28 @@ import MainPage from '../../pages/MainPage/MainPage';
 import NotFound from '../NotFound/NotFound';
 import MainSection from '../MainSection/MainSection';
 import { CardsLoader } from '../Cards/Cards';
-import { PATH_MAIN_SECTION } from '../../utils/constants/constants';
+import {
+  PATH_INITIAL,
+  PATH_MAIN_SECTION,
+  SEARCH_VALUE,
+} from '../../utils/constants/constants';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      {console.log('021411', localStorage.getItem('searchValue'))}
       <Route path="/" element={<MainPage />} errorElement={<div>Error</div>}>
         <Route
           path=""
-          loader={CardsLoader}
-          element={<MainSection />}
-          // element={<Navigate to="/page/1/limit/25" />}
+          element={
+            <Navigate
+              to={`${PATH_INITIAL}${localStorage.getItem(SEARCH_VALUE)}`}
+            />
+          }
         />
         <Route
           index
           path={PATH_MAIN_SECTION}
-          // path="/page/:pageNum/limit/:limitNum/query?/:query?"
           element={<MainSection />}
           loader={CardsLoader}
         />

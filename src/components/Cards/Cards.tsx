@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
 import {
@@ -7,53 +7,39 @@ import {
   defer,
   useLoaderData,
   useOutletContext,
-  useParams,
 } from 'react-router-dom';
 import getAnime from '../../api/getAnime';
 import IAnime from '../../model/api/IAnime';
-import Loading from '../Loading/Loading';
 import IAnimeData from '../../model/api/IAnimeData';
 import ISetResObj from '../../model/context/ISetResObj/ISetResObj';
 
 const Cards: FC = (): JSX.Element => {
-  const { pageNum } = useParams();
   const { data } = useLoaderData() as { data: Promise<IAnime> };
   const { setResObj } = useOutletContext<ISetResObj>();
 
-  console.log('USEEParams', data, pageNum);
-  // const context = useContext(MainPageContext);
+  data.then((res) => {
+    setResObj(res);
+  });
+
   return (
-    <Suspense fallback={<Loading />}>
-      <Await resolve={data}>
-        {(cards) => {
-          console.log('cards', cards);
-          setResObj(cards);
-          return (
-            <div className="cards__wrapper">
-              {cards.data.map(
-                (item: IAnimeData): JSX.Element => (
-                  <Card key={item.mal_id} {...item} />
-                )
-              )}
-            </div>
-          );
-        }}
-      </Await>
-    </Suspense>
+    <Await resolve={data}>
+      {(cards) => {
+        return (
+          <div className="cards__wrapper">
+            {cards.data.map(
+              (item: IAnimeData): JSX.Element => (
+                <Card key={item.mal_id} {...item} />
+              )
+            )}
+          </div>
+        );
+      }}
+    </Await>
   );
-  // return (
-  //   <div className="cards__wrapper">
-  //     {context?.arrRes.map(
-  //       (item): JSX.Element => <Card key={item.mal_id} {...item} />
-  //     )}
-  //   </div>
-  // );
 };
 
 export const CardsLoader: LoaderFunction<IAnime> = async ({ params }) => {
-  console.log('pageNum', params, params.pageNum, params.limitNum, params.query);
   const anime = getAnime(params.pageNum, params.limitNum, params.query);
-  // http://localhost:5173/page/2/limit/2/query/test
 
   return defer({ data: anime });
 };
