@@ -7,10 +7,10 @@ import {
 } from '../utils/constants/constants';
 
 const getAnime: (
-  searchValue?: string,
+  limitValue?: number | string,
   pageValue?: number | string,
-  limitValue?: number | string
-) => Promise<IAnime> = async (searchValue = '', pageValue, limitValue) => {
+  searchValue?: string
+) => Promise<IAnime> = async (pageValue, limitValue, searchValue = '') => {
   const res = await fetch(
     `${API_URL}${searchValue || pageValue || limitValue ? '?' : ''}${
       searchValue ? API_SEARCH_PARAM + searchValue : ''

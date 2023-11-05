@@ -28,9 +28,9 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
   useEffect((): void => {
     (async (): Promise<void> => {
       const animeRes = await getAnime(
-        localStoreValue ? localStoreValue : undefined,
         currentPage,
-        limitPage
+        limitPage,
+        localStoreValue ? localStoreValue : undefined
       );
       setArrRes(animeRes.data);
       setResObj(animeRes);

@@ -3,7 +3,7 @@ import './main-section.scss';
 import Cards from '../Cards/Cards';
 import ErrorBtn from '../ErrorBtn/ErrorBtn';
 import Pagination from '../Pagination/Pagination';
-import LimitPages from '../LimitPages/LimitPages';
+import LimitPages from '../LimitPage/LimitPages';
 
 const MainSection: FC = (): JSX.Element => {
   return (

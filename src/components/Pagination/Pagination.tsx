@@ -1,24 +1,35 @@
 import { FC, useContext } from 'react';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
 import './pagination.scss';
 import Btn from '../Btn/Btn';
+import ISetResObj from '../../model/context/ISetResObj/ISetResObj';
 
 const Pagination: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
-  const totalPages = context?.resObj?.pagination.last_visible_page
-    ? context?.resObj?.pagination.last_visible_page
+  const { pageNum, limitNum } = useParams();
+  const { resObj } = useOutletContext<ISetResObj>();
+
+  // const totalPages = context?.resObj?.pagination.last_visible_page
+  //   ? context?.resObj?.pagination.last_visible_page
+  //   : 1;
+  const totalPages = resObj?.pagination.last_visible_page
+    ? resObj?.pagination.last_visible_page
     : 1;
   const visiblePage = 3;
   const firstPage = 1;
+  // const startPage = Math.max(
+  //   1,
+  //   (context?.currentPage ? context?.currentPage : 1) -
+  //     Math.floor(visiblePage / 2)
+  // );
   const startPage = Math.max(
     1,
-    (context?.currentPage ? context?.currentPage : 1) -
-      Math.floor(visiblePage / 2)
+    (pageNum ? +pageNum : 1) - Math.floor(visiblePage / 2)
   );
   const endPage = Math.min(totalPages, startPage + visiblePage - 1);
-  const { limitNum } = useParams();
-  console.log('limitNumPAGINATION', limitNum);
+
+  console.log('limitNumPAGINATION', limitNum, resObj);
 
   const handlePageChange = (pageNum: number) => {
     context?.setCurrentPage(pageNum);
@@ -43,7 +54,7 @@ const Pagination: FC = (): JSX.Element => {
           key={i}
           to={`/page/${startPage + i}/limit/${limitNum}`}
           className={`pagination__btn btn ${
-            startPage + i === context?.currentPage ? 'active' : ''
+            pageNum && startPage + i === +pageNum ? 'active' : ''
           }`}
           onClick={() => handlePageChange(startPage + i)}
         >

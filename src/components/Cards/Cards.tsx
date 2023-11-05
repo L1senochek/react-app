@@ -6,31 +6,38 @@ import {
   LoaderFunction,
   defer,
   useLoaderData,
+  useOutletContext,
   useParams,
 } from 'react-router-dom';
 import getAnime from '../../api/getAnime';
 import IAnime from '../../model/api/IAnime';
 import Loading from '../Loading/Loading';
 import IAnimeData from '../../model/api/IAnimeData';
+import ISetResObj from '../../model/context/ISetResObj/ISetResObj';
 
 const Cards: FC = (): JSX.Element => {
   const { pageNum } = useParams();
   const { data } = useLoaderData() as { data: Promise<IAnime> };
-  console.log('USEEParams', data, pageNum);
+  const { setResObj } = useOutletContext<ISetResObj>();
 
+  console.log('USEEParams', data, pageNum);
   // const context = useContext(MainPageContext);
   return (
     <Suspense fallback={<Loading />}>
       <Await resolve={data}>
-        {(cards) => (
-          <div className="cards__wrapper">
-            {cards.data.map(
-              (item: IAnimeData): JSX.Element => (
-                <Card key={item.mal_id} {...item} />
-              )
-            )}
-          </div>
-        )}
+        {(cards) => {
+          console.log('cards', cards);
+          setResObj(cards);
+          return (
+            <div className="cards__wrapper">
+              {cards.data.map(
+                (item: IAnimeData): JSX.Element => (
+                  <Card key={item.mal_id} {...item} />
+                )
+              )}
+            </div>
+          );
+        }}
       </Await>
     </Suspense>
   );
