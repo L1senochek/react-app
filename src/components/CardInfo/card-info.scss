@@ -2,4 +2,13 @@
 
 .card-info {
   display: flex;
+  position: fixed;
+  background-color: $background-color;
+  right: 0;
+  padding: $card-info-padding;
+  width: 40vw;
+  height: 50vw;
+  border-radius: $border-radius;
+  border-width: $border-width;
+  border-style: $border-style;
 }
