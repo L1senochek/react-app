@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $error-btn-padding;
+  border-radius: $border-radius;
+  border-width: $border-width;
+  border-style: $border-style;
+  border-color: $fourth-color;
+  color: $main-color;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    box-shadow: $box-shadow-card;
+    border-color: $main-color;
+    background-image: $background-image-hover;
+  }
+  &:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}

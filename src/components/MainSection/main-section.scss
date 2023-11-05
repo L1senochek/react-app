@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin/flex-direction-column.scss';
+
+@include flex-direction-column('.main-section');
+
+.main-section {
+  &__nav-btn {
+    width: 100%;
+    display: flex;
+    padding: 5px 3vw;
+    justify-content: space-between;
+  }
+}
