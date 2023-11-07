@@ -21,6 +21,12 @@
   width: 45vw;
   height: 100vh;
   justify-content: center;
+  color: $main-color;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  border-width: $border-width;
+  border-style: $border-style;
+  border-color: $fourth-color;
   &__btn {
     position: fixed;
     z-index: 6;
@@ -36,13 +42,7 @@
     right: 0;
     width: 45vw;
     height: 100vh;
-    color: $main-color;
     padding: $card-info-padding;
-    background-color: $background-color;
-    border-radius: $border-radius;
-    border-width: $border-width;
-    border-style: $border-style;
-    border-color: $fourth-color;
     z-index: 5;
   }
   &__title {

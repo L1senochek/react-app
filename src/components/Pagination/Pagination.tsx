@@ -4,6 +4,11 @@ import './pagination.scss';
 import Btn from '../Btn/Btn';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import IAnime from '../../model/api/IAnime';
+import {
+  PIECE_PATH_PAGE,
+  PIECE_PATH_LIMIT,
+  PIECE_PATH_QUERY,
+} from '../../utils/constants/constants';
 
 const Pagination: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
@@ -27,8 +32,10 @@ const Pagination: FC = (): JSX.Element => {
           <div className="pagination">
             {startPage > 1 && (
               <Link
-                to={`/page/${firstPage}/limit/${limitNum}/query/${
-                  context?.searchValue ? context?.searchValue : ''
+                to={`/${PIECE_PATH_PAGE}${firstPage}/${PIECE_PATH_LIMIT}${limitNum}${
+                  context?.searchValue
+                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    : ''
                 }`}
                 className="pagination__btn btn"
               >
@@ -41,8 +48,12 @@ const Pagination: FC = (): JSX.Element => {
             {Array.from({ length: endPage - startPage + 1 }).map((_, i) => (
               <Link
                 key={i}
-                to={`/page/${startPage + i}/limit/${limitNum}/query/${
-                  context?.searchValue ? context?.searchValue : ''
+                to={`/${PIECE_PATH_PAGE}${
+                  startPage + i
+                }/${PIECE_PATH_LIMIT}${limitNum}${
+                  context?.searchValue
+                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    : ''
                 }`}
                 className={`pagination__btn btn ${
                   pageNum && startPage + i === +pageNum ? 'active' : ''
@@ -56,8 +67,10 @@ const Pagination: FC = (): JSX.Element => {
             )}
             {endPage < totalPages && (
               <Link
-                to={`/page/${totalPages}/limit/${limitNum}/query/${
-                  context?.searchValue ? context?.searchValue : ''
+                to={`/${PIECE_PATH_PAGE}${totalPages}/${PIECE_PATH_LIMIT}${limitNum}${
+                  context?.searchValue
+                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    : ''
                 }`}
                 className="pagination__btn btn"
               >

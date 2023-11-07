@@ -9,8 +9,10 @@ import NotFound from '../NotFound/NotFound';
 import MainSection from '../MainSection/MainSection';
 import { CardsLoader } from '../Cards/Cards';
 import {
+  PATH_CARDID,
   PATH_INITIAL,
   PATH_MAIN_SECTION,
+  PIECE_PATH_QUERY,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import CardInfo, { CardInfoLoader } from '../CardInfo/CardInfo';
@@ -26,7 +28,7 @@ const Router = createBrowserRouter(
             <Navigate
               to={`${PATH_INITIAL}${
                 localStorage.getItem(SEARCH_VALUE)
-                  ? localStorage.getItem(SEARCH_VALUE)
+                  ? '/' + PIECE_PATH_QUERY + localStorage.getItem(SEARCH_VALUE)
                   : ''
               }`}
             />
@@ -40,12 +42,13 @@ const Router = createBrowserRouter(
         >
           <Route
             id="cardId"
-            path={`card-id/:cardId`}
+            path={PATH_CARDID}
             element={<CardInfo />}
             loader={CardInfoLoader}
           />
         </Route>
         <Route path="*" element={<NotFound />} />
+        <Route path="not-found" element={<NotFound />} />
       </Route>
     </>
   )

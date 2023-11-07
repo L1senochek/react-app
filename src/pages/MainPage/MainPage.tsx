@@ -5,10 +5,14 @@ import { Outlet } from 'react-router-dom';
 
 const MainPage: FC = (): JSX.Element => {
   return (
-    <main className="main-page">
-      <TopSection />
-      <Outlet />
-    </main>
+    <>
+      <header className="header">
+        <TopSection />
+      </header>
+      <main className="main main-page">
+        <Outlet />
+      </main>
+    </>
   );
 };
 

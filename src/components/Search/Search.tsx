@@ -2,7 +2,13 @@ import React, { ChangeEvent, FC, useContext, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import './search.scss';
-import { PATH_INITIAL, SEARCH_VALUE } from '../../utils/constants/constants';
+import {
+  PATH_INITIAL,
+  PIECE_PATH_LIMIT,
+  PIECE_PATH_PAGE,
+  PIECE_PATH_QUERY,
+  SEARCH_VALUE,
+} from '../../utils/constants/constants';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Search: FC = (): JSX.Element => {
@@ -17,7 +23,9 @@ const Search: FC = (): JSX.Element => {
       if (!localStorage.getItem(SEARCH_VALUE)) {
         navigate(PATH_INITIAL);
       } else {
-        navigate(`/page/1/limit/${limitNum}/query/${context.searchValue}`);
+        navigate(
+          `/${PIECE_PATH_PAGE}1/${PIECE_PATH_LIMIT}${limitNum}/${PIECE_PATH_QUERY}${context.searchValue}`
+        );
       }
     }
   };

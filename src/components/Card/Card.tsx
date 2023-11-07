@@ -3,6 +3,12 @@ import './card.scss';
 import IAnimeData from '../../model/api/IAnimeData';
 import { Link, useParams } from 'react-router-dom';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
+import {
+  PIECE_PATH_CARDID,
+  PIECE_PATH_LIMIT,
+  PIECE_PATH_PAGE,
+  PIECE_PATH_QUERY,
+} from '../../utils/constants/constants';
 
 const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   const { pageNum, limitNum } = useParams();
@@ -24,9 +30,11 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
 
   return (
     <Link
-      to={`/page/${pageNum}/limit/${limitNum}/query/${
-        context?.searchValue ? context?.searchValue + '/' : ''
-      }card-id/${props.mal_id}`}
+      to={`/${PIECE_PATH_PAGE}${pageNum}/${PIECE_PATH_LIMIT}${limitNum}${
+        context?.searchValue
+          ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+          : ''
+      }/${PIECE_PATH_CARDID}${props.mal_id}`}
       className="card"
     >
       <h3 className="card__name">{props.title}</h3>

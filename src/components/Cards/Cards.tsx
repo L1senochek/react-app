@@ -1,10 +1,17 @@
 import React, { FC } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
-import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
+import {
+  Await,
+  LoaderFunction,
+  defer,
+  redirect,
+  useLoaderData,
+} from 'react-router-dom';
 import getAnime from '../../api/getAnime';
 import IAnime from '../../model/api/IAnime';
 import IAnimeData from '../../model/api/IAnimeData';
+import { PATH_NOT_FOUND } from '../../utils/constants/constants';
 
 const Cards: FC = (): JSX.Element => {
   const data = useLoaderData() as { data: Promise<IAnime> };
@@ -27,6 +34,11 @@ const Cards: FC = (): JSX.Element => {
 };
 
 export const CardsLoader: LoaderFunction<IAnime> = async ({ params }) =>
-  defer({ data: getAnime(params.pageNum, params.limitNum, params.query) });
+  params.pageNum &&
+  !isNaN(+params.pageNum) &&
+  params.limitNum &&
+  !isNaN(+params.limitNum)
+    ? defer({ data: getAnime(params.pageNum, params.limitNum, params.query) })
+    : redirect(PATH_NOT_FOUND);
 
 export default Cards;

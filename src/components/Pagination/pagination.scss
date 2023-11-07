@@ -6,7 +6,9 @@
   justify-content: center;
   &__btn {
     display: flex;
-    width: 3vw;
+    justify-content: center;
+    align-items: center;
+    width: 4vw;
     &.active {
       box-shadow: $box-shadow-card;
       border-color: $main-color;

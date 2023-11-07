@@ -13,6 +13,11 @@ import getAnimeId from '../../api/getAnimeId';
 import IAnimeData from '../../model/api/IAnimeData';
 import Loading from '../Loading/Loading';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
+import {
+  PIECE_PATH_PAGE,
+  PIECE_PATH_LIMIT,
+  PIECE_PATH_QUERY,
+} from '../../utils/constants/constants';
 
 const CardInfo: FC = (): JSX.Element => {
   const { cardId } = useLoaderData() as { cardId: Promise<IAnimeData> };
@@ -37,8 +42,10 @@ const CardInfo: FC = (): JSX.Element => {
   return (
     <div className="card-info">
       <Link
-        to={`/page/${pageNum}/limit/${limitNum}/query/${
-          context?.searchValue ? context?.searchValue : ''
+        to={`/${PIECE_PATH_PAGE}${pageNum}/${PIECE_PATH_LIMIT}${limitNum}${
+          context?.searchValue
+            ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+            : ''
         }`}
         className="card-info__btn btn"
       >
@@ -68,8 +75,10 @@ const CardInfo: FC = (): JSX.Element => {
                   className="background-window"
                   onClick={() =>
                     navigate(
-                      `/page/${pageNum}/limit/${limitNum}/query/${
-                        context?.searchValue ? context?.searchValue : ''
+                      `/${PIECE_PATH_PAGE}${pageNum}/${PIECE_PATH_LIMIT}${limitNum}${
+                        context?.searchValue
+                          ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                          : ''
                       }`
                     )
                   }
