@@ -10,7 +10,7 @@ const ErrorBtn: FC = (): JSX.Element => {
   };
 
   const generateError = (): never => {
-    throw new Error('Error');
+    throw new Error('This is error!');
   };
 
   return (

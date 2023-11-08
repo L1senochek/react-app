@@ -16,11 +16,12 @@ import {
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import CardInfo, { CardInfoLoader } from '../CardInfo/CardInfo';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<MainPage />} errorElement={<div>Error</div>}>
+      <Route path="/" element={<MainPage />} errorElement={<ErrorMessage />}>
         <Route
           path=""
           index
