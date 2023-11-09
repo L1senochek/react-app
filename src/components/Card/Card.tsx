@@ -39,7 +39,7 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
     >
       <h3 className="card__name">{props.title}</h3>
       <span className="card__img">
-        <img src={`${props.images.jpg.image_url}`} />
+        <img src={`${props.images.jpg.image_url}`} alt={props.title} />
       </span>
       {createStructureRender('Score', props.score)}
       {createStructureRender('Status', props.status)}
