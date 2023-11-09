@@ -1,15 +1,21 @@
 import { describe, it } from 'vitest';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { expect, test } from 'vitest';
+import App from './App';
 
 describe('App', () => {
-  const App = ({ title }: { title: string }): ReactElement => {
-    return <h1 title={title}>Test h1</h1>;
-  };
-
-  it('renders headline', () => {
-    render(<App title="React" />);
+  it('App renders: ', () => {
+    render(<App />);
 
     screen.debug();
   });
+});
+
+export function sum(a: number, b: number) {
+  return a + b;
+}
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
 });
