@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
 import {
@@ -12,19 +12,26 @@ import getAnime from '../../api/getAnime';
 import IAnime from '../../model/api/IAnime';
 import IAnimeData from '../../model/api/IAnimeData';
 import { PATH_NOT_FOUND } from '../../utils/constants/constants';
+import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 
 const Cards: FC = (): JSX.Element => {
+  const context = useContext(MainPageContext);
   const data = useLoaderData() as { data: Promise<IAnime> };
 
   return (
     <Await resolve={data.data}>
       {(cards) => {
+        context?.setArrRes(cards);
         return (
           <div className="cards__wrapper">
-            {cards.data.map(
-              (item: IAnimeData): JSX.Element => (
-                <Card key={item.mal_id} {...item} />
+            {context?.arrRes?.data.length !== 0 ? (
+              cards.data.map(
+                (item: IAnimeData): JSX.Element => (
+                  <Card key={item.mal_id} {...item} />
+                )
               )
+            ) : (
+              <div>Sorry, nothing found.</div>
             )}
           </div>
         );

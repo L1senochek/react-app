@@ -2,8 +2,11 @@
 @import '../../styles/mixin/flex-direction-column.scss';
 
 @include flex-direction-column('.main-section');
+@include flex-direction-column('.main-section__top');
 
 .main-section {
+  min-height: 87vh;
+  justify-content: space-between;
   &__nav-btn {
     width: 100%;
     display: flex;
