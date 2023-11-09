@@ -32,6 +32,7 @@
     z-index: 6;
     right: 0;
     top: 0;
+    background-color: $background-color;
   }
   &__wrapper {
     display: flex;
@@ -44,6 +45,11 @@
     height: 100vh;
     padding: $card-info-padding;
     z-index: 5;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 0px;
+    }
   }
   &__title {
     display: flex;
@@ -54,7 +60,7 @@
     display: flex;
     justify-content: center;
     &_src {
-      height: 20vw;
+      height: 30vw;
     }
   }
   &__description {
@@ -64,6 +70,29 @@
     }
     &_value {
       line-height: 1.5;
+    }
+  }
+}
+
+@media (max-width: 890px) {
+  .card-info,
+  .card-info__wrapper {
+    width: 65vw;
+    &__img_src {
+      height: 40vw;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-info {
+    width: 100vw;
+    &__wrapper {
+      width: 100vw;
+      padding: $card-info-phone-padding;
+    }
+    &__img_src {
+      height: 60vw;
     }
   }
 }
