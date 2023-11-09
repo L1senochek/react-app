@@ -31,7 +31,7 @@ const Cards: FC = (): JSX.Element => {
                 )
               )
             ) : (
-              <div>Sorry, nothing found.</div>
+              <div className="cards__message">Sorry, nothing found.</div>
             )}
           </div>
         );
