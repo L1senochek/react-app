@@ -9,21 +9,20 @@ import {
   PIECE_PATH_QUERY,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
-import { useNavigate, useParams } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
-  const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
     if (context) {
       localStorage.setItem(SEARCH_VALUE, context.searchValue);
       if (!localStorage.getItem(SEARCH_VALUE)) {
-        navigate(PATH_INITIAL);
+        redirect(PATH_INITIAL);
       } else {
-        navigate(
+        redirect(
           `/${PIECE_PATH_PAGE}1/${PIECE_PATH_LIMIT}${limitNum}/${PIECE_PATH_QUERY}${context.searchValue}`
         );
       }
