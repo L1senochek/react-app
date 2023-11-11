@@ -17,6 +17,12 @@ describe('getAnimeId: ', () => {
     await getAnimeId(animeId);
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/${animeId}`);
   });
+
+  test('- get request with correct URL when id is not provided (id by default "1").', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    await getAnimeId();
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/1`);
+  });
 });
 
 afterEach(() => {
