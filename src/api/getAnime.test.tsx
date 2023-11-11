@@ -21,7 +21,7 @@ describe('getAnime: ', () => {
     await getAnime(1, 25, 'naruto');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}?sfw=true&${API_SEARCH_PARAM}naruto&${API_PAGE}1&${API_LIMIT}25`
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
     );
   });
 
@@ -29,7 +29,18 @@ describe('getAnime: ', () => {
     fetchMock.mockResolvedValue(mockResolvedValue);
     await getAnime(1);
 
-    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}?sfw=true&${API_PAGE}1`);
+    expect(fetchMock).toHaveBeenCalledWith(
+      `${API_URL}?sfw=true&${API_PAGE}1&limit=25`
+    );
+  });
+
+  test('- get request with correct URL parameters with only limit provided.', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    await getAnime(undefined, 25);
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      `${API_URL}?sfw=true&page=1&${API_LIMIT}25`
+    );
   });
 
   test('- getAnime equals to the mock API response.', async () => {
