@@ -28,6 +28,10 @@ const mockAnimeData = {
   ],
 };
 
+const mockAnimeDataEmpty = {
+  data: [{}],
+};
+
 describe('Cards: ', () => {
   test('- component Cards renders correctly.', async () => {
     vi.mock('react-router-dom', async () => {
@@ -67,6 +71,24 @@ describe('Cards: ', () => {
     );
 
     const cardElement = screen.queryByText(/Test Anime 1/);
+    expect(cardElement).toBeDefined();
+  });
+
+  test('- test that Card component not renders.', async () => {
+    vi.mock('react-router-dom', async () => ({
+      ...(await vi.importActual<typeof import('react-router-dom')>(
+        'react-router-dom'
+      )),
+      useLoaderData: vi.fn(() => Promise.resolve(mockAnimeDataEmpty)),
+    }));
+
+    render(
+      <MainPageProvider>
+        <Cards />
+      </MainPageProvider>
+    );
+
+    const cardElement = screen.queryByText(/Sorry, nothing found./);
     expect(cardElement).toBeDefined();
   });
 });
