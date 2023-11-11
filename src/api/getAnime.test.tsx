@@ -43,6 +43,15 @@ describe('getAnime: ', () => {
     );
   });
 
+  test('- get request with correct URL parameters with only search provided.', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    await getAnime(undefined, undefined, 'naruto');
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      `${API_URL}?sfw=true&page=1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
+    );
+  });
+
   test('- getAnime equals to the mock API response.', async () => {
     fetchMock.mockResolvedValue(mockResolvedValue);
     const result = await getAnime(1, 25, 'naruto');
