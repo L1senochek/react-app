@@ -7,6 +7,7 @@ globalThis.fetch = fetchMock;
 
 describe('getAnimeId: ', () => {
   const animeId = '123';
+  const emptyId = '';
   const mockResponse = { key: 'value' };
   const mockResolvedValue = {
     json: vi.fn().mockResolvedValue(mockResponse),
@@ -27,6 +28,11 @@ describe('getAnimeId: ', () => {
   test('- returns JSON response.', async () => {
     fetchMock.mockResolvedValue(mockResolvedValue);
     expect(await getAnimeId(animeId)).toEqual(mockResponse);
+  });
+
+  test('- returns JSON response when id is an empty string (id by default "1").', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    expect(await getAnimeId(emptyId)).toEqual(mockResponse);
   });
 });
 
