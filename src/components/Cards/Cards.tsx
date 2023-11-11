@@ -34,12 +34,11 @@ const Cards: FC = (): JSX.Element => {
 
   return (
     <Await resolve={data.data}>
-      {(cards) => {
-        console.log(cards);
+      {() => {
         return (
           <div className="cards__wrapper">
             {arrRes?.data.length !== 0 ? (
-              cards.data.map(
+              arrRes?.data.map(
                 (item: IAnimeData): JSX.Element => (
                   <Card key={item.mal_id} {...item} />
                 )

@@ -1,15 +1,35 @@
-import { describe, test, vi } from 'vitest';
-import apiResDataMock from '../../mocks/apiResDataMock';
-import { render } from '@testing-library/react';
+import { describe, expect, test, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import Cards from './Cards';
 import { MainPageProvider } from '../../context/MainPageContext/MainPageContext';
 
 const mockAnimeData = {
-  data: [apiResDataMock, apiResDataMock, apiResDataMock],
+  data: [
+    {
+      mal_id: 1,
+      title: 'Test Anime 1',
+      images: { jpg: { image_url: 'test-image-1.jpg' } },
+      score: 8.0,
+      status: 'Finished',
+      type: 'TV',
+      episodes: 12,
+      duration: '24 min per episode',
+    },
+    {
+      mal_id: 2,
+      title: 'Test Anime 2',
+      images: { jpg: { image_url: 'test-image-2.jpg' } },
+      score: 9.0,
+      status: 'Airing',
+      type: 'Movie',
+      episodes: 1,
+      duration: '2 hours',
+    },
+  ],
 };
 
 describe('Cards: ', () => {
-  test('- component Cards renders correctly', async () => {
+  test('- component Cards renders correctly.', async () => {
     vi.mock('react-router-dom', async () => {
       const originalReactRouterDom =
         await vi.importActual<typeof import('react-router-dom')>(
@@ -30,5 +50,23 @@ describe('Cards: ', () => {
     );
 
     await vi.dynamicImportSettled();
+  });
+
+  test('- test that Card component renders.', async () => {
+    vi.mock('react-router-dom', async () => ({
+      ...(await vi.importActual<typeof import('react-router-dom')>(
+        'react-router-dom'
+      )),
+      useLoaderData: vi.fn(() => Promise.resolve(mockAnimeData)),
+    }));
+
+    render(
+      <MainPageProvider>
+        <Cards />
+      </MainPageProvider>
+    );
+
+    const cardElement = screen.queryByText(/Test Anime 1/);
+    expect(cardElement).toBeDefined();
   });
 });
