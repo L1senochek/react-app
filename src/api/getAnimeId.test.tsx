@@ -23,6 +23,11 @@ describe('getAnimeId: ', () => {
     await getAnimeId();
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/1`);
   });
+
+  test('- returns JSON response.', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    expect(await getAnimeId(animeId)).toEqual(mockResponse);
+  });
 });
 
 afterEach(() => {
