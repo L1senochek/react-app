@@ -18,6 +18,15 @@ describe('getAnime: ', () => {
       `${API_URL}?sfw=true&q=naruto&page=1&limit=25`
     );
   });
+
+  test('- getAnime equals to the mock API response.', async () => {
+    fetchMock.mockResolvedValue({
+      json: vi.fn().mockResolvedValue(apiResMock),
+    });
+
+    const result = await getAnime(1, 25, 'naruto');
+    expect(result).toEqual(apiResMock);
+  });
 });
 
 afterEach(() => {
