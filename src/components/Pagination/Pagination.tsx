@@ -5,9 +5,9 @@ import Btn from '../Btn/Btn';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import IAnime from '../../model/api/IAnime';
 import {
-  PIECE_PATH_PAGE,
-  PIECE_PATH_LIMIT,
-  PIECE_PATH_QUERY,
+  PAGE_PATH_PART,
+  LIMIT_PATH_PART,
+  QUERY_PATH_PART,
 } from '../../utils/constants/constants';
 
 const Pagination: FC = (): JSX.Element => {
@@ -32,9 +32,9 @@ const Pagination: FC = (): JSX.Element => {
           <div className="pagination">
             {startPage > 1 && (
               <Link
-                to={`/${PIECE_PATH_PAGE}${firstPage}/${PIECE_PATH_LIMIT}${limitNum}${
+                to={`/${PAGE_PATH_PART}${firstPage}/${LIMIT_PATH_PART}${limitNum}${
                   context?.searchValue
-                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
                     : ''
                 }`}
                 className="pagination__btn btn"
@@ -48,11 +48,11 @@ const Pagination: FC = (): JSX.Element => {
             {Array.from({ length: endPage - startPage + 1 }).map((_, i) => (
               <Link
                 key={i}
-                to={`/${PIECE_PATH_PAGE}${
+                to={`/${PAGE_PATH_PART}${
                   startPage + i
-                }/${PIECE_PATH_LIMIT}${limitNum}${
+                }/${LIMIT_PATH_PART}${limitNum}${
                   context?.searchValue
-                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
                     : ''
                 }`}
                 className={`pagination__btn btn ${
@@ -67,9 +67,9 @@ const Pagination: FC = (): JSX.Element => {
             )}
             {endPage < totalPages && (
               <Link
-                to={`/${PIECE_PATH_PAGE}${totalPages}/${PIECE_PATH_LIMIT}${limitNum}${
+                to={`/${PAGE_PATH_PART}${totalPages}/${LIMIT_PATH_PART}${limitNum}${
                   context?.searchValue
-                    ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
                     : ''
                 }`}
                 className="pagination__btn btn"

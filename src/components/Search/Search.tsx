@@ -4,26 +4,30 @@ import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import './search.scss';
 import {
   PATH_INITIAL,
-  PIECE_PATH_LIMIT,
-  PIECE_PATH_PAGE,
-  PIECE_PATH_QUERY,
+  PAGE_PATH_PART,
+  LIMIT_PATH_PART,
+  QUERY_PATH_PART,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
-import { redirect, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Search: FC = (): JSX.Element => {
   const context = useContext(MainPageContext);
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
+  const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
     if (context) {
       localStorage.setItem(SEARCH_VALUE, context.searchValue);
       if (!localStorage.getItem(SEARCH_VALUE)) {
-        redirect(PATH_INITIAL);
+        console.log(1);
+
+        navigate(PATH_INITIAL);
       } else {
-        redirect(
-          `/${PIECE_PATH_PAGE}1/${PIECE_PATH_LIMIT}${limitNum}/${PIECE_PATH_QUERY}${context.searchValue}`
+        console.log(2);
+        navigate(
+          `/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limitNum}/${QUERY_PATH_PART}${context.searchValue}`
         );
       }
     }

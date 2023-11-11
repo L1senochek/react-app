@@ -14,9 +14,9 @@ import IAnimeData from '../../model/api/IAnimeData';
 import Loading from '../Loading/Loading';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import {
-  PIECE_PATH_PAGE,
-  PIECE_PATH_LIMIT,
-  PIECE_PATH_QUERY,
+  PAGE_PATH_PART,
+  LIMIT_PATH_PART,
+  QUERY_PATH_PART,
 } from '../../utils/constants/constants';
 
 const CardInfo: FC = (): JSX.Element => {
@@ -42,9 +42,9 @@ const CardInfo: FC = (): JSX.Element => {
   return (
     <div className="card-info">
       <Link
-        to={`/${PIECE_PATH_PAGE}${pageNum}/${PIECE_PATH_LIMIT}${limitNum}${
+        to={`/${PAGE_PATH_PART}${pageNum}/${LIMIT_PATH_PART}${limitNum}${
           context?.searchValue
-            ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+            ? `/${QUERY_PATH_PART}${context?.searchValue}`
             : ''
         }`}
         className="card-info__btn btn"
@@ -75,9 +75,9 @@ const CardInfo: FC = (): JSX.Element => {
                   className="background-window"
                   onClick={() =>
                     navigate(
-                      `/${PIECE_PATH_PAGE}${pageNum}/${PIECE_PATH_LIMIT}${limitNum}${
+                      `/${PAGE_PATH_PART}${pageNum}/${LIMIT_PATH_PART}${limitNum}${
                         context?.searchValue
-                          ? `/${PIECE_PATH_QUERY}${context?.searchValue}`
+                          ? `/${QUERY_PATH_PART}${context?.searchValue}`
                           : ''
                       }`
                     )

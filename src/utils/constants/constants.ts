@@ -6,10 +6,10 @@ export const API_LIMIT = 'limit=';
 export const PATH_MAIN_SECTION =
   '/page/:pageNum/limit/:limitNum/query?/:query?';
 export const PATH_INITIAL = 'page/1/limit/25';
-export const PIECE_PATH_PAGE = 'page/';
-export const PIECE_PATH_LIMIT = 'limit/';
-export const PIECE_PATH_QUERY = 'query/';
-export const PIECE_PATH_CARDID = 'card-id/';
+export const PAGE_PATH_PART = 'page/';
+export const LIMIT_PATH_PART = 'limit/';
+export const QUERY_PATH_PART = 'query/';
+export const CARDID_PATH_PART = 'card-id/';
 export const PATH_CARDID = 'card-id/:cardId';
 export const PATH_NOT_FOUND = '/not-found';
 

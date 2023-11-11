@@ -16,9 +16,9 @@ const getAnime: (
   searchValue = ''
 ) => {
   const res = await fetch(
-    `${API_URL}?sfw=true&${pageValue ? `${API_PAGE}${pageValue}` : ''}&${
-      limitValue ? `${API_LIMIT}${limitValue}` : ''
-    }${searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''}`
+    `${API_URL}?sfw=true&${`${API_PAGE}${pageValue}`}&${`${API_LIMIT}${limitValue}`}${
+      searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
+    }`
   );
   return res.json();
 };

@@ -12,7 +12,7 @@ import {
   PATH_CARDID,
   PATH_INITIAL,
   PATH_MAIN_SECTION,
-  PIECE_PATH_QUERY,
+  QUERY_PATH_PART,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import CardInfo, { CardInfoLoader } from '../CardInfo/CardInfo';
@@ -29,7 +29,7 @@ const Router = createBrowserRouter(
             <Navigate
               to={`${PATH_INITIAL}${
                 localStorage.getItem(SEARCH_VALUE)
-                  ? '/' + PIECE_PATH_QUERY + localStorage.getItem(SEARCH_VALUE)
+                  ? '/' + QUERY_PATH_PART + localStorage.getItem(SEARCH_VALUE)
                   : ''
               }`}
             />

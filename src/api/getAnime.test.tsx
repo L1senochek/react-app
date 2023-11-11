@@ -16,12 +16,12 @@ describe('getAnime: ', () => {
     json: vi.fn().mockResolvedValue(apiResMock),
   };
 
-  test('- get request with correct URL parameters with all values provided.', async () => {
+  test('- get request with correct URL parameters when search is not provided.', async () => {
     fetchMock.mockResolvedValue(mockResolvedValue);
-    await getAnime(1, 25, 'naruto');
+    await getAnime();
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25`
     );
   });
 
@@ -30,7 +30,7 @@ describe('getAnime: ', () => {
     await getAnime(1);
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}?sfw=true&${API_PAGE}1&limit=25`
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25`
     );
   });
 
@@ -39,7 +39,7 @@ describe('getAnime: ', () => {
     await getAnime(undefined, 25);
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}?sfw=true&page=1&${API_LIMIT}25`
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25`
     );
   });
 
@@ -48,7 +48,25 @@ describe('getAnime: ', () => {
     await getAnime(undefined, undefined, 'naruto');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}?sfw=true&page=1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
+    );
+  });
+
+  test('- get request with correct URL parameters with page & limit provided.', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    await getAnime(1, 25);
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25`
+    );
+  });
+
+  test('- get request with correct URL parameters with all values provided.', async () => {
+    fetchMock.mockResolvedValue(mockResolvedValue);
+    await getAnime(1, 25, 'naruto');
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      `${API_URL}?sfw=true&${API_PAGE}1&${API_LIMIT}25&${API_SEARCH_PARAM}naruto`
     );
   });
 
