@@ -22,6 +22,33 @@ describe('CardInfo:', () => {
     };
   });
 
+  test('- loading indicator is displayed while fetching data.', async () => {
+    const routes = [
+      {
+        path: `/page/1/limit/25/card-id/1`,
+        element: <CardInfo />,
+        loader: () => ({ cardId: { data: apiResDataMock } }),
+      },
+    ];
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: [`/page/1/limit/25/card-id/1`],
+    });
+
+    render(
+      <MainPageProvider>
+        <RouterProvider router={router} />
+      </MainPageProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByAltText('Loading')).toBeNull();
+      expect(screen.getByText('Test Anime')).toBeDefined();
+      expect(screen.getByText('24 min per episode')).toBeDefined();
+      expect(screen.getByText(`Finished`)).toBeDefined();
+    });
+  });
+
   test('- the detailed card component correctly displays the detailed card data.', async () => {
     const routes = [
       {
