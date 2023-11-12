@@ -13,7 +13,7 @@
     "prettier:fix": "npm run prettier -- --write",
     "prepare": "husky install",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage.enabled --coverage.all"
   },
   "husky": {
     "hooks": {
