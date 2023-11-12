@@ -47,4 +47,29 @@ describe('CardInfo:', () => {
       expect(screen.getByText(`Finished`)).toBeDefined();
     });
   });
+
+  test('- clicking the close button hides the component.', async () => {
+    const routes = [
+      {
+        path: `/page/1/limit/25/card-id/1`,
+        element: <CardInfo />,
+        loader: () => ({ cardId: { data: apiResDataMock } }),
+      },
+    ];
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: [`/page/1/limit/25/card-id/1`],
+    });
+
+    render(
+      <MainPageProvider>
+        <RouterProvider router={router} />
+      </MainPageProvider>
+    );
+
+    await waitFor(() => {
+      const closeButton = screen.getByText('x');
+      expect(closeButton.getAttribute('href')).toBe('/page/1/limit/25');
+    });
+  });
 });
