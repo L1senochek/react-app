@@ -42,7 +42,7 @@ describe('CardInfo:', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Test Anime!!!!!!!!!!')).toBeDefined();
+      expect(screen.getByText('Test Anime')).toBeDefined();
       expect(screen.getByText('24 min per episode')).toBeDefined();
       expect(screen.getByText(`Finished`)).toBeDefined();
     });
