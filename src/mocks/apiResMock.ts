@@ -6,12 +6,28 @@ export const apiResMock = {
     has_next_page: false,
     current_page: 1,
     items: {
-      count: 11,
-      total: 11,
-      per_page: 11,
+      count: 15,
+      total: 15,
+      per_page: 15,
     },
   },
-  data: apiResDataMock,
+  data: [
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+    apiResDataMock,
+  ],
 };
 
 export default apiResMock;
