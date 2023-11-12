@@ -56,7 +56,7 @@ describe('Cards: ', () => {
     await vi.dynamicImportSettled();
   });
 
-  test('- test that Card component renders.', async () => {
+  test('- the component renders the specified number of cards.', async () => {
     vi.mock('react-router-dom', async () => ({
       ...(await vi.importActual<typeof import('react-router-dom')>(
         'react-router-dom'
@@ -71,10 +71,12 @@ describe('Cards: ', () => {
     );
 
     const cardElement = screen.queryByText(/Test Anime 1/);
+    const cardElement2 = screen.queryByText(/Test Anime 2/);
     expect(cardElement).toBeDefined();
+    expect(cardElement2).toBeDefined();
   });
 
-  test('- test that Card component not renders.', async () => {
+  test('- an appropriate message is displayed if no cards are present.', async () => {
     vi.mock('react-router-dom', async () => ({
       ...(await vi.importActual<typeof import('react-router-dom')>(
         'react-router-dom'
