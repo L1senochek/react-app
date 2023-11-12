@@ -10,26 +10,24 @@ import {
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import { useNavigate, useParams } from 'react-router-dom';
+import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
 
 const Search: FC = (): JSX.Element => {
-  const context = useContext(MainPageContext);
+  const { searchValue, setSearchValue } = useContext(
+    MainPageContext
+  ) as IMainPageContextState;
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
   const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
-    if (context) {
-      localStorage.setItem(SEARCH_VALUE, context.searchValue);
-      if (!localStorage.getItem(SEARCH_VALUE)) {
-        console.log(1);
-
-        navigate(PATH_INITIAL);
-      } else {
-        console.log(2);
-        navigate(
-          `/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limitNum}/${QUERY_PATH_PART}${context.searchValue}`
-        );
-      }
+    localStorage.setItem(SEARCH_VALUE, searchValue);
+    if (!localStorage.getItem(SEARCH_VALUE)) {
+      navigate(PATH_INITIAL);
+    } else {
+      navigate(
+        `/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limitNum}/${QUERY_PATH_PART}${searchValue}`
+      );
     }
   };
 
@@ -41,7 +39,7 @@ const Search: FC = (): JSX.Element => {
 
   const searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    context?.setSearchValue(value);
+    setSearchValue(value);
   };
 
   const focused = isFocused ? 'focused' : '';
@@ -56,7 +54,7 @@ const Search: FC = (): JSX.Element => {
         type="search"
         placeholder="Search..."
         id="search"
-        value={context?.searchValue}
+        value={searchValue}
         onChange={searchChange}
         onKeyUp={keyUp}
         onFocus={() => setIsFocused(true)}
