@@ -1,4 +1,4 @@
-import { FC, Suspense, useContext } from 'react';
+import { FC, Suspense, useContext, useEffect } from 'react';
 import './card-info.scss';
 import {
   Await,
@@ -10,7 +10,6 @@ import {
   useParams,
 } from 'react-router-dom';
 import getAnimeId from '../../api/getAnimeId';
-import IAnimeData from '../../model/api/IAnimeData';
 import Loading from '../Loading/Loading';
 import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import {
@@ -18,10 +17,14 @@ import {
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
+import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
+import IAnimeResData from '../../model/api/IAnimeResData';
 
 const CardInfo: FC = (): JSX.Element => {
-  const { cardId } = useLoaderData() as { cardId: Promise<IAnimeData> };
-  const context = useContext(MainPageContext);
+  const { searchValue, arrResCard, setArrResCard } = useContext(
+    MainPageContext
+  ) as IMainPageContextState;
+  const { cardId } = useLoaderData() as { cardId: Promise<IAnimeResData> };
   const { pageNum, limitNum } = useParams();
   const navigate = useNavigate();
 
@@ -39,13 +42,17 @@ const CardInfo: FC = (): JSX.Element => {
     );
   };
 
+  useEffect(() => {
+    (async () => {
+      setArrResCard(await cardId);
+    })();
+  }, [cardId, setArrResCard]);
+
   return (
     <div className="card-info">
       <Link
         to={`/${PAGE_PATH_PART}${pageNum}/${LIMIT_PATH_PART}${limitNum}${
-          context?.searchValue
-            ? `/${QUERY_PATH_PART}${context?.searchValue}`
-            : ''
+          searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
         }`}
         className="card-info__btn btn"
       >
@@ -53,32 +60,41 @@ const CardInfo: FC = (): JSX.Element => {
       </Link>
       <Suspense fallback={<Loading />}>
         <Await resolve={cardId}>
-          {(cardsInfo) => {
+          {() => {
             return (
               <>
                 <div className="card-info__wrapper">
-                  <h1 className="card-info__title">{cardsInfo.data.title}</h1>
+                  <h1 className="card-info__title">
+                    {arrResCard?.data?.title}
+                  </h1>
                   <span className="card-info__img">
                     <img
                       className="card-info__img_src"
-                      src={`${cardsInfo.data.images.jpg.large_image_url}`}
+                      src={`${arrResCard?.data?.images.jpg.large_image_url}`}
                     />
                   </span>
-                  {createStructureRender('Score', cardsInfo.data.score)}
-                  {createStructureRender('Status', cardsInfo.data.status)}
-                  {createStructureRender('Type', cardsInfo.data.type)}
-                  {createStructureRender('Episodes', cardsInfo.data.episodes)}
-                  {createStructureRender('Duration', cardsInfo.data.duration)}
-                  {createStructureRender('Synopsis', cardsInfo.data.synopsis)}
+                  {createStructureRender('Score', arrResCard?.data?.score)}
+                  {createStructureRender('Status', arrResCard?.data?.status)}
+                  {createStructureRender('Type', arrResCard?.data?.type)}
+                  {createStructureRender(
+                    'Episodes',
+                    arrResCard?.data?.episodes
+                  )}
+                  {createStructureRender(
+                    'Duration',
+                    arrResCard?.data?.duration
+                  )}
+                  {createStructureRender(
+                    'Synopsis',
+                    arrResCard?.data?.synopsis
+                  )}
                 </div>
                 <div
                   className="background-window"
                   onClick={() =>
                     navigate(
                       `/${PAGE_PATH_PART}${pageNum}/${LIMIT_PATH_PART}${limitNum}${
-                        context?.searchValue
-                          ? `/${QUERY_PATH_PART}${context?.searchValue}`
-                          : ''
+                        searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
                       }`
                     )
                   }

@@ -5,6 +5,7 @@ import {
 } from '../../model/context/MainPageContext/MainPageContext';
 import { SEARCH_VALUE } from '../../utils/constants/constants';
 import IAnime from '../../model/api/IAnime';
+import IAnimeResData from '../../model/api/IAnimeResData';
 
 export const MainPageContext = createContext<IMainPageContextState | undefined>(
   undefined
@@ -17,12 +18,17 @@ export const MainPageProvider: FC<IMainPageProviderProps> = ({
     return localStorage.getItem(SEARCH_VALUE) || '';
   });
   const [arrRes, setArrRes] = useState<IAnime | undefined>(undefined);
+  const [arrResCard, setArrResCard] = useState<IAnimeResData | undefined>(
+    undefined
+  );
 
   const contextValue: IMainPageContextState = {
     searchValue,
     setSearchValue,
     arrRes,
     setArrRes,
+    arrResCard,
+    setArrResCard,
   };
 
   return (

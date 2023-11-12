@@ -1,18 +1,27 @@
 import { describe, expect, test } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  MemoryRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  createMemoryRouter,
+} from 'react-router-dom';
 import Card from './Card';
 import { MainPageProvider } from '../../context/MainPageContext/MainPageContext';
-import apiResDataMock from '../../mocks/apiResDataMock';
 import IAnimeData from '../../model/api/IAnimeData';
 import CardInfo from '../CardInfo/CardInfo';
+import apiResDataMock from '../../mocks/apiResDataMock';
 
 describe('Card: ', () => {
   test('- the Card component renders the relevant card data', () => {
     render(
       <MemoryRouter>
         <MainPageProvider>
-          <Card {...(apiResDataMock as IAnimeData)} />
+          <Card
+            key={apiResDataMock.mal_id}
+            {...(apiResDataMock as IAnimeData)}
+          />
         </MainPageProvider>
       </MemoryRouter>
     );
@@ -54,5 +63,41 @@ describe('Card: ', () => {
 
     const cardLink = screen.getByText(/Test Anime/i);
     fireEvent.click(cardLink);
+  });
+
+  test('- clicking triggers an additional API call to fetch detailed information.', async () => {
+    const routes = [
+      {
+        path: '/mock/path',
+        element: <CardInfo />,
+        loader: () => ({ cardId: { data: apiResDataMock } }),
+      },
+      {
+        path: '/:pageNum/:limitNum/:query/:cardId',
+        element: <CardInfo />,
+      },
+    ];
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: ['/mock/path'],
+    });
+
+    render(
+      <MainPageProvider>
+        <RouterProvider router={router} />
+      </MainPageProvider>
+    );
+
+    await waitFor(() => {
+      const cardLink = screen.getByText('Test Anime');
+      fireEvent.click(cardLink);
+
+      expect(screen.queryByText('Score:')).toBeDefined();
+      expect(screen.queryByText(/Status:/)).toBeDefined();
+      expect(screen.queryByText(/Type:/)).toBeDefined();
+      expect(screen.queryByText(/Episodes:/)).toBeDefined();
+      expect(screen.queryByText(/Duration:/)).toBeDefined();
+      expect(screen.queryByText(/Synopsis:/)).toBeDefined();
+    });
   });
 });
