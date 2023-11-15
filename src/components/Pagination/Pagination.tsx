@@ -1,17 +1,22 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { Await, Link, useLoaderData, useParams } from 'react-router-dom';
 import './pagination.scss';
 import Btn from '../Btn/Btn';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
+// import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import IAnime from '../../model/api/IAnime';
 import {
   PAGE_PATH_PART,
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
+import IconfigStore from '../../model/store/IconfigStore';
+import { useSelector } from 'react-redux';
 
 const Pagination: FC = (): JSX.Element => {
-  const context = useContext(MainPageContext);
+  // const context = useContext(MainPageContext);
+  const searchValue = useSelector(
+    (state: IconfigStore) => state.searchValue.searchValue
+  );
   const { pageNum, limitNum } = useParams();
   const data = useLoaderData() as { data: Promise<IAnime> };
   const visiblePage = 3;
@@ -33,9 +38,7 @@ const Pagination: FC = (): JSX.Element => {
             {startPage > 1 && (
               <Link
                 to={`/${PAGE_PATH_PART}${firstPage}/${LIMIT_PATH_PART}${limitNum}${
-                  context?.searchValue
-                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
-                    : ''
+                  searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
                 }`}
                 className="pagination__btn btn"
               >
@@ -51,9 +54,7 @@ const Pagination: FC = (): JSX.Element => {
                 to={`/${PAGE_PATH_PART}${
                   startPage + i
                 }/${LIMIT_PATH_PART}${limitNum}${
-                  context?.searchValue
-                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
-                    : ''
+                  searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
                 }`}
                 className={`pagination__btn btn ${
                   pageNum && startPage + i === +pageNum ? 'active' : ''
@@ -68,9 +69,7 @@ const Pagination: FC = (): JSX.Element => {
             {endPage < totalPages && (
               <Link
                 to={`/${PAGE_PATH_PART}${totalPages}/${LIMIT_PATH_PART}${limitNum}${
-                  context?.searchValue
-                    ? `/${QUERY_PATH_PART}${context?.searchValue}`
-                    : ''
+                  searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
                 }`}
                 className="pagination__btn btn"
               >

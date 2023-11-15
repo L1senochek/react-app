@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   AVG_LIMIT_PAGES,
@@ -9,10 +9,13 @@ import {
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
 import './limit-pages.scss';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
+import IconfigStore from '../../model/store/IconfigStore';
+import { useSelector } from 'react-redux';
 
 const LimitPages: FC = () => {
-  const context = useContext(MainPageContext);
+  const searchValue = useSelector(
+    (state: IconfigStore) => state.searchValue.searchValue
+  );
   const { limitNum } = useParams();
   const limitArr = [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES];
 
@@ -26,9 +29,7 @@ const LimitPages: FC = () => {
             limitNum && +limitNum === limit ? 'active' : ''
           }`}
           to={`/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limit}${
-            context?.searchValue
-              ? `/${QUERY_PATH_PART}${context?.searchValue}`
-              : ''
+            searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
           }`}
         >
           {limit}

@@ -19,11 +19,16 @@ import {
 } from '../../utils/constants/constants';
 import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
 import IAnimeResData from '../../model/api/IAnimeResData';
+import IconfigStore from '../../model/store/IconfigStore';
+import { useSelector } from 'react-redux';
 
 const CardInfo: FC = (): JSX.Element => {
-  const { searchValue, arrResCard, setArrResCard } = useContext(
+  const { arrResCard, setArrResCard } = useContext(
     MainPageContext
   ) as IMainPageContextState;
+  const searchValue = useSelector(
+    (state: IconfigStore) => state.searchValue.searchValue
+  );
   const { cardId } = useLoaderData() as { cardId: Promise<IAnimeResData> };
   const { pageNum, limitNum } = useParams();
   const navigate = useNavigate();

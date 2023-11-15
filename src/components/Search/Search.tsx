@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FC, useContext, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import './search.scss';
 import {
   PATH_INITIAL,
@@ -10,18 +9,26 @@ import {
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchValue, setSearchValueLS } from '../../store/searchValueSlice';
+import IconfigStore from '../../model/store/IconfigStore';
 
 const Search: FC = (): JSX.Element => {
-  const { searchValue, setSearchValue } = useContext(
-    MainPageContext
-  ) as IMainPageContextState;
+  // const { searchValue, setSearchValue } = useContext(
+  //   MainPageContext
+  // ) as IMainPageContextState;
+  const searchValue = useSelector(
+    (state: IconfigStore) => state.searchValue.searchValue
+  );
+  const dispatch = useDispatch();
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
   const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
-    localStorage.setItem(SEARCH_VALUE, searchValue);
+    // localStorage.setItem(SEARCH_VALUE, searchValue);
+    dispatch(setSearchValueLS(searchValue));
+
     if (!localStorage.getItem(SEARCH_VALUE)) {
       navigate(PATH_INITIAL);
     } else {
@@ -39,7 +46,8 @@ const Search: FC = (): JSX.Element => {
 
   const searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    setSearchValue(value);
+    // setSearchValue(value);
+    dispatch(setSearchValue(value));
   };
 
   const focused = isFocused ? 'focused' : '';

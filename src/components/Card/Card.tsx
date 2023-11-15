@@ -1,18 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './card.scss';
 import IAnimeData from '../../model/api/IAnimeData';
 import { Link, useParams } from 'react-router-dom';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import {
   PAGE_PATH_PART,
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
   CARDID_PATH_PART,
 } from '../../utils/constants/constants';
+import IconfigStore from '../../model/store/IconfigStore';
+import { useSelector } from 'react-redux';
 
 const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   const { pageNum, limitNum } = useParams();
-  const context = useContext(MainPageContext);
+  const searchValue = useSelector(
+    (state: IconfigStore) => state.searchValue.searchValue
+  );
 
   const createStructureRender = (
     propsTitle: string,
@@ -31,7 +34,7 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   return (
     <Link
       to={`/${PAGE_PATH_PART}${pageNum}/${LIMIT_PATH_PART}${limitNum}${
-        context?.searchValue ? `/${QUERY_PATH_PART}${context?.searchValue}` : ''
+        searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
       }/${CARDID_PATH_PART}${props.mal_id}`}
       className="card"
     >
