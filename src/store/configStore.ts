@@ -3,6 +3,7 @@ import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import IconfigStore from '../model/store/IconfigStore';
 import searchValueReducer from './searchValueSlice';
 import arrResReducer from './arrResSlice';
+import arrResCardReducer from './arrResCardSlice';
 
 const configStore = (): ToolkitStore<
   IconfigStore,
@@ -13,6 +14,7 @@ const configStore = (): ToolkitStore<
     reducer: {
       searchValue: searchValueReducer,
       arrRes: arrResReducer,
+      arrResCard: arrResCardReducer,
     },
   });
 };

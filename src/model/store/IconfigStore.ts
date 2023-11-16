@@ -1,4 +1,5 @@
 import IAnime from '../api/IAnime';
+import IAnimeResData from '../api/IAnimeResData';
 
 interface IconfigStore {
   searchValue: {
@@ -6,6 +7,9 @@ interface IconfigStore {
   };
   arrRes: {
     arrRes: IAnime | undefined;
+  };
+  arrResCard: {
+    arrResCard: IAnimeResData | undefined;
   };
 }
 

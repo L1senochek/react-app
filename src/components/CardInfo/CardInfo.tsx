@@ -1,4 +1,4 @@
-import { FC, Suspense, useContext, useEffect } from 'react';
+import { FC, Suspense, useEffect } from 'react';
 import './card-info.scss';
 import {
   Await,
@@ -11,21 +11,21 @@ import {
 } from 'react-router-dom';
 import getAnimeId from '../../api/getAnimeId';
 import Loading from '../Loading/Loading';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import {
   PAGE_PATH_PART,
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
-import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
 import IAnimeResData from '../../model/api/IAnimeResData';
 import IconfigStore from '../../model/store/IconfigStore';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setArrResCard } from '../../store/arrResCardSlice';
 
 const CardInfo: FC = (): JSX.Element => {
-  const { arrResCard, setArrResCard } = useContext(
-    MainPageContext
-  ) as IMainPageContextState;
+  const arrResCard = useSelector(
+    (state: IconfigStore) => state.arrResCard.arrResCard
+  );
+  const dispatch = useDispatch();
   const searchValue = useSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
@@ -49,9 +49,13 @@ const CardInfo: FC = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      setArrResCard(await cardId);
+      try {
+        dispatch(setArrResCard(await cardId));
+      } catch (error) {
+        console.error('Error fetching anime data: ', error);
+      }
     })();
-  }, [cardId, setArrResCard]);
+  }, [cardId, dispatch]);
 
   return (
     <div className="card-info">
@@ -65,13 +69,11 @@ const CardInfo: FC = (): JSX.Element => {
       </Link>
       <Suspense fallback={<Loading />}>
         <Await resolve={cardId}>
-          {() => {
-            return (
+          {() =>
+            arrResCard && (
               <>
                 <div className="card-info__wrapper">
-                  <h1 className="card-info__title">
-                    {arrResCard?.data?.title}
-                  </h1>
+                  <h1 className="card-info__title">{arrResCard?.data.title}</h1>
                   <span className="card-info__img">
                     <img
                       className="card-info__img_src"
@@ -105,8 +107,8 @@ const CardInfo: FC = (): JSX.Element => {
                   }
                 ></div>
               </>
-            );
-          }}
+            )
+          }
         </Await>
       </Suspense>
     </div>
