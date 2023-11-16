@@ -1,7 +1,8 @@
 import { AnyAction, ThunkMiddleware, configureStore } from '@reduxjs/toolkit';
-import searchValueReducer from './searchValueSlice';
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import IconfigStore from '../model/store/IconfigStore';
+import searchValueReducer from './searchValueSlice';
+import arrResReducer from './arrResSlice';
 
 const configStore = (): ToolkitStore<
   IconfigStore,
@@ -11,6 +12,7 @@ const configStore = (): ToolkitStore<
   return configureStore({
     reducer: {
       searchValue: searchValueReducer,
+      arrRes: arrResReducer,
     },
   });
 };

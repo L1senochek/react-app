@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
 import {
@@ -17,38 +17,40 @@ import {
   MIN_LIMIT_PAGES,
   PATH_NOT_FOUND,
 } from '../../utils/constants/constants';
-import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
-import { IMainPageContextState } from '../../model/context/MainPageContext/MainPageContext';
+import { useSelector, useDispatch } from 'react-redux';
+import IconfigStore from '../../model/store/IconfigStore';
+import { setArrRes } from '../../store/arrResSlice';
 
 const Cards: FC = (): JSX.Element => {
-  const { arrRes, setArrRes } = useContext(
-    MainPageContext
-  ) as IMainPageContextState;
+  const arrRes = useSelector((state: IconfigStore) => state.arrRes.arrRes);
+  const dispatch = useDispatch();
   const data = useLoaderData() as { data: Promise<IAnime> };
 
   useEffect(() => {
     (async () => {
-      setArrRes(await data.data);
+      try {
+        dispatch(setArrRes(await data.data));
+      } catch (error) {
+        console.error('Error fetching anime data: ', error);
+      }
     })();
-  }, [data.data, setArrRes]);
+  }, [data.data, dispatch]);
 
   return (
     <Await resolve={data.data}>
-      {() => {
-        return (
-          <div className="cards__wrapper">
-            {arrRes?.data.length !== 0 ? (
-              arrRes?.data.map(
-                (item: IAnimeData): JSX.Element => (
-                  <Card key={item.mal_id} {...item} />
-                )
+      {() => (
+        <div className="cards__wrapper">
+          {arrRes && arrRes.data.length !== 0 ? (
+            arrRes.data.map(
+              (item: IAnimeData): JSX.Element => (
+                <Card key={item.mal_id} {...item} />
               )
-            ) : (
-              <div className="cards__message">Sorry, nothing found.</div>
-            )}
-          </div>
-        );
-      }}
+            )
+          ) : (
+            <div className="cards__message">Sorry, nothing found.</div>
+          )}
+        </div>
+      )}
     </Await>
   );
 };

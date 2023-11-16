@@ -12,8 +12,7 @@ const searchValueSlice = createSlice({
       state.searchValue = payload;
     },
     setSearchValueLS(state, action) {
-      const { payload } = action;
-      localStorage.setItem(SEARCH_VALUE, payload);
+      localStorage.setItem(SEARCH_VALUE, action.payload);
     },
     removeSearchValue(state) {
       state.searchValue = '';
