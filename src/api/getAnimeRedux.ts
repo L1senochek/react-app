@@ -8,12 +8,12 @@ import {
 
 export const getAnime = createApi({
   reducerPath: 'getAnime',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
-  endpoints: (build) => ({
-    getAnime: build.query({
-      query: (pageValue = 1, limitValue = 25, searchValue = '') =>
-        `${API_URL}?sfw=true&${`${API_PAGE}${pageValue}`}&${`${API_LIMIT}${limitValue}`}${
-          searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}?sfw=true&` }),
+  endpoints: (builder) => ({
+    getAnime: builder.query({
+      query: (pageNum = 1, limitNum = 25, query = '') =>
+        `${`${API_PAGE}${pageNum}`}&${`${API_LIMIT}${limitNum}`}${
+          query ? `&${API_SEARCH_PARAM}${query}` : ''
         }`,
     }),
   }),
