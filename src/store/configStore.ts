@@ -1,22 +1,16 @@
-import { AnyAction, ThunkMiddleware, configureStore } from '@reduxjs/toolkit';
-import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
-import IconfigStore from '../model/store/IconfigStore';
+import { configureStore } from '@reduxjs/toolkit';
 import searchValueReducer from './searchValueSlice';
 import arrResReducer from './arrResSlice';
 import arrResCardReducer from './arrResCardSlice';
 
-const configStore = (): ToolkitStore<
-  IconfigStore,
-  AnyAction,
-  [ThunkMiddleware<IconfigStore, AnyAction>]
-> => {
-  return configureStore({
-    reducer: {
-      searchValue: searchValueReducer,
-      arrRes: arrResReducer,
-      arrResCard: arrResCardReducer,
-    },
-  });
-};
+const configStore = configureStore({
+  reducer: {
+    searchValue: searchValueReducer,
+    arrRes: arrResReducer,
+    arrResCard: arrResCardReducer,
+  },
+});
 
+export type RootState = ReturnType<typeof configStore.getState>;
+export type AppDispatch = typeof configStore.dispatch;
 export default configStore;

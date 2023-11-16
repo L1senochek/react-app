@@ -17,13 +17,13 @@ import {
   MIN_LIMIT_PAGES,
   PATH_NOT_FOUND,
 } from '../../utils/constants/constants';
-import { useSelector, useDispatch } from 'react-redux';
 import IconfigStore from '../../model/store/IconfigStore';
 import { setArrRes } from '../../store/arrResSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const Cards: FC = (): JSX.Element => {
-  const arrRes = useSelector((state: IconfigStore) => state.arrRes.arrRes);
-  const dispatch = useDispatch();
+  const arrRes = useAppSelector((state: IconfigStore) => state.arrRes.arrRes);
+  const dispatch = useAppDispatch();
   const data = useLoaderData() as { data: Promise<IAnime> };
 
   useEffect(() => {

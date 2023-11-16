@@ -9,15 +9,15 @@ import {
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { setSearchValue, setSearchValueLS } from '../../store/searchValueSlice';
 import IconfigStore from '../../model/store/IconfigStore';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const Search: FC = (): JSX.Element => {
-  const searchValue = useSelector(
+  const searchValue = useAppSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
   const navigate = useNavigate();

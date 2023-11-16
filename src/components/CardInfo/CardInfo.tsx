@@ -18,17 +18,17 @@ import {
 } from '../../utils/constants/constants';
 import IAnimeResData from '../../model/api/IAnimeResData';
 import IconfigStore from '../../model/store/IconfigStore';
-import { useSelector, useDispatch } from 'react-redux';
 import { setArrResCard } from '../../store/arrResCardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 const CardInfo: FC = (): JSX.Element => {
-  const arrResCard = useSelector(
+  const arrResCard = useAppSelector(
     (state: IconfigStore) => state.arrResCard.arrResCard
   );
-  const searchValue = useSelector(
+  const searchValue = useAppSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { cardId } = useLoaderData() as { cardId: Promise<IAnimeResData> };
   const { pageNum, limitNum } = useParams();
   const navigate = useNavigate();
