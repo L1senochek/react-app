@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Card from '../Card/Card';
 import './cards.scss';
 import { LoaderFunction, defer, redirect, useParams } from 'react-router-dom';
@@ -11,20 +11,21 @@ import {
   MIN_LIMIT_PAGES,
   PATH_NOT_FOUND,
 } from '../../utils/constants/constants';
-import IconfigStore from '../../model/store/IconfigStore';
+// import IconfigStore from '../../model/store/IconfigStore';
 import { setArrRes } from '../../store/arrResSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { useGetAnimeQuery } from '../../api/getAnimeRedux';
 
 const Cards: FC = (): JSX.Element => {
-  const arrRes = useAppSelector((state: IconfigStore) => state.arrRes.arrRes);
+  // const arrRes = useAppSelector((state: IconfigStore) => state.arrRes.arrRes);
   const dispatch = useAppDispatch();
   // const data = useLoaderData() as { data: Promise<IAnime> };
   const { pageNum, limitNum, query } = useParams();
   const { data = [] } = useGetAnimeQuery({ pageNum, limitNum, query });
 
-  dispatch(setArrRes(data.data));
-  console.log(arrRes, 'arrRes');
+  useEffect(() => {
+    dispatch(setArrRes(data.data));
+  }, [data.data, dispatch]);
 
   return (
     <div className="cards__wrapper">
