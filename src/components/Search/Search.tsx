@@ -14,9 +14,6 @@ import { setSearchValue, setSearchValueLS } from '../../store/searchValueSlice';
 import IconfigStore from '../../model/store/IconfigStore';
 
 const Search: FC = (): JSX.Element => {
-  // const { searchValue, setSearchValue } = useContext(
-  //   MainPageContext
-  // ) as IMainPageContextState;
   const searchValue = useSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
@@ -26,7 +23,6 @@ const Search: FC = (): JSX.Element => {
   const navigate = useNavigate();
 
   const buttonClick = async (): Promise<void> => {
-    // localStorage.setItem(SEARCH_VALUE, searchValue);
     dispatch(setSearchValueLS(searchValue));
 
     if (!localStorage.getItem(SEARCH_VALUE)) {
@@ -46,7 +42,6 @@ const Search: FC = (): JSX.Element => {
 
   const searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    // setSearchValue(value);
     dispatch(setSearchValue(value));
   };
 

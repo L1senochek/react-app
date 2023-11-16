@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Await, Link, useLoaderData, useParams } from 'react-router-dom';
 import './pagination.scss';
 import Btn from '../Btn/Btn';
-// import { MainPageContext } from '../../context/MainPageContext/MainPageContext';
 import IAnime from '../../model/api/IAnime';
 import {
   PAGE_PATH_PART,
@@ -13,7 +12,6 @@ import IconfigStore from '../../model/store/IconfigStore';
 import { useSelector } from 'react-redux';
 
 const Pagination: FC = (): JSX.Element => {
-  // const context = useContext(MainPageContext);
   const searchValue = useSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );

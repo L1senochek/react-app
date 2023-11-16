@@ -18,4 +18,5 @@ const configStore = (): ToolkitStore<
     },
   });
 };
+
 export default configStore;

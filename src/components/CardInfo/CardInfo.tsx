@@ -25,10 +25,10 @@ const CardInfo: FC = (): JSX.Element => {
   const arrResCard = useSelector(
     (state: IconfigStore) => state.arrResCard.arrResCard
   );
-  const dispatch = useDispatch();
   const searchValue = useSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
+  const dispatch = useDispatch();
   const { cardId } = useLoaderData() as { cardId: Promise<IAnimeResData> };
   const { pageNum, limitNum } = useParams();
   const navigate = useNavigate();
