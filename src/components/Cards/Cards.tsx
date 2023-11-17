@@ -7,16 +7,20 @@ import { setArrRes } from '../../store/arrResSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useGetAnimeQuery } from '../../api/getAnime';
 import IconfigStore from '../../model/store/IconfigStore';
+import { setCardsLoading } from '../../store/loadingSlice';
 
 const Cards: FC = (): JSX.Element => {
   const arrRes = useAppSelector((state: IconfigStore) => state.arrRes.arrRes);
   const dispatch = useAppDispatch();
   const { pageNum, limitNum, query } = useParams();
   const { data = [] } = useGetAnimeQuery({ pageNum, limitNum, query });
+  const cardsLoading = useAppSelector((state) => state.loading.cardsLoading);
 
   useEffect(() => {
+    dispatch(setCardsLoading(true));
     dispatch(setArrRes(data));
-  }, [data, dispatch]);
+    dispatch(setCardsLoading(false));
+  }, [data, dispatch, cardsLoading]);
 
   return (
     <div className="cards__wrapper">

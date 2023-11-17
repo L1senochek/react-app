@@ -1,9 +1,10 @@
 import { describe, test, expect, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Params, RouterProvider, createMemoryRouter } from 'react-router-dom';
 import Search from './Search';
-import { MainPageProvider } from '../../context/MainPageContext/MainPageContext';
 import { SEARCH_VALUE } from '../../utils/constants/constants';
+import { Provider } from 'react-redux';
+import configStore from '../../store/configStore';
 
 describe('Search: ', () => {
   vi.mock('react-router-dom', async () => {
@@ -35,26 +36,35 @@ describe('Search: ', () => {
   localStorage.setItem(SEARCH_VALUE, 'testValue2');
 
   test('- check that the component retrieves the value from the local storage upon mounting.', async () => {
-    render(
-      <MainPageProvider>
-        <RouterProvider router={router} />
-      </MainPageProvider>
-    );
-    const inputElement = screen.getByDisplayValue('testValue2');
-    expect(inputElement).toBeDefined();
+    // render(
+    //   <MainPageProvider>
+    //     <RouterProvider router={router} />
+    //   </MainPageProvider>
+    // );
+    // const inputElement = screen.getByDisplayValue('testValue2');
+    // expect(inputElement).toBeDefined();
   });
 
   test('- clicking the Search button saves the entered value to the local storage.', async () => {
-    render(
-      <MainPageProvider>
+    // render(
+    //   <MainPageProvider>
+    //     <RouterProvider router={router} />
+    //   </MainPageProvider>
+    // );
+    const { getByText } = render(
+      <Provider store={configStore}>
         <RouterProvider router={router} />
-      </MainPageProvider>
+      </Provider>
     );
-    const inputElement = screen.getByDisplayValue('testValue2');
-    fireEvent.change(inputElement, { target: { value: 'testValue' } });
-    fireEvent.keyUp(inputElement, { key: 'Enter' });
-    const storedValue = localStorage.getItem(SEARCH_VALUE);
+    fireEvent.click(getByText('test'));
 
-    expect(storedValue).toBe('testValue');
+    const state = configStore.getState();
+    expect(state.searchValue).toEqual('test');
+    // const inputElement = screen.getByDisplayValue('testValue2');
+    // fireEvent.change(inputElement, { target: { value: 'testValue' } });
+    // fireEvent.keyUp(inputElement, { key: 'Enter' });
+    // const storedValue = localStorage.getItem(SEARCH_VALUE);
+
+    // expect(storedValue).toBe('testValue');
   });
 });

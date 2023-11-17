@@ -11,6 +11,10 @@ interface IconfigStore {
   arrResCard: {
     arrResCard: IAnimeResData | undefined;
   };
+  loading: {
+    cardsLoading: boolean;
+    cardsInfoLoading: boolean;
+  };
 }
 
 export default IconfigStore;

@@ -11,5 +11,4 @@ const arrResSlice = createSlice({
 });
 
 export const { setArrRes } = arrResSlice.actions;
-
 export default arrResSlice.reducer;

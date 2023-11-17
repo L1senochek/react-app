@@ -11,5 +11,4 @@ const arrResCardSlice = createSlice({
 });
 
 export const { setArrResCard } = arrResCardSlice.actions;
-
 export default arrResCardSlice.reducer;
