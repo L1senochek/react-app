@@ -6,7 +6,7 @@ import Pagination from '../Pagination/Pagination';
 import LimitPages from '../LimitPage/LimitPages';
 import Loading from '../Loading/Loading';
 import { Outlet, useParams } from 'react-router-dom';
-import { useGetAnimeQuery } from '../../api/getAnimeRedux';
+import { useGetAnimeQuery } from '../../api/getAnime';
 
 const MainSection: FC = (): JSX.Element => {
   const { pageNum, limitNum, query } = useParams();
@@ -30,7 +30,6 @@ const MainSection: FC = (): JSX.Element => {
             <Pagination />
           </>
         )}
-
         <Outlet />
       </div>
     </>

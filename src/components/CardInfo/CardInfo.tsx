@@ -10,7 +10,7 @@ import {
 import IconfigStore from '../../model/store/IconfigStore';
 import { setArrResCard } from '../../store/arrResCardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useGetAnimeIdQuery } from '../../api/getAnimeRedux';
+import { useGetAnimeIdQuery } from '../../api/getAnime';
 
 const CardInfo: FC = (): JSX.Element => {
   const arrResCard = useAppSelector(

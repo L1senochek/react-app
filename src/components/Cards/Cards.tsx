@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import IAnimeData from '../../model/api/IAnimeData';
 import { setArrRes } from '../../store/arrResSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useGetAnimeQuery } from '../../api/getAnimeRedux';
+import { useGetAnimeQuery } from '../../api/getAnime';
 import IconfigStore from '../../model/store/IconfigStore';
 
 const Cards: FC = (): JSX.Element => {

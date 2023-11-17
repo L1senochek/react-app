@@ -1,26 +1,25 @@
-import IAnime from '../model/api/IAnime';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  API_LIMIT,
-  API_PAGE,
-  API_SEARCH_PARAM,
   API_URL,
+  API_PAGE,
+  API_LIMIT,
+  API_SEARCH_PARAM,
 } from '../utils/constants/constants';
 
-const getAnime: (
-  limitValue?: number | string,
-  pageValue?: number | string,
-  searchValue?: string
-) => Promise<IAnime> = async (
-  pageValue = 1,
-  limitValue = 25,
-  searchValue = ''
-) => {
-  const res = await fetch(
-    `${API_URL}?sfw=true&${`${API_PAGE}${pageValue}`}&${`${API_LIMIT}${limitValue}`}${
-      searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
-    }`
-  );
-  return res.json();
-};
+export const getAnime = createApi({
+  reducerPath: 'getAnime',
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_URL}` }),
+  endpoints: (builder) => ({
+    getAnime: builder.query({
+      query: ({ pageNum = 1, limitNum = 25, query = '' }) =>
+        `?sfw=true&${`${API_PAGE}${pageNum}`}&${`${API_LIMIT}${limitNum}`}${
+          query ? `&${API_SEARCH_PARAM}${query}` : ''
+        }`,
+    }),
+    getAnimeId: builder.query({
+      query: ({ id = '' }) => `${id}`,
+    }),
+  }),
+});
 
-export default getAnime;
+export const { useGetAnimeQuery, useGetAnimeIdQuery } = getAnime;

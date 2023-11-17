@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchValueReducer from './searchValueSlice';
 import arrResReducer from './arrResSlice';
 import arrResCardReducer from './arrResCardSlice';
-import { getAnime } from '../api/getAnimeRedux';
+import { getAnime } from '../api/getAnime';
 
 const configStore = configureStore({
   reducer: {

@@ -9,7 +9,7 @@ import {
 } from '../../utils/constants/constants';
 import IconfigStore from '../../model/store/IconfigStore';
 import { useAppSelector } from '../../store/hooks';
-import { useGetAnimeQuery } from '../../api/getAnimeRedux';
+import { useGetAnimeQuery } from '../../api/getAnime';
 
 const Pagination: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
