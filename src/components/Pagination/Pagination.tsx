@@ -9,16 +9,12 @@ import {
 } from '../../utils/constants/constants';
 import IconfigStore from '../../model/store/IconfigStore';
 import { useAppSelector } from '../../store/hooks';
-// import { setArrRes } from '../../store/arrResSlice';
 import { useGetAnimeQuery } from '../../api/getAnimeRedux';
 
 const Pagination: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
-  // const { pageNum, limitNum } = useParams();
-  // const data = useLoaderData() as { data: Promise<IAnime> };
-  // const dispatch = useAppDispatch();
   const { pageNum, limitNum, query } = useParams();
   const params = { pageNum, limitNum, query };
   const { data = [] } = useGetAnimeQuery(params);
@@ -33,13 +29,6 @@ const Pagination: FC = (): JSX.Element => {
     (pageNum ? +pageNum : 1) - Math.floor(visiblePage / 2)
   );
   const endPage = Math.min(totalPages, startPage + visiblePage - 1);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     dispatch(setArrRes(data.data));
-  //     console.log(`data`, data);
-  //   })();
-  // }, [data, data.data, dispatch, refetch]);
 
   return (
     <div className="pagination">

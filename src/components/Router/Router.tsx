@@ -7,7 +7,6 @@ import {
 import MainPage from '../../pages/MainPage/MainPage';
 import NotFound from '../NotFound/NotFound';
 import MainSection from '../MainSection/MainSection';
-import { CardsLoader } from '../Cards/Cards';
 import {
   PATH_CARDID,
   PATH_INITIAL,
@@ -15,7 +14,7 @@ import {
   QUERY_PATH_PART,
   SEARCH_VALUE,
 } from '../../utils/constants/constants';
-import CardInfo, { CardInfoLoader } from '../CardInfo/CardInfo';
+import CardInfo from '../CardInfo/CardInfo';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const Router = createBrowserRouter(
@@ -35,18 +34,8 @@ const Router = createBrowserRouter(
             />
           }
         />
-        <Route
-          id="cards"
-          path={PATH_MAIN_SECTION}
-          element={<MainSection />}
-          loader={CardsLoader}
-        >
-          <Route
-            id="cardId"
-            path={PATH_CARDID}
-            element={<CardInfo />}
-            loader={CardInfoLoader}
-          />
+        <Route id="cards" path={PATH_MAIN_SECTION} element={<MainSection />}>
+          <Route id="cardId" path={PATH_CARDID} element={<CardInfo />} />
         </Route>
         <Route path="*" element={<NotFound />} />
         <Route path="not-found" element={<NotFound />} />
