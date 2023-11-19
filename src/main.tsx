@@ -9,7 +9,7 @@ import configStore from './store/configStore';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundler>
-      <Provider store={configStore}>
+      <Provider store={configStore()}>
         <App />
       </Provider>
     </ErrorBoundler>

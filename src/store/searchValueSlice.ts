@@ -4,7 +4,7 @@ import { SEARCH_VALUE } from '../utils/constants/constants';
 const searchValueSlice = createSlice({
   name: 'searchValue',
   initialState: {
-    searchValue: localStorage.getItem(SEARCH_VALUE) || '',
+    searchValue: localStorage.getItem(SEARCH_VALUE) ?? '',
   },
   reducers: {
     setSearchValue(state, action) {

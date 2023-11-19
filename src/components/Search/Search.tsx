@@ -10,12 +10,12 @@ import {
 } from '../../utils/constants/constants';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setSearchValue, setSearchValueLS } from '../../store/searchValueSlice';
-import IconfigStore from '../../model/store/IconfigStore';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/configStore';
 
 const Search: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
-    (state: IconfigStore) => state.searchValue.searchValue
+    (state: RootState) => state.searchValue.searchValue
   );
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);

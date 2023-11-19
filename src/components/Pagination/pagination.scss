@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: $pagination-btn-width;
+    min-width: $pagination-btn-width;
     &.active {
       box-shadow: $box-shadow-card;
       border-color: $main-color;

@@ -1,10 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import IArrResCardState from '../model/store/IArrResCardState';
+import IAnimeResData from '../model/api/IAnimeResData';
+
+const initialState: IArrResCardState = {
+  arrResCard: undefined,
+};
 
 const arrResCardSlice = createSlice({
   name: 'arrResCard',
-  initialState: { arrResCard: undefined },
+  initialState,
   reducers: {
-    setArrResCard(state, action) {
+    setArrResCard(state, action: PayloadAction<IAnimeResData>) {
       state.arrResCard = action.payload;
     },
   },

@@ -10,13 +10,15 @@ import {
 } from '../../utils/constants/constants';
 import './limit-pages.scss';
 import IconfigStore from '../../model/store/IconfigStore';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setlimit } from '../../store/limitSlice';
 
 const LimitPages: FC = () => {
-  const searchValue = useSelector(
+  const searchValue = useAppSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
   const { limitNum } = useParams();
+  const dispatch = useAppDispatch();
   const limitArr = [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES];
 
   return (
@@ -31,6 +33,7 @@ const LimitPages: FC = () => {
           to={`/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limit}${
             searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
           }`}
+          onClick={() => dispatch(setlimit(limit))}
         >
           {limit}
         </Link>

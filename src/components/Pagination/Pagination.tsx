@@ -7,13 +7,13 @@ import {
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
-import IconfigStore from '../../model/store/IconfigStore';
 import { useAppSelector } from '../../store/hooks';
 import { useGetAnimeQuery } from '../../api/getAnime';
+import { RootState } from '../../store/configStore';
 
 const Pagination: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
-    (state: IconfigStore) => state.searchValue.searchValue
+    (state: RootState) => state.searchValue.searchValue
   );
   const { pageNum, limitNum, query } = useParams();
   const params = { pageNum, limitNum, query };

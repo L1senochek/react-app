@@ -7,17 +7,17 @@ import {
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
-import IconfigStore from '../../model/store/IconfigStore';
 import { setArrResCard } from '../../store/arrResCardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useGetAnimeIdQuery } from '../../api/getAnime';
+import { RootState } from '../../store/configStore';
 
 const CardInfo: FC = (): JSX.Element => {
   const arrResCard = useAppSelector(
-    (state: IconfigStore) => state.arrResCard.arrResCard
+    (state: RootState) => state.arrResCard.arrResCard
   );
   const searchValue = useAppSelector(
-    (state: IconfigStore) => state.searchValue.searchValue
+    (state: RootState) => state.searchValue.searchValue
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

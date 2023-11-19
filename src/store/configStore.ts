@@ -1,22 +1,34 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {
+  PreloadedState,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
 import searchValueReducer from './searchValueSlice';
 import arrResReducer from './arrResSlice';
 import arrResCardReducer from './arrResCardSlice';
 import { getAnime } from '../api/getAnime';
 import loadingReducer from './loadingSlice';
+import limitReducer from './limitSlice';
 
-const configStore = configureStore({
-  reducer: {
-    searchValue: searchValueReducer,
-    arrRes: arrResReducer,
-    arrResCard: arrResCardReducer,
-    loading: loadingReducer,
-    [getAnime.reducerPath]: getAnime.reducer,
-  },
-  middleware: (getDefaultMiddlware) =>
-    getDefaultMiddlware().concat(getAnime.middleware),
+const rootReducer = combineReducers({
+  searchValue: searchValueReducer,
+  arrRes: arrResReducer,
+  arrResCard: arrResCardReducer,
+  loading: loadingReducer,
+  limit: limitReducer,
+  [getAnime.reducerPath]: getAnime.reducer,
 });
 
-export type RootState = ReturnType<typeof configStore.getState>;
-export type AppDispatch = typeof configStore.dispatch;
+export const configStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddlware) =>
+      getDefaultMiddlware().concat(getAnime.middleware),
+    preloadedState,
+  });
+};
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof configStore>;
+export type AppDispatch = AppStore['dispatch'];
 export default configStore;
