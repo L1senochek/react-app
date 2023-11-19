@@ -1,0 +1,10 @@
+@import '../variables.scss';
+
+@mixin flex-direction-column($class) {
+  #{$class} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
