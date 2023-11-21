@@ -1,7 +1,8 @@
 import { describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Cards from './Cards';
-import { MainPageProvider } from '../../context/MainPageContext/MainPageContext';
+import { Provider } from 'react-redux';
+import configStore from '../../store/configStore';
 
 const mockAnimeData = {
   data: [
@@ -48,9 +49,9 @@ describe('Cards: ', () => {
     });
 
     render(
-      <MainPageProvider>
+      <Provider store={configStore()}>
         <Cards />
-      </MainPageProvider>
+      </Provider>
     );
 
     await vi.dynamicImportSettled();
@@ -65,9 +66,9 @@ describe('Cards: ', () => {
     }));
 
     render(
-      <MainPageProvider>
+      <Provider store={configStore()}>
         <Cards />
-      </MainPageProvider>
+      </Provider>
     );
 
     const cardElement = screen.queryByText(/Test Anime 1/);
@@ -85,9 +86,9 @@ describe('Cards: ', () => {
     }));
 
     render(
-      <MainPageProvider>
+      <Provider store={configStore()}>
         <Cards />
-      </MainPageProvider>
+      </Provider>
     );
 
     const cardElement = screen.queryByText(/Sorry, nothing found./);
