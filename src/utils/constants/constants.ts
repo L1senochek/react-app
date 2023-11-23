@@ -1,3 +1,5 @@
+export const MY_GITHUB_URL = 'https://github.com/L1senochek';
+
 export const API_URL = 'https://api.jikan.moe/v4/anime';
 export const API_SEARCH_PARAM = 'q=';
 export const API_PAGE = 'page=';
