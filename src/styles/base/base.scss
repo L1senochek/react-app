@@ -1,0 +1,16 @@
+@import '../variables.scss';
+
+html {
+  font-size: $font-size-px;
+}
+
+.body {
+  color: $main-color;
+  font-size: $font-size-px;
+  font-family: $font-family-default;
+  font-weight: 400;
+  letter-spacing: 1px;
+  background-color: $background-color;
+  min-height: 100vh;
+  min-width: 320px;
+}
