@@ -1,5 +1,5 @@
 @import './variables.scss';
-@import './base/base.scss';
+@import './base/base.module.scss';
 
 :root {
   --max-width: 1100px;
@@ -96,14 +96,12 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  font-size: $font-size-px;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {
