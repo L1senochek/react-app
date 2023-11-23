@@ -1,0 +1,47 @@
+import {
+  Navigate,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import MainPage from '../../pages/MainPage/MainPage';
+import NotFound from '../NotFound/NotFound';
+import MainSection from '../MainSection/MainSection';
+import {
+  PATH_CARDID,
+  PATH_INITIAL,
+  PATH_MAIN_SECTION,
+  QUERY_PATH_PART,
+  SEARCH_VALUE,
+} from '../../utils/constants/constants';
+import CardInfo from '../CardInfo/CardInfo';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+
+const Router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<MainPage />} errorElement={<ErrorMessage />}>
+        <Route
+          path=""
+          index
+          element={
+            <Navigate
+              to={`${PATH_INITIAL}${
+                localStorage.getItem(SEARCH_VALUE)
+                  ? '/' + QUERY_PATH_PART + localStorage.getItem(SEARCH_VALUE)
+                  : ''
+              }`}
+            />
+          }
+        />
+        <Route id="cards" path={PATH_MAIN_SECTION} element={<MainSection />}>
+          <Route id="cardId" path={PATH_CARDID} element={<CardInfo />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+        <Route path="not-found" element={<NotFound />} />
+      </Route>
+    </>
+  )
+);
+
+export default Router;
