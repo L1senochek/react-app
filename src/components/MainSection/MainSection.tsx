@@ -1,36 +1,29 @@
+'use client';
 import React, { FC } from 'react';
-import './main-section.scss';
-import Cards from '../Cards/Cards';
-import ErrorBtn from '../ErrorBtn/ErrorBtn';
-import Pagination from '../Pagination/Pagination';
-import LimitPages from '../LimitPage/LimitPages';
-import Loading from '../Loading/Loading';
-import { Outlet, useParams } from 'react-router-dom';
-import { useGetAnimeQuery } from '../../api/getAnime';
+import styles from './main-section.module.scss';
+// import Cards from '../Cards/Cards';
+// import Pagination from '../Pagination/Pagination';
+import ErrorBtn from '@/components/ErrorBtn/ErrorBtn';
+import LimitPages from '@/components/LimitPage/LimitPages';
+// import Loading from '../Loading/Loading';
+// import { useGetAnimeQuery } from '../../api/getAnime';
 
 const MainSection: FC = (): JSX.Element => {
-  const { pageNum, limitNum, query } = useParams();
-  const { isLoading } = useGetAnimeQuery({ pageNum, limitNum, query });
+  // const { pageNum, limitNum, query } = useParams();
+  // const { isLoading } = useGetAnimeQuery({ pageNum, limitNum, query });
 
   return (
     <>
-      <div className="main-section">
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <div className="main-section__top">
-              <h2 className="main-section__title">Titles:</h2>
-              <div className="main-section__nav-btn">
-                <ErrorBtn />
-                <LimitPages />
-              </div>
-            </div>
-            <Cards />
-            <Pagination />
-          </>
-        )}
-        <Outlet />
+      <div className={styles['main-section']}>
+        <div className={styles['main-section__top']}>
+          <h2 className={styles['main-section__title']}>Titles:</h2>
+          <div className={styles['main-section__nav-btn']}>
+            <ErrorBtn />
+            <LimitPages />
+          </div>
+        </div>
+        {/* <Cards /> */}
+        {/* <Pagination /> */}
       </div>
     </>
   );

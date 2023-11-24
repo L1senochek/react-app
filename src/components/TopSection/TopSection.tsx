@@ -1,6 +1,7 @@
+'use client';
 import React, { FC } from 'react';
-import Search from '../Search/Search';
 import './top-section.scss';
+import Search from '@/components/Search/Search';
 
 const TopSection: FC = (): JSX.Element => {
   return (

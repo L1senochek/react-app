@@ -1,13 +1,13 @@
 'use client';
 import React, { ChangeEvent, FC, useState } from 'react';
-import IconLoupe from '../IconLoupe/IconLoupe';
+import IconLoupe from '@/components/IconLoupe/IconLoupe';
 import style from './search.module.scss';
 import {
   PATH_INITIAL,
-  PAGE_PATH_PART,
-  LIMIT_PATH_PART,
-  QUERY_PATH_PART,
   SEARCH_VALUE,
+  API_PAGE,
+  API_LIMIT,
+  API_SEARCH_PARAM,
 } from '@/utils/constants/constants';
 import {
   setSearchValue,
@@ -15,25 +15,25 @@ import {
 } from '@/store/slices/searchValueSlice';
 import { RootState } from '@/store/configStore';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Search: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
     (state: RootState) => state.searchValue.searchValue
   );
+  const limitNum = useAppSelector((state: RootState) => state.limit.limit);
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
-  const { limitNum } = useParams();
   const router = useRouter();
 
   const buttonClick = async (): Promise<void> => {
     dispatch(setSearchValueLS(searchValue));
 
     if (!localStorage.getItem(SEARCH_VALUE)) {
-      router.push(PATH_INITIAL);
+      router.replace(PATH_INITIAL);
     } else {
-      router.push(
-        `/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limitNum}/${QUERY_PATH_PART}${searchValue}`
+      router.replace(
+        `/?${API_PAGE}1&${API_LIMIT}${limitNum}&${API_SEARCH_PARAM}${searchValue}`
       );
     }
   };
