@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import '../styles/globals.scss';
-import style from '../styles/base/base.module.scss';
-import FooterComponent from '../components/Footer/FooterComponent';
+import '@/styles/globals.scss';
+import style from '@/styles/base/base.module.scss';
+import FooterComponent from '@/components/Footer/FooterComponent';
+import HeaderComponent from '@/components/Header/HeaderComponent';
+import { ReduxProvider } from '@/store/ReduxProvider';
+import TopSection from '@/components/TopSection/TopSection';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,10 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${style['body']}`}>
-        <>
+        <ReduxProvider>
+          <HeaderComponent />
+          <TopSection />
           {children}
           <FooterComponent />
-        </>
+        </ReduxProvider>
       </body>
     </html>
   );

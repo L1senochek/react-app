@@ -5,7 +5,7 @@
 
 .top-section {
   &__search_wrapper {
-    padding: $search-wrapper-padding 0;
+    padding-bottom: $search-wrapper-padding;
   }
   &__separator {
     border-color: $semi-transparent-line-color;

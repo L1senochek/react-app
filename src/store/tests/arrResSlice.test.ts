@@ -1,5 +1,5 @@
 import { assert, describe, test } from 'vitest';
-import arrResReducer, { setArrRes } from '../arrResSlice';
+import arrResReducer, { setArrRes } from '../slices/arrResSlice';
 import apiResMock from '../../mocks/apiResMock';
 
 describe('arrResSlice: ', () => {

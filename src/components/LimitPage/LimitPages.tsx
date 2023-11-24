@@ -11,7 +11,7 @@ import {
 import './limit-pages.scss';
 import IconfigStore from '../../model/store/IconfigStore';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setlimit } from '../../store/limitSlice';
+import { setlimit } from '../../store/slices/limitSlice';
 
 const LimitPages: FC = () => {
   const searchValue = useAppSelector(

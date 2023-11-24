@@ -1,5 +1,5 @@
 import { assert, describe, test } from 'vitest';
-import searchValueReducer, { setSearchValue } from '../searchValueSlice';
+import searchValueReducer, { setSearchValue } from '../slices/searchValueSlice';
 
 describe('searchValueSlice: ', () => {
   test('- setSearchValue is updated correctly', () => {

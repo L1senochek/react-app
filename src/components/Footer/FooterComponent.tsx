@@ -1,14 +1,15 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { MY_GITHUB_URL } from '@/src/utils/constants/constants';
-import IconGithub from '../IconGithub/IconGithub';
+import { MY_GITHUB_URL } from '@/utils/constants/constants';
+import style from './footer.module.scss';
+import IconGithub from '@/components/IconGithub/IconGithub';
 
 const FooterComponent: FC = (): JSX.Element => {
   return (
-    <footer>
-      <ul>
-        <li>2023</li>
-        <li>
+    <footer className={style['footer']}>
+      <ul className={style['footer__list']}>
+        <li className={style['footer__item']}>2023</li>
+        <li className={style['footer__item']}>
           <Link href={MY_GITHUB_URL} target="_blank">
             <IconGithub />
           </Link>

@@ -1,17 +1,21 @@
+'use client';
 import React, { ChangeEvent, FC, useState } from 'react';
 import IconLoupe from '../IconLoupe/IconLoupe';
-import './search.scss';
+import style from './search.module.scss';
 import {
   PATH_INITIAL,
   PAGE_PATH_PART,
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
   SEARCH_VALUE,
-} from '../../utils/constants/constants';
-import { useNavigate, useParams } from 'react-router-dom';
-import { setSearchValue, setSearchValueLS } from '../../store/searchValueSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { RootState } from '../../store/configStore';
+} from '@/utils/constants/constants';
+import {
+  setSearchValue,
+  setSearchValueLS,
+} from '@/store/slices/searchValueSlice';
+import { RootState } from '@/store/configStore';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useParams, useRouter } from 'next/navigation';
 
 const Search: FC = (): JSX.Element => {
   const searchValue = useAppSelector(
@@ -20,15 +24,15 @@ const Search: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
   const { limitNum } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const buttonClick = async (): Promise<void> => {
     dispatch(setSearchValueLS(searchValue));
 
     if (!localStorage.getItem(SEARCH_VALUE)) {
-      navigate(PATH_INITIAL);
+      router.push(PATH_INITIAL);
     } else {
-      navigate(
+      router.push(
         `/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}${limitNum}/${QUERY_PATH_PART}${searchValue}`
       );
     }
@@ -48,12 +52,12 @@ const Search: FC = (): JSX.Element => {
   const focused = isFocused ? 'focused' : '';
 
   return (
-    <div className={`search ${focused}`}>
-      <button className="search__loupe" onClick={buttonClick}>
+    <div className={`${style['search']} ${focused}`}>
+      <button className={style['search__loupe']} onClick={buttonClick}>
         <IconLoupe />
       </button>
       <input
-        className="search__input"
+        className={style['search__input']}
         type="search"
         placeholder="Search..."
         id="search"

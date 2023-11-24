@@ -7,7 +7,7 @@ import {
   LIMIT_PATH_PART,
   QUERY_PATH_PART,
 } from '../../utils/constants/constants';
-import { setArrResCard } from '../../store/arrResCardSlice';
+import { setArrResCard } from '../../store/slices/arrResCardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useGetAnimeIdQuery } from '../../api/getAnime';
 import { RootState } from '../../store/configStore';

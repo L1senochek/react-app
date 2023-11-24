@@ -1,14 +1,15 @@
+'use client';
 import {
   PreloadedState,
   combineReducers,
   configureStore,
 } from '@reduxjs/toolkit';
-import searchValueReducer from './searchValueSlice';
-import arrResReducer from './arrResSlice';
-import arrResCardReducer from './arrResCardSlice';
+import searchValueReducer from './slices/searchValueSlice';
+import arrResReducer from './slices/arrResSlice';
+import arrResCardReducer from './slices/arrResCardSlice';
 import { getAnime } from '../api/getAnime';
-import loadingReducer from './loadingSlice';
-import limitReducer from './limitSlice';
+import loadingReducer from './slices/loadingSlice';
+import limitReducer from './slices/limitSlice';
 
 const rootReducer = combineReducers({
   searchValue: searchValueReducer,

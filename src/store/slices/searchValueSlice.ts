@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SEARCH_VALUE } from '../utils/constants/constants';
+import { SEARCH_VALUE } from '../../utils/constants/constants';
 
 const searchValueSlice = createSlice({
   name: 'searchValue',
   initialState: {
-    searchValue: localStorage.getItem(SEARCH_VALUE) ?? '',
+    searchValue:
+      typeof window !== 'undefined'
+        ? localStorage.getItem(SEARCH_VALUE) ?? ''
+        : '',
   },
   reducers: {
     setSearchValue(state, action) {

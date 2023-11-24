@@ -3,11 +3,11 @@ import Card from '../Card/Card';
 import './cards.scss';
 import { useParams } from 'react-router-dom';
 import IAnimeData from '../../model/api/IAnimeData';
-import { setArrRes } from '../../store/arrResSlice';
+import { setArrRes } from '../../store/slices/arrResSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useGetAnimeQuery } from '../../api/getAnime';
 import { RootState } from '../../store/configStore';
-import { setCardsLoading } from '../../store/loadingSlice';
+import { setCardsLoading } from '../../store/slices/loadingSlice';
 
 const Cards: FC = (): JSX.Element => {
   const arrRes = useAppSelector((state: RootState) => state.arrRes.arrRes);
