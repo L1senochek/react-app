@@ -9,6 +9,7 @@ import { RootState } from '@/store/configStore';
 import { useAppSelector } from '@/store/hooks';
 import Loading from '@/components/Loading/Loading';
 import IHomeProps from '@/model/app/page';
+import Cards from '@/components/Cards/Cards';
 
 const MainSection: FC<IHomeProps> = ({ searchParams }): JSX.Element => {
   const searchValue = useAppSelector(
@@ -35,7 +36,7 @@ const MainSection: FC<IHomeProps> = ({ searchParams }): JSX.Element => {
             <LimitPages />
           </div>
         </div>
-        {/* <Cards /> */}
+        <Cards data={data} />
         <Pagination data={data} />
       </div>
     </>
