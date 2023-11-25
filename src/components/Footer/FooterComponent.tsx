@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import Link from 'next/link';
 import { MY_GITHUB_URL } from '@/utils/constants/constants';

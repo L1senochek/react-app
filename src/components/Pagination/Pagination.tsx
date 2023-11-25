@@ -1,23 +1,28 @@
-import { FC } from 'react';
-import { Link, useParams } from 'react-router-dom';
+'use client';
+import { FC, useEffect } from 'react';
 import './pagination.scss';
-import Btn from '../Btn/Btn';
+import Btn from '@/components/Btn/Btn';
 import {
-  PAGE_PATH_PART,
-  LIMIT_PATH_PART,
-  QUERY_PATH_PART,
-} from '../../utils/constants/constants';
-import { useAppSelector } from '../../store/hooks';
-import { useGetAnimeQuery } from '../../api/getAnime';
-import { RootState } from '../../store/configStore';
+  API_PAGE,
+  API_LIMIT,
+  API_SEARCH_PARAM,
+} from '@/utils/constants/constants';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { RootState } from '@/store/configStore';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { setArrRes } from '@/store/slices/arrResSlice';
+import IAnime from '@/model/api/IAnime';
 
-const Pagination: FC = (): JSX.Element => {
+const Pagination: FC<{ data: IAnime }> = ({ data }): JSX.Element => {
   const searchValue = useAppSelector(
     (state: RootState) => state.searchValue.searchValue
   );
-  const { pageNum, limitNum, query } = useParams();
-  const params = { pageNum, limitNum, query };
-  const { data = [] } = useGetAnimeQuery(params);
+  const dispatch = useAppDispatch();
+  const searchParams = useSearchParams();
+
+  const pageNum = searchParams.get('page');
+  const limitNum = searchParams.get('limit');
 
   const visiblePage = 3;
   const firstPage = 1;
@@ -30,12 +35,16 @@ const Pagination: FC = (): JSX.Element => {
   );
   const endPage = Math.min(totalPages, startPage + visiblePage - 1);
 
+  useEffect(() => {
+    dispatch(setArrRes(data));
+  }, [data, dispatch]);
+
   return (
     <div className="pagination">
       {startPage > 1 && (
         <Link
-          to={`/${PAGE_PATH_PART}${firstPage}/${LIMIT_PATH_PART}${limitNum}${
-            searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
+          href={`/?${API_PAGE}${firstPage}&${API_LIMIT}${limitNum}${
+            searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
           }`}
           className="pagination__btn btn"
         >
@@ -48,10 +57,8 @@ const Pagination: FC = (): JSX.Element => {
       {Array.from({ length: endPage - startPage + 1 }).map((_, i) => (
         <Link
           key={i}
-          to={`/${PAGE_PATH_PART}${
-            startPage + i
-          }/${LIMIT_PATH_PART}${limitNum}${
-            searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
+          href={`/?${API_PAGE}${startPage + i}&${API_LIMIT}${limitNum}${
+            searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
           }`}
           className={`pagination__btn btn ${
             pageNum && startPage + i === +pageNum ? 'active' : ''
@@ -65,8 +72,8 @@ const Pagination: FC = (): JSX.Element => {
       )}
       {endPage < totalPages && (
         <Link
-          to={`/${PAGE_PATH_PART}${totalPages}/${LIMIT_PATH_PART}${limitNum}${
-            searchValue ? `/${QUERY_PATH_PART}${searchValue}` : ''
+          href={`/?${API_PAGE}${totalPages}&${API_LIMIT}${limitNum}${
+            searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
           }`}
           className="pagination__btn btn"
         >

@@ -1,5 +1,5 @@
 'use client';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 import {
   AVG_LIMIT_PAGES,
   MAX_LIMIT_PAGES,
@@ -14,14 +14,36 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setlimit } from '@/store/slices/limitSlice';
 import Link from 'next/link';
 import { RootState } from '@/store/configStore';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const LimitPages: FC = () => {
   const searchValue = useAppSelector(
     (state: IconfigStore) => state.searchValue.searchValue
   );
-  const limitNum = useAppSelector((state: RootState) => state.limit.limit);
+  const limit = useAppSelector((state: RootState) => state.limit.limit);
   const dispatch = useAppDispatch();
-  const limitArr = [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES];
+  const limitArr = useMemo(
+    () => [MIN_LIMIT_PAGES, AVG_LIMIT_PAGES, MAX_LIMIT_PAGES],
+    []
+  );
+  const searchParams = useSearchParams();
+  const limitParam = searchParams.get('limit');
+  const router = useRouter();
+  const limitNum = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (limitParam && limitArr.includes(+limitParam)) {
+      limitNum.current = limitParam;
+      dispatch(setlimit(limitParam));
+    } else {
+      router.replace(
+        `/?${API_PAGE}1&${API_LIMIT}${limit}${
+          searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
+        }`
+      );
+      limitNum.current = limit;
+    }
+  }, [dispatch, limit, limitArr, limitParam, router, searchValue]);
 
   return (
     <div className={styles['limit-pages']}>
@@ -30,7 +52,9 @@ const LimitPages: FC = () => {
         <Link
           key={`limit-pages${limit}`}
           className={`${styles['limit-pages__btn']} btn ${
-            limitNum && +limitNum === limit ? styles['active'] : ''
+            limitNum.current && +limitNum.current === limit
+              ? styles['active']
+              : ''
           }`}
           href={`/?${API_PAGE}1&${API_LIMIT}${limit}${
             searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''

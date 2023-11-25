@@ -1,16 +1,29 @@
 'use client';
 import React, { FC } from 'react';
 import styles from './main-section.module.scss';
-// import Cards from '../Cards/Cards';
-// import Pagination from '../Pagination/Pagination';
 import ErrorBtn from '@/components/ErrorBtn/ErrorBtn';
 import LimitPages from '@/components/LimitPage/LimitPages';
-// import Loading from '../Loading/Loading';
-// import { useGetAnimeQuery } from '../../api/getAnime';
+import Pagination from '@/components/Pagination/Pagination';
+import { useGetAnimeQuery } from '@/api/getAnime';
+import { RootState } from '@/store/configStore';
+import { useAppSelector } from '@/store/hooks';
+import Loading from '@/components/Loading/Loading';
+import IHomeProps from '@/model/app/page';
 
-const MainSection: FC = (): JSX.Element => {
-  // const { pageNum, limitNum, query } = useParams();
-  // const { isLoading } = useGetAnimeQuery({ pageNum, limitNum, query });
+const MainSection: FC<IHomeProps> = ({ searchParams }): JSX.Element => {
+  const searchValue = useAppSelector(
+    (state: RootState) => state.searchValue.searchValue
+  );
+
+  const { data, isLoading } = useGetAnimeQuery({
+    pageNum: searchParams.page,
+    limitNum: searchParams.limit,
+    query: searchParams.q || searchValue,
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -23,7 +36,7 @@ const MainSection: FC = (): JSX.Element => {
           </div>
         </div>
         {/* <Cards /> */}
-        {/* <Pagination /> */}
+        <Pagination data={data} />
       </div>
     </>
   );

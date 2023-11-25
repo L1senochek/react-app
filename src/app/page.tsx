@@ -1,13 +1,12 @@
 import MainSection from '@/components/MainSection/MainSection';
 import styles from './page.module.scss';
-import Link from 'next/link';
+import IHomeProps from '@/model/app/page';
 
-const Home = () => {
+const Home = ({ searchParams }: IHomeProps) => {
   return (
     <>
       <main className={`${styles.main} ${styles['main-page']}`}>
-        <Link href="/?page=2&limit=25">Page 2 Limit 25</Link>
-        <MainSection />
+        <MainSection searchParams={searchParams} />
       </main>
     </>
   );

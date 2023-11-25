@@ -1,3 +1,4 @@
+'use client';
 import React, { FC, useState } from 'react';
 import './error-btn.scss';
 import Btn from '../Btn/Btn';
