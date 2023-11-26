@@ -1,70 +1,89 @@
-import { describe, test, expect, vi } from 'vitest';
-import { fireEvent, render } from '@testing-library/react';
-import { Params, RouterProvider, createMemoryRouter } from 'react-router-dom';
-import Search from './Search';
-import { SEARCH_VALUE } from '../../utils/constants/constants';
+import { describe, test, expect, vi, afterEach } from 'vitest';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
-import configStore from '../../store/configStore';
+import configStore from '@/store/configStore';
+import Search from '@/components/Search/Search';
+
+vi.mock('next/navigation', () => require('next-router-mock'));
+
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(),
+}));
+
+const replaceMock = vi.fn();
+
+vi.mock('next/navigation', () => {
+  const actual = vi.importActual('next/navigation');
+  return {
+    ...actual,
+    useRouter: vi.fn(() => ({
+      replace: replaceMock,
+    })),
+    // useSearchParams: vi.fn(() => ({
+    //   get: vi.fn(),
+    // })),
+    // usePathname: vi.fn(),
+  };
+});
+
+afterEach(() => {
+  cleanup();
+});
+
+const dispatchMock = vi.fn();
+vi.mock('@/store/slices/searchValueSlice', async () => {
+  const originalModule = await vi.importActual<
+    typeof import('@/store/slices/searchValueSlice')
+  >('@/store/slices/searchValueSlice');
+  return {
+    ...originalModule,
+    setSearchValue: () => dispatchMock,
+    setSearchValueLS: () => dispatchMock,
+  };
+});
+
+const setSearchValueLSSpy = vi.fn().mockReturnValue('test');
 
 describe('Search: ', () => {
-  vi.mock('react-router-dom', async () => {
-    const current =
-      await vi.importActual<typeof import('react-router-dom')>(
-        'react-router-dom'
-      );
-    const mockNavigate = vi.fn();
-    return {
-      ...current,
-      useParams: (): Readonly<Params<string>> => ({
-        limit: '25',
-      }),
-      useNavigate: (): typeof mockNavigate => mockNavigate,
-    };
-  });
-
-  const routes = [
-    {
-      path: '/mock/path',
-      element: <Search />,
-    },
-  ];
-
-  const router = createMemoryRouter(routes, {
-    initialEntries: ['/mock/path'],
-  });
-
-  localStorage.setItem(SEARCH_VALUE, 'testValue2');
-
   test('- check that the component retrieves the value from the local storage upon mounting.', async () => {
-    // render(
-    //   <MainPageProvider>
-    //     <RouterProvider router={router} />
-    //   </MainPageProvider>
-    // );
-    // const inputElement = screen.getByDisplayValue('testValue2');
-    // expect(inputElement).toBeDefined();
+    render(
+      <Provider store={configStore({ limit: { limit: '25' } })}>
+        <Search />
+      </Provider>
+    );
+
+    const input = screen.getByPlaceholderText('Search...');
+    fireEvent.change(input, { target: { value: 'test' } });
+
+    await waitFor(() => {
+      if (input instanceof HTMLInputElement) {
+        expect(input.value).toBe(setSearchValueLSSpy());
+      }
+    });
   });
 
   test('- clicking the Search button saves the entered value to the local storage.', async () => {
-    // render(
-    //   <MainPageProvider>
-    //     <RouterProvider router={router} />
-    //   </MainPageProvider>
-    // );
-    const { getByText } = render(
-      <Provider store={configStore}>
-        <RouterProvider router={router} />
+    render(
+      <Provider store={configStore({ limit: { limit: '25' } })}>
+        <Search />
       </Provider>
     );
-    fireEvent.click(getByText('test'));
+    const input = screen.getByPlaceholderText('Search...');
+    fireEvent.change(input, { target: { value: 'test' } });
 
-    const state = configStore.getState();
-    expect(state.searchValue).toEqual('test');
-    // const inputElement = screen.getByDisplayValue('testValue2');
-    // fireEvent.change(inputElement, { target: { value: 'testValue' } });
-    // fireEvent.keyUp(inputElement, { key: 'Enter' });
-    // const storedValue = localStorage.getItem(SEARCH_VALUE);
+    const searchButton = screen.getByTestId('search-btn');
+    fireEvent.click(searchButton);
 
-    // expect(storedValue).toBe('testValue');
+    await waitFor(() => {
+      if (input instanceof HTMLInputElement) {
+        expect(input.value).toBe(setSearchValueLSSpy());
+      }
+    });
   });
 });

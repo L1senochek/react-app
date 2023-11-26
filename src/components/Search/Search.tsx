@@ -62,7 +62,11 @@ const Search: FC = (): JSX.Element => {
 
   return (
     <div className={`${style['search']} ${focused}`}>
-      <button className={style['search__loupe']} onClick={buttonClick}>
+      <button
+        className={style['search__loupe']}
+        onClick={buttonClick}
+        data-testid="search-btn"
+      >
         <IconLoupe />
       </button>
       <input

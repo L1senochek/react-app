@@ -38,6 +38,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "jsdom": "^23.0.0",
+    "next-router-mock": "^0.9.10",
     "prettier": "^3.1.0",
     "typescript": "^5",
     "vitest": "^0.34.6"
