@@ -3,7 +3,7 @@ import './loading.scss';
 
 const Loading: FC = (): JSX.Element => {
   return (
-    <div className="loading">
+    <div className="loading" data-testid="loading">
       <svg
         version="1.1"
         id="L4"

@@ -18,7 +18,7 @@ type IAnimeData = {
     url: string;
     embed_url: string;
   };
-  approved: true;
+  approved: boolean;
   titles: [
     {
       type: string;
@@ -33,7 +33,7 @@ type IAnimeData = {
   source: string;
   episodes: number;
   status: string;
-  airing: true;
+  airing: boolean;
   aired: {
     from: string;
     to: string;

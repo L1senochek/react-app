@@ -25,10 +25,6 @@ vi.mock('next/navigation', () => {
     useRouter: vi.fn(() => ({
       replace: replaceMock,
     })),
-    // useSearchParams: vi.fn(() => ({
-    //   get: vi.fn(),
-    // })),
-    // usePathname: vi.fn(),
   };
 });
 

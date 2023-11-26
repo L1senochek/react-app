@@ -35,7 +35,11 @@ export default function Modal({ children }: { children: React.ReactNode }) {
   return (
     <div className="background-window" ref={overlay} onClick={onClick}>
       <div className="card-info" ref={wrapper}>
-        <div onClick={onDismiss} className="card-info__btn btn">
+        <div
+          onClick={onDismiss}
+          className="card-info__btn btn"
+          data-testid="close-btn-card"
+        >
           x
         </div>
         {children}

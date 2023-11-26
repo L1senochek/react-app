@@ -28,7 +28,7 @@ const CardDescription: FC<{ arrResCard: IAnimeResData }> = ({
   }, [arrResCard, dispatch]);
 
   return (
-    <div className="card-info__wrapper">
+    <div className="card-info__wrapper" data-testid="card-info-wrapper">
       <h1 className="card-info__title">{arrResCard.data.title}</h1>
       <span className="card-info__img">
         <Image
