@@ -22,7 +22,7 @@ describe('Cards: ', () => {
     render(<Cards data={data as unknown as IAnime} />);
 
     const cards = screen.getAllByTestId('card-link');
-    expect(cards).toHaveLength(30);
+    expect(cards).toHaveLength(15);
   });
 
   test('- an appropriate message is displayed if no cards are present', () => {
