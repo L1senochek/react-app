@@ -1,6 +1,6 @@
 import { assert, describe, test } from 'vitest';
 import arrResCardReducer, { setArrResCard } from '../slices/arrResCardSlice';
-import apiResDataMock from '../../mocks/apiResDataMock';
+import apiResDataMock from '@/tests/mocks/apiResDataMock';
 
 describe('arrResCardSlice: ', () => {
   test('- arrResCard is updated correctly', () => {

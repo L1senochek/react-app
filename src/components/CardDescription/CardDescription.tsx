@@ -35,8 +35,8 @@ const CardDescription: FC<{ arrResCard: IAnimeResData }> = ({
           className="card-info__img_src"
           src={`${arrResCard.data.images.jpg.large_image_url}`}
           alt={arrResCard.data.title}
-          width={441}
-          height={630}
+          width={315}
+          height={450}
           priority
         />
       </span>

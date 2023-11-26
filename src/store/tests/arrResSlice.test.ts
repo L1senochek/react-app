@@ -1,6 +1,6 @@
 import { assert, describe, test } from 'vitest';
 import arrResReducer, { setArrRes } from '../slices/arrResSlice';
-import apiResMock from '../../mocks/apiResMock';
+import apiResMock from '@/tests/mocks/apiResMock';
 
 describe('arrResSlice: ', () => {
   test('- arrRes is updated correctly', () => {

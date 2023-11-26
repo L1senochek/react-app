@@ -10,7 +10,7 @@ const Cards: FC<{ data: IAnime }> = ({ data }): JSX.Element => {
       {data && data.data.length !== 0 ? (
         data.data.map(
           (item: IAnimeData): JSX.Element => (
-            <Card key={item.mal_id} {...item} />
+            <Card key={item.mal_id + new Date().toDateString()} {...item} />
           )
         )
       ) : (
