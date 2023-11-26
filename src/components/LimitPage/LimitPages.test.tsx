@@ -1,28 +1,38 @@
-import { describe, expect, test } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { afterEach, describe, expect, test, vi } from 'vitest';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import LimitPages from './LimitPages';
 import {
   AVG_LIMIT_PAGES,
-  LIMIT_PATH_PART,
   MAX_LIMIT_PAGES,
   MIN_LIMIT_PAGES,
-  PAGE_PATH_PART,
-} from '../../utils/constants/constants';
+} from '@/utils/constants/constants';
+import { Provider } from 'react-redux';
+import configStore from '@/store/configStore';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    replace: vi.fn(),
+  }),
+  useSearchParams: vi.fn(() => ({
+    get: vi.fn(),
+  })),
+}));
+
+afterEach(() => {
+  cleanup();
+});
 
 describe('LimitPages: ', () => {
   test('- renders the limit pages buttons.', async () => {
+    const store = configStore({
+      limit: { limit: '10' },
+      searchValue: { searchValue: '' },
+    });
+
     render(
-      <MemoryRouter
-        initialEntries={[`/${PAGE_PATH_PART}1/${LIMIT_PATH_PART}10`]}
-      >
-        <Routes>
-          <Route
-            path={`/${PAGE_PATH_PART}:pageNum/${LIMIT_PATH_PART}:limitNum/`}
-            element={<LimitPages />}
-          />
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <LimitPages />
+      </Provider>
     );
 
     await waitFor(() => {
