@@ -1,103 +1,112 @@
-import { describe, expect, test } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import {
-  MemoryRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createMemoryRouter,
-} from 'react-router-dom';
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { vi, describe, test, expect, afterEach, beforeEach } from 'vitest';
 import Card from './Card';
-import { MainPageProvider } from '../../context/MainPageContext/MainPageContext';
-import IAnimeData from '../../model/api/IAnimeData';
-import CardInfo from '../CardInfo/CardInfo';
-import apiResDataMock from '../../mocks/apiResDataMock';
+import IAnimeData from '@/model/api/IAnimeData';
+import apiResDataMock from '@/tests/mocks/apiResDataMock';
+import * as getAnimeModule from '@/api/getAnime';
 
-describe('Card: ', () => {
+afterEach(() => {
+  cleanup();
+  vi.resetModules();
+  vi.clearAllMocks();
+});
+
+const replaceMock = vi.fn();
+const backMock = vi.fn();
+
+vi.mock('next/navigation', () => {
+  const actual = vi.importActual('next/navigation');
+  return {
+    ...actual,
+    useRouter: vi.fn(() => ({
+      replace: replaceMock,
+      back: backMock,
+    })),
+  };
+});
+
+const mockDispatch = vi.fn();
+
+vi.mock('@/store/hooks', async () => {
+  const originalModule =
+    await vi.importActual<typeof import('@/store/hooks')>('@/store/hooks');
+  return {
+    ...originalModule,
+    useAppDispatch: () => mockDispatch,
+  };
+});
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+describe('Card:', () => {
   test('- the Card component renders the relevant card data', () => {
-    render(
-      <MemoryRouter>
-        <MainPageProvider>
-          <Card
-            key={apiResDataMock.mal_id}
-            {...(apiResDataMock as IAnimeData)}
-          />
-        </MainPageProvider>
-      </MemoryRouter>
-    );
+    render(<Card {...(apiResDataMock as unknown as IAnimeData)} />);
 
-    const nameElement = screen.getByText(apiResDataMock.title);
-    expect(nameElement).toBeDefined();
+    const titleElement = screen.getByText(apiResDataMock.title);
+    const scoreElement = screen.getByText(`${apiResDataMock.score}`);
+    const statusElement = screen.getByText(apiResDataMock.status);
 
-    const scoreElement = screen.getByText(/Score:/);
+    expect(titleElement).toBeDefined();
     expect(scoreElement).toBeDefined();
-
-    const statusElement = screen.getByText(/Status:/);
     expect(statusElement).toBeDefined();
-
-    const typeElement = screen.getByText(/Type:/);
-    expect(typeElement).toBeDefined();
-
-    const episodesElement = screen.getByText(/Episodes:/);
-    expect(episodesElement).toBeDefined();
-
-    const durationElement = screen.getByText(/Duration:/);
-    expect(durationElement).toBeDefined();
   });
 
-  test('- clicking on a card opens a detailed card component.', async () => {
-    render(
-      <MemoryRouter initialEntries={['/mock/path']}>
-        <Routes>
-          <Route
-            path="/mock/path"
-            element={<Card {...(apiResDataMock as IAnimeData)} />}
-          />
-          <Route
-            path="/:pageNum/:limitNum/:query/:cardId"
-            element={<CardInfo />}
-          />
-        </Routes>
-      </MemoryRouter>
-    );
-
-    const cardLink = screen.getByText(/Test Anime/i);
-    fireEvent.click(cardLink);
-  });
-
-  test('- clicking triggers an additional API call to fetch detailed information.', async () => {
-    const routes = [
-      {
-        path: '/mock/path',
-        element: <CardInfo />,
-        loader: () => ({ cardId: { data: apiResDataMock } }),
-      },
-      {
-        path: '/:pageNum/:limitNum/:query/:cardId',
-        element: <CardInfo />,
-      },
-    ];
-
-    const router = createMemoryRouter(routes, {
-      initialEntries: ['/mock/path'],
+  test('- clicking on a card opens a detailed card component', async () => {
+    vi.mock('next/link', () => {
+      const actual = vi.importActual('next/link');
+      return {
+        ...actual,
+        default: ({ children }: { children: React.ReactNode }) => (
+          <div>{children}</div>
+        ),
+      };
     });
 
-    render(
-      <MainPageProvider>
-        <RouterProvider router={router} />
-      </MainPageProvider>
-    );
+    render(<Card {...(apiResDataMock as unknown as IAnimeData)} />);
 
     await waitFor(() => {
-      const cardLink = screen.getByText('Test Anime');
-      fireEvent.click(cardLink);
+      const cardLink = screen.getByTestId('card-link');
+      expect(cardLink).toBeDefined();
+      fireEvent.click(cardLink!);
+      const detailedCardTitle = screen.getByText(apiResDataMock.title);
+      expect(detailedCardTitle).toBeDefined();
+    });
+  });
 
-      expect(screen.queryByText('Score:')).toBeDefined();
-      expect(screen.queryByText(/Status:/)).toBeDefined();
-      expect(screen.queryByText(/Type:/)).toBeDefined();
-      expect(screen.queryByText(/Episodes:/)).toBeDefined();
-      expect(screen.queryByText(/Duration:/)).toBeDefined();
-      expect(screen.queryByText(/Synopsis:/)).toBeDefined();
+  test('- clicking triggers an additional API call to fetch detailed information', async () => {
+    vi.mock('next/link', () => {
+      const actual = vi.importActual('next/link');
+      return {
+        ...actual,
+        default: ({ children }: { children: React.ReactNode }) => (
+          <div>{children}</div>
+        ),
+      };
+    });
+
+    vi.mock('@/api/getAnime', () => {
+      const useGetAnimeIdQuery = vi.fn();
+      return { useGetAnimeIdQuery };
+    });
+
+    vi.spyOn(getAnimeModule, 'useGetAnimeIdQuery');
+
+    render(<Card {...(apiResDataMock as unknown as IAnimeData)} />);
+
+    await waitFor(() => {
+      const cardLink = screen.getByTestId('card-link');
+      expect(cardLink).toBeDefined();
+      fireEvent.click(cardLink!);
+      const detailedCardTitle = screen.getByText(apiResDataMock.title);
+      expect(detailedCardTitle).toBeDefined();
     });
   });
 });

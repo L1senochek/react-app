@@ -26,7 +26,9 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
       className="card"
       scroll={false}
     >
-      <h3 className="card__name">{props.title}</h3>
+      <h3 className="card__name" data-testid="card-link">
+        {props.title}
+      </h3>
       <span className="card__img">
         <Image
           src={props.images.jpg.image_url}
