@@ -1,26 +1,10 @@
 import React from 'react';
 import './card.scss';
 import IAnimeData from '@/model/api/IAnimeData';
-import {
-  API_PAGE,
-  API_LIMIT,
-  API_SEARCH_PARAM,
-  API_ID,
-} from '@/utils/constants/constants';
-import IconfigStore from '@/model/store/IconfigStore';
-import { useSelector } from 'react-redux';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const Card: React.FC<IAnimeData> = (props): JSX.Element => {
-  const searchParams = useSearchParams();
-  const pageNum = searchParams.get('page');
-  const limitNum = searchParams.get('limit');
-  const searchValue = useSelector(
-    (state: IconfigStore) => state.searchValue.searchValue
-  );
-
   const createStructureRender = (
     propsTitle: string,
     propsValue: string | number | undefined
@@ -36,15 +20,6 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   };
 
   return (
-    // <Link
-    //   href={`/?${API_PAGE}${pageNum}&${API_LIMIT}${limitNum}${
-    //     searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
-    //   }/${props.mal_id}`}
-    //   // as={`/?${API_PAGE}${pageNum}&${API_LIMIT}${limitNum}${
-    //   //   searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
-    //   // }/${API_ID}${props.mal_id}`}
-    //   className="card"
-    // >
     <Link
       href={`/${props.mal_id}`}
       as={`/${props.mal_id}`}
@@ -61,6 +36,7 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
           loader={({ src, width, quality }) =>
             `${src}?w=${width}&q=${quality || 75}`
           }
+          priority
         />
       </span>
       {createStructureRender('Score', props.score)}

@@ -15,7 +15,6 @@ const MainSection: FC<IHomeProps> = ({ searchParams }): JSX.Element => {
   const searchValue = useAppSelector(
     (state: RootState) => state.searchValue.searchValue
   );
-
   const { data, isLoading } = useGetAnimeQuery({
     pageNum: searchParams.page,
     limitNum: searchParams.limit,

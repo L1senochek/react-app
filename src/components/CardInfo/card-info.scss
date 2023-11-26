@@ -59,9 +59,7 @@
   &__img {
     display: flex;
     justify-content: center;
-    &_src {
-      height: 30vw;
-    }
+    height: 30vw;
   }
   &__description {
     padding: $card-info-description-padding 0;
