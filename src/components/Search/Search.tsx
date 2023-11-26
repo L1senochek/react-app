@@ -18,6 +18,11 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/navigation';
 
 const Search: FC = (): JSX.Element => {
+  const [searchState, setSearchState] = useState(
+    typeof window !== 'undefined'
+      ? localStorage.getItem(SEARCH_VALUE) ?? ''
+      : ''
+  );
   const searchValue = useAppSelector(
     (state: RootState) => state.searchValue.searchValue
   );
@@ -27,7 +32,8 @@ const Search: FC = (): JSX.Element => {
   const router = useRouter();
 
   const buttonClick = async (): Promise<void> => {
-    dispatch(setSearchValueLS(searchValue));
+    dispatch(setSearchValueLS(searchState));
+    dispatch(setSearchValue(searchState));
 
     if (!localStorage.getItem(SEARCH_VALUE)) {
       router.replace(PATH_INITIAL);
@@ -46,7 +52,10 @@ const Search: FC = (): JSX.Element => {
 
   const searchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
-    dispatch(setSearchValue(value));
+    setSearchState(value);
+    if (value === '') {
+      dispatch(setSearchValueLS(''));
+    }
   };
 
   const focused = isFocused ? 'focused' : '';
@@ -61,7 +70,7 @@ const Search: FC = (): JSX.Element => {
         type="search"
         placeholder="Search..."
         id="search"
-        value={searchValue}
+        value={searchState}
         onChange={searchChange}
         onKeyUp={keyUp}
         onFocus={() => setIsFocused(true)}
