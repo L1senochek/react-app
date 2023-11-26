@@ -36,11 +36,20 @@ const Card: React.FC<IAnimeData> = (props): JSX.Element => {
   };
 
   return (
+    // <Link
+    //   href={`/?${API_PAGE}${pageNum}&${API_LIMIT}${limitNum}${
+    //     searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
+    //   }/${props.mal_id}`}
+    //   // as={`/?${API_PAGE}${pageNum}&${API_LIMIT}${limitNum}${
+    //   //   searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
+    //   // }/${API_ID}${props.mal_id}`}
+    //   className="card"
+    // >
     <Link
-      href={`/?${API_PAGE}${pageNum}&${API_LIMIT}${limitNum}${
-        searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
-      }/${API_ID}${props.mal_id}`}
+      href={`/${props.mal_id}`}
+      as={`/${props.mal_id}`}
       className="card"
+      scroll={false}
     >
       <h3 className="card__name">{props.title}</h3>
       <span className="card__img">

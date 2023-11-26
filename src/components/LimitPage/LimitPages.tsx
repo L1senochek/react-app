@@ -15,6 +15,7 @@ import { setlimit } from '@/store/slices/limitSlice';
 import Link from 'next/link';
 import { RootState } from '@/store/configStore';
 import { useRouter, useSearchParams } from 'next/navigation';
+import useOriginUrl from '@/utils/hooks/useOriginUrl';
 
 const LimitPages: FC = () => {
   const searchValue = useAppSelector(
@@ -30,12 +31,13 @@ const LimitPages: FC = () => {
   const limitParam = searchParams.get('limit');
   const router = useRouter();
   const limitNum = useRef<string | null>(null);
+  const url = useOriginUrl();
 
   useEffect(() => {
     if (limitParam && limitArr.includes(+limitParam)) {
       limitNum.current = limitParam;
       dispatch(setlimit(limitParam));
-    } else {
+    } else if (url === '') {
       router.replace(
         `/?${API_PAGE}1&${API_LIMIT}${limit}${
           searchValue ? `&${API_SEARCH_PARAM}${searchValue}` : ''
@@ -43,7 +45,7 @@ const LimitPages: FC = () => {
       );
       limitNum.current = limit;
     }
-  }, [dispatch, limit, limitArr, limitParam, router, searchValue]);
+  }, [dispatch, limit, limitArr, limitParam, router, searchValue, url]);
 
   return (
     <div className={styles['limit-pages']}>
