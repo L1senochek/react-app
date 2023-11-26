@@ -1,0 +1,11 @@
+@import '@/styles/variables.scss';
+
+.body {
+  color: $main-color;
+  font-size: $font-size-px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  background-color: $background-color;
+  min-height: 100vh;
+  min-width: 320px;
+}

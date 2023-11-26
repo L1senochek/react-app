@@ -1,0 +1,52 @@
+@import '../../styles/variables.scss';
+
+.background-window {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 45vw;
+  height: 100vh;
+  justify-content: center;
+  color: $main-color;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  border-width: $border-width;
+  border-style: $border-style;
+  border-color: $fourth-color;
+  &__btn {
+    position: fixed;
+    z-index: 6;
+    right: 0;
+    top: 0;
+    background-color: $background-color;
+  }
+}
+
+@media (max-width: 890px) {
+  .card-info {
+    width: 65vw;
+    &__img_src {
+      height: 40vw;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-info {
+    width: 100vw;
+  }
+}

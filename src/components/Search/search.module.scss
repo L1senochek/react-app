@@ -1,0 +1,46 @@
+@import '@/styles/variables.scss';
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20vw;
+  padding: 5px;
+  color: $main-color;
+  border-radius: $border-radius;
+  border-color: $fourth-color;
+  border-width: $border-width;
+  border-style: $border-style;
+  &__loupe {
+    display: flex;
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+  }
+  &__input {
+    width: 100%;
+    background: transparent;
+    color: $main-color;
+    padding-left: $search-input-padding;
+    border: none;
+    outline: none;
+  }
+  &:hover,
+  &.focused {
+    box-shadow: $box-shadow-card;
+    border-color: $main-color;
+    background-image: $background-image-hover;
+  }
+}
+
+@media (max-width: 890px) {
+  .search {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .search {
+    width: 60vw;
+  }
+}

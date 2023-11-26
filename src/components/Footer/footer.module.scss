@@ -1,0 +1,14 @@
+@import '@/styles/variables.scss';
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 $wrapper-padding;
+  &__list {
+    display: flex;
+    align-items: center;
+  }
+  &__item {
+    padding: 0 $main-page-padding;
+  }
+}

@@ -1,0 +1,7 @@
+@import '@/styles/variables.scss';
+
+.header {
+  display: flex;
+  padding: $main-page-padding $wrapper-padding 0 $wrapper-padding;
+  font-size: $font-size-logo;
+}
