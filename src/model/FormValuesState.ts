@@ -4,7 +4,6 @@ type FormValuesState = {
   email: string;
   passwordOne: string;
   passwordTwo: string;
-  isValidPas: boolean;
   gender: 'male' | 'female' | 'other';
   acceptTC: boolean;
   image: string;
