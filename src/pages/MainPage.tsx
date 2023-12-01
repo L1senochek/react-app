@@ -13,7 +13,7 @@ const MainPage: FC = (): JSX.Element => {
     (state: RootState) => state.ucontroledForm.arrFormState
   );
   const reactHookFormValue = useAppSelector(
-    (state: RootState) => state.reactHookForm.currentForm.values
+    (state: RootState) => state.reactHookForm.arrFormState
   );
 
   useEffect(() => {
