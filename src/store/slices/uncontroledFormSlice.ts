@@ -8,7 +8,6 @@ const initialCurrentForm: FormState = {
     email: '',
     passwordOne: '',
     passwordTwo: '',
-    isValidPas: false,
     gender: 'male',
     acceptTC: false,
     image: '',
@@ -50,9 +49,6 @@ const uncontroledFormSlice = createSlice({
     setPasswordTwo: (state, action: PayloadAction<string>) => {
       state.currentForm.values.passwordTwo = action.payload;
     },
-    setIsValidPas: (state, action: PayloadAction<boolean>) => {
-      state.currentForm.values.isValidPas = action.payload;
-    },
     setGender: (state, action: PayloadAction<'male' | 'female' | 'other'>) => {
       state.currentForm.values.gender = action.payload;
     },
@@ -85,7 +81,6 @@ export const {
   setEmail,
   setPasswordOne,
   setPasswordTwo,
-  setIsValidPas,
   setGender,
   setAcceptTC,
   setCountry,

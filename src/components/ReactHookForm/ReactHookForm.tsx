@@ -36,6 +36,7 @@ const schema = yup
       .required('Confirm Password is required')
       .oneOf([yup.ref('passwordOne')], 'Should match entered password'),
     gender: yup.string().required('Gender is required'),
+    acceptTC: yup.boolean().oneOf([true], 'Should accept Terms & Conditions'),
   })
   .required();
 
@@ -135,6 +136,10 @@ const ReactHookForm: FC = (): JSX.Element => {
             <span>{formState.errors.gender.message}</span>
           )}
         </span>
+        <label>
+          Accept Terms & Conditions
+          <input type="checkbox" {...register('acceptTC')} />
+        </label>
 
         <input type="submit" value={'submit'} />
       </form>
