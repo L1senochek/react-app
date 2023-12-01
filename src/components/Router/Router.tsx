@@ -5,12 +5,14 @@ import {
 } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
-import { PATH_UNCONTROLED_FORM, PATH_REACT_HOOK_FORM } from '@/utils/constants/constants';
+import {
+  PATH_UNCONTROLED_FORM,
+  PATH_REACT_HOOK_FORM,
+} from '@/utils/constants/constants';
 import NotFound from '@/components/NotFound/NotFound';
 import UncontroledForm from '@/components/UncontroledForm/UncontroledForm';
 import ReactHookForm from '@/components/ReactHookForm/ReactHookForm';
 import MainPage from '@/pages/MainPage';
-
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
