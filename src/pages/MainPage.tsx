@@ -1,12 +1,25 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   PATH_REACT_HOOK_FORM,
   PATH_UNCONTROLED_FORM,
 } from '@/utils/constants/constants';
 import styles from './main-page.module.scss';
+import { useAppSelector } from '@/store/hooks';
+import { RootState } from '@/store/store';
 
 const MainPage: FC = (): JSX.Element => {
+  const ucontroledFormValue = useAppSelector(
+    (state: RootState) => state.ucontroledForm.values
+  );
+  const reactHookFormValue = useAppSelector(
+    (state: RootState) => state.reactHookForm.values
+  );
+
+  useEffect(() => {
+    console.log(ucontroledFormValue, reactHookFormValue);
+  }, [reactHookFormValue, ucontroledFormValue]);
+
   return (
     <>
       <div className={styles.links}>

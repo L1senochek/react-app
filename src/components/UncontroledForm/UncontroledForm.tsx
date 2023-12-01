@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setName } from '@/store/slices/uncontroledFormSlice';
 import { RootState } from '@/store/store';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 const UncontroledForm: FC = (): JSX.Element => {
   const uncontroledFormValue = useAppSelector(
@@ -9,7 +9,9 @@ const UncontroledForm: FC = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
 
-  dispatch(setName('test'));
+  useEffect(() => {
+    dispatch(setName('UncontroledForm'));
+  }, [dispatch]);
 
   console.log(uncontroledFormValue);
 

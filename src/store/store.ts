@@ -4,10 +4,11 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import uncontroledFormSlice from './slices/uncontroledFormSlice';
+import reactHookFormSlice from './slices/reactHookFormSlice';
 
 const rootReducer = combineReducers({
   ucontroledForm: uncontroledFormSlice.reducer,
-  // reactHookForm: reactHookFormValueSlice
+  reactHookForm: reactHookFormSlice.reducer,
 });
 
 export const store = (preloadedState?: PreloadedState<RootState>) => {
