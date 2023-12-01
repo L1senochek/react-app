@@ -1,23 +1,24 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setName } from '@/store/slices/uncontroledFormSlice';
+import { setArrFormState, setName } from '@/store/slices/uncontroledFormSlice';
 import { RootState } from '@/store/store';
 import { FC, useEffect } from 'react';
 
 const UncontroledForm: FC = (): JSX.Element => {
   const uncontroledFormValue = useAppSelector(
-    (state: RootState) => state.ucontroledForm.values
+    (state: RootState) => state.ucontroledForm.currentForm
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setName('UncontroledForm'));
-  }, [dispatch]);
+    console.log(uncontroledFormValue, 'uncontroledFormValue');
+  }, [dispatch, uncontroledFormValue]);
 
   console.log(uncontroledFormValue);
 
   return (
     <div className="uncontrolled-form">
-      <h2>UncontroledForm</h2>
+      <h2 onClick={() => dispatch(setArrFormState())}>UncontroledForm</h2>
     </div>
   );
 };

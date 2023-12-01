@@ -40,11 +40,11 @@ type FormState = {
   passwordStrength: PasswordStrength;
 };
 
-type FormValuesSlice = {
-  [key: string]: string | number | boolean;
+type FormArrState = {
+  currentForm: FormState;
+  arrFormState: FormState[];
+  indexArrFormState: number | null;
 };
-
-type FormField = keyof FormValuesState;
 
 export type {
   FormValuesState,
@@ -53,6 +53,5 @@ export type {
   PasswordStrength,
   RootState,
   FormState,
-  FormValuesSlice,
-  FormField,
+  FormArrState,
 };

@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/hooks';
-import { setName } from '@/store/slices/reactHookFormSlice';
+import { setArrFormState, setName } from '@/store/slices/reactHookFormSlice';
 import { FC, useEffect } from 'react';
 
 const ReactHookForm: FC = (): JSX.Element => {
@@ -11,7 +11,7 @@ const ReactHookForm: FC = (): JSX.Element => {
 
   return (
     <div className="react-hook-form">
-      <h2>ReactHookForm</h2>
+      <h2 onClick={() => dispatch(setArrFormState())}>ReactHookForm</h2>
     </div>
   );
 };

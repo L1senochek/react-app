@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FormState } from '@/model/FormValuesState';
+import { FormArrState, FormState } from '@/model/FormValuesState';
 
-const initialState: FormState = {
+const initialCurrentForm: FormState = {
   values: {
     name: '',
     age: 0,
@@ -25,48 +25,73 @@ const initialState: FormState = {
   },
 };
 
+const initialState: FormArrState = {
+  currentForm: initialCurrentForm,
+  arrFormState: [],
+  indexArrFormState: 0,
+};
+
 const reactHookFormSlice = createSlice({
   name: 'reactHookFormValue',
   initialState,
   reducers: {
     setName: (state, action: PayloadAction<string>) => {
-      state.values.name = action.payload;
+      state.currentForm.values.name = action.payload;
     },
     setAge: (state, action: PayloadAction<number>) => {
-      state.values.age = action.payload;
+      state.currentForm.values.age = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
-      state.values.email = action.payload;
+      state.currentForm.values.email = action.payload;
     },
     setPasswordOne: (state, action: PayloadAction<string>) => {
-      state.values.passwordOne = action.payload;
+      state.currentForm.values.passwordOne = action.payload;
     },
     setPasswordTwo: (state, action: PayloadAction<string>) => {
-      state.values.passwordTwo = action.payload;
+      state.currentForm.values.passwordTwo = action.payload;
     },
     setIsValidPas: (state, action: PayloadAction<boolean>) => {
-      state.values.isValidPas = action.payload;
+      state.currentForm.values.isValidPas = action.payload;
     },
     setGender: (state, action: PayloadAction<'male' | 'female' | 'other'>) => {
-      state.values.gender = action.payload;
+      state.currentForm.values.gender = action.payload;
     },
     setAcceptTC: (state, action: PayloadAction<boolean>) => {
-      state.values.acceptTC = action.payload;
+      state.currentForm.values.acceptTC = action.payload;
     },
     setCountry: (state, action: PayloadAction<string>) => {
-      state.values.country = action.payload;
+      state.currentForm.values.country = action.payload;
     },
     setImage: (
       state,
       action: PayloadAction<{ image: string; isValidImage: boolean }>
     ) => {
-      state.values.image = action.payload.image;
-      state.values.isValidImage = action.payload.isValidImage;
+      state.currentForm.values.image = action.payload.image;
+      state.currentForm.values.isValidImage = action.payload.isValidImage;
     },
-    resetForm: () => initialState,
+    resetArrForms: () => initialState,
+    setArrFormState: (state) => {
+      state.arrFormState.push({ ...state.currentForm });
+    },
+    setIndexArrFormState: (state, action: PayloadAction<number>) => {
+      state.indexArrFormState = action.payload;
+    },
   },
 });
 
-export const { setName, setAge, setEmail, setPasswordOne, resetForm } =
-  reactHookFormSlice.actions;
+export const {
+  setName,
+  setAge,
+  setEmail,
+  setPasswordOne,
+  setPasswordTwo,
+  setIsValidPas,
+  setGender,
+  setAcceptTC,
+  setCountry,
+  setImage,
+  resetArrForms,
+  setArrFormState,
+  setIndexArrFormState,
+} = reactHookFormSlice.actions;
 export default reactHookFormSlice;

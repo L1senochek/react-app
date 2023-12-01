@@ -10,10 +10,10 @@ import { RootState } from '@/store/store';
 
 const MainPage: FC = (): JSX.Element => {
   const ucontroledFormValue = useAppSelector(
-    (state: RootState) => state.ucontroledForm.values
+    (state: RootState) => state.ucontroledForm.arrFormState
   );
   const reactHookFormValue = useAppSelector(
-    (state: RootState) => state.reactHookForm.values
+    (state: RootState) => state.reactHookForm.currentForm.values
   );
 
   useEffect(() => {
