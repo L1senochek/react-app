@@ -1,5 +1,5 @@
 import { RouterProvider } from 'react-router';
-import './App.css';
+import './App.scss';
 import Router from '@/components/Router/Router';
 
 const App = (): JSX.Element => {
