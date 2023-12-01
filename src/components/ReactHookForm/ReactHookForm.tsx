@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/store/hooks';
 import { setArrFormState, setName } from '@/store/slices/reactHookFormSlice';
 import { FC } from 'react';
+import styles from './react-hook-form.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -13,10 +14,16 @@ const schema = yup
       .required('Name is required')
       .matches(/^[A-Z][a-zA-Z\s]*$/, 'Should start with an uppercase letter'),
     age: yup
-      .number()
+      .string()
       .required('Age is required')
-      .positive('Should not contain negative values')
-      .integer('Should be an integer'),
+      .matches(/^\d+$/, 'Should not contain negative values'),
+    email: yup
+      .string()
+      .required('Email is required')
+      .matches(
+        /^\S+@\S+\.\S+$/i,
+        'Should be a valid email address(example@example.com)'
+      ),
   })
   .required();
 
@@ -36,9 +43,9 @@ const ReactHookForm: FC = (): JSX.Element => {
   };
 
   return (
-    <div className="react-hook-form">
+    <div className={styles['react-hook-form']}>
       <h2 onClick={() => dispatch(setArrFormState())}>ReactHookForm</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
         <label>Name:</label>
         <input {...register('name')} />
         <span className="error">
@@ -50,6 +57,13 @@ const ReactHookForm: FC = (): JSX.Element => {
         <input {...register('age')} type="number" />
         <span className="error">
           {formState.errors.age && <span>{formState.errors.age.message}</span>}
+        </span>
+        <label>Email:</label>
+        <input {...register('email')} />
+        <span className="error">
+          {formState.errors.email && (
+            <span>{formState.errors.email.message}</span>
+          )}
         </span>
         <input type="submit" value={'submit'} />
       </form>
