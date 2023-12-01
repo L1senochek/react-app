@@ -35,6 +35,7 @@ const schema = yup
       .string()
       .required('Confirm Password is required')
       .oneOf([yup.ref('passwordOne')], 'Should match entered password'),
+    gender: yup.string().required('Gender is required'),
   })
   .required();
 
@@ -113,6 +114,25 @@ const ReactHookForm: FC = (): JSX.Element => {
         <span className="error">
           {formState.errors.passwordTwo && (
             <span>{formState.errors.passwordTwo.message}</span>
+          )}
+        </span>
+        <div>
+          <label>
+            Male
+            <input type="radio" value="male" {...register('gender')} />
+          </label>
+          <label>
+            Female
+            <input type="radio" value="female" {...register('gender')} />
+          </label>
+          <label>
+            Other
+            <input type="radio" value="other" {...register('gender')} />
+          </label>
+        </div>
+        <span className="error">
+          {formState.errors.gender && (
+            <span>{formState.errors.gender.message}</span>
           )}
         </span>
 
