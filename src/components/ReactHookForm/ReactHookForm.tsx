@@ -12,7 +12,11 @@ const schema = yup
       .string()
       .required('Name is required')
       .matches(/^[A-Z][a-zA-Z\s]*$/, 'Should start with an uppercase letter'),
-    // age: yup.number().required(),
+    age: yup
+      .number()
+      .required('Age is required')
+      .positive('Should not contain negative values')
+      .integer('Should be an integer'),
   })
   .required();
 
@@ -43,7 +47,11 @@ const ReactHookForm: FC = (): JSX.Element => {
           )}
         </span>
         <label>Age:</label>
-        <input type="submit" />
+        <input {...register('age')} type="number" />
+        <span className="error">
+          {formState.errors.age && <span>{formState.errors.age.message}</span>}
+        </span>
+        <input type="submit" value={'submit'} />
       </form>
     </div>
   );
