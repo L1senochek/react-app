@@ -25,6 +25,7 @@ const ReactHookForm: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const methods = useForm({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
   const { register, handleSubmit, formState, control } = methods;
 
@@ -111,7 +112,7 @@ const ReactHookForm: FC = (): JSX.Element => {
           <label className={styles['form__label']}>Password</label>
           <div
             className={`${styles['form__password']} ${
-              formState.errors.email ? styles['error-input'] : ''
+              formState.errors.passwordOne ? styles['error-input'] : ''
             }`}
           >
             <input
@@ -139,7 +140,7 @@ const ReactHookForm: FC = (): JSX.Element => {
           <label className={styles['form__label']}>Confirm Password</label>
           <div
             className={`${styles['form__password']} ${
-              formState.errors.email ? styles['error-input'] : ''
+              formState.errors.passwordTwo ? styles['error-input'] : ''
             }`}
           >
             <input

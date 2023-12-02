@@ -57,6 +57,7 @@ const SubmitInfo: FC = (): JSX.Element => {
                   title={`Card ${index + 1}`}
                   description={formValue}
                   image={reactHookFormImgArr[index]}
+                  LastClassName={index === 0 ? 'last-card' : ''}
                 />
               ))}
           </div>

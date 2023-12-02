@@ -7,11 +7,16 @@ const SubmitCardDescription: FC<CardProps> = ({
   title,
   description,
   image,
+  LastClassName,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className={styles['submit-card-description']}>
+    <div
+      className={`${styles['submit-card-description']} ${
+        LastClassName ? styles[LastClassName] : ''
+      }`}
+    >
       <div
         className={`${styles['submit-card-description__header']}  ${
           isExpanded ? styles['expanded'] : ''
@@ -54,7 +59,7 @@ const SubmitCardDescription: FC<CardProps> = ({
             <Password value={description.values.passwordOne} />
           </div>
           <h5 className={styles['submit-card-description__content_item']}>
-            {description.values.gender}
+            Gender: {description.values.gender}
           </h5>
           <h5 className={styles['submit-card-description__content_item']}>
             Country: {description.values.selectedCountry}
