@@ -1,5 +1,15 @@
 import * as yup from 'yup';
 
+export const passwordOne = yup
+  .string()
+  .required('Password is required')
+  .matches(/\d+/, { message: { number: '1 number' } })
+  .matches(/[a-z]+/, { message: { lowercase: '1 lowercase letter' } })
+  .matches(/[A-Z]+/, { message: { uppercase: '1 uppercase letter' } })
+  .matches(/[!@#$%^&*()-+]+/, {
+    message: { special: '1 special character' },
+  });
+
 const schema = yup
   .object()
   .shape({
@@ -18,13 +28,7 @@ const schema = yup
         /^\S+@\S+\.\S+$/i,
         'Should be a valid email address(example@example.com)'
       ),
-    passwordOne: yup
-      .string()
-      .required('Password is required')
-      .matches(
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-        'Should contain 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character'
-      ),
+    passwordOne: passwordOne,
     passwordTwo: yup
       .string()
       .required('Confirm Password is required')

@@ -10,7 +10,7 @@ import {
   setName,
   setPasswordOne,
 } from '@/store/slices/reactHookFormSlice';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState, useEffect } from 'react';
 import styles from './react-hook-form.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IFormValues } from '@/model/FormValuesState';
@@ -18,16 +18,53 @@ import AutoCompleteHook from '@/components/AutocompleteHook/AutoCompleteHook';
 import schema from '@/utils/validation/schema';
 import EyeOff from '@/components/EyeForPassword/EyeOff';
 import EyeOn from '@/components/EyeForPassword/EyeOn';
+import validatePassword from '@/utils/validation/validatePassword';
+import { useNavigate } from 'react-router';
 
 const ReactHookForm: FC = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+  const [passwordValue, setPasswordValue] = useState('');
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const methods = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const { register, handleSubmit, formState, control } = methods;
+  const { register, handleSubmit, formState, control, setError } = methods;
+
+  const validated = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    e.preventDefault();
+    const password = e.target.value;
+    setPasswordValue(password);
+    console.log(passwordValue);
+    const result = await validatePassword(password);
+    if (typeof result === 'string') {
+      setErrors([]);
+    } else {
+      setErrors(Object.values(result.errors));
+    }
+  };
+
+  useEffect(() => {
+    setError('passwordOne', {
+      type: 'manual',
+      message: errors.length > 0 ? errors[0] : '',
+    });
+  }, [errors, setError]);
+
+  const strongPassword = () => {
+    if (errors.length <= 0) {
+      return 'Password is strong!';
+    } else if (errors.length > 0 && errors.length < 2) {
+      return 'Password is medium!';
+    } else if (errors.length >= 2 && errors.length < 4) {
+      return 'Password is easy!';
+    } else if (errors.length >= 4) {
+      return 'Password is over easy!';
+    }
+  };
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     const reader = new FileReader();
@@ -56,6 +93,7 @@ const ReactHookForm: FC = (): JSX.Element => {
     }
 
     dispatch(setArrFormState());
+    navigate('/');
   };
 
   return (
@@ -112,7 +150,7 @@ const ReactHookForm: FC = (): JSX.Element => {
           <label className={styles['form__label']}>Password</label>
           <div
             className={`${styles['form__password']} ${
-              formState.errors.passwordOne ? styles['error-input'] : ''
+              formState.errors.passwordOne?.message ? styles['error-input'] : ''
             }`}
           >
             <input
@@ -121,6 +159,7 @@ const ReactHookForm: FC = (): JSX.Element => {
               placeholder={'Password'}
               autoComplete="false"
               className={styles['form__password_input']}
+              onChange={validated}
             />
             <button
               type="button"
@@ -131,11 +170,22 @@ const ReactHookForm: FC = (): JSX.Element => {
             </button>
           </div>
           <p className={styles['form__error']}>
-            {formState.errors.passwordOne && (
+            {formState.errors.passwordOne && errors.length === 0 && (
               <span className={styles['form__error_message']}>
                 {formState.errors.passwordOne.message}
               </span>
             )}
+            {errors.length > 0 && (
+              <span className={styles['form__error_message']}>
+                Should contain{' '}
+                {errors.map((error) => (error !== 'P' ? error + ' ' : ''))}
+              </span>
+            )}
+          </p>
+          <p className={styles['form__error']}>
+            <span className={styles['form__error_message']}>
+              {passwordValue ? strongPassword() : null}
+            </span>
           </p>
           <label className={styles['form__label']}>Confirm Password</label>
           <div
@@ -190,6 +240,13 @@ const ReactHookForm: FC = (): JSX.Element => {
             Accept Terms & Conditions
             <input type="checkbox" {...register('acceptTC')} />
           </label>
+          <p className={styles['form__error']}>
+            {formState.errors.acceptTC && (
+              <span className={styles['form__error_message']}>
+                {formState.errors.acceptTC.message}
+              </span>
+            )}
+          </p>
           <label className={styles['form__label']}>Image:</label>
           <input
             {...register('image')}
