@@ -1,9 +1,7 @@
 .links {
   display: flex;
   flex-direction: column;
-}
-
-.submit-info {
-  display: flex;
-  flex-direction: column;
+  &__item {
+    padding: 5px;
+  }
 }

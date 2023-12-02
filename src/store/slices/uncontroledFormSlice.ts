@@ -5,13 +5,14 @@ import { initialCountries } from '@/utils/constants/constants';
 const initialCurrentForm: FormState = {
   values: {
     name: '',
-    age: 0,
+    age: '0',
     email: '',
     passwordOne: '',
     passwordTwo: '',
     gender: 'male',
     acceptTC: false,
     image: '',
+    img: [],
     isValidImage: false,
     countries: initialCountries,
     selectedCountry: '',
@@ -39,7 +40,7 @@ const uncontroledFormSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.currentForm.values.name = action.payload;
     },
-    setAge: (state, action: PayloadAction<number>) => {
+    setAge: (state, action: PayloadAction<string>) => {
       state.currentForm.values.age = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
@@ -51,7 +52,7 @@ const uncontroledFormSlice = createSlice({
     setPasswordTwo: (state, action: PayloadAction<string>) => {
       state.currentForm.values.passwordTwo = action.payload;
     },
-    setGender: (state, action: PayloadAction<'male' | 'female' | 'other'>) => {
+    setGender: (state, action: PayloadAction<string>) => {
       state.currentForm.values.gender = action.payload;
     },
     setAcceptTC: (state, action: PayloadAction<boolean>) => {
@@ -69,6 +70,12 @@ const uncontroledFormSlice = createSlice({
     ) => {
       state.currentForm.values.image = action.payload.image;
       state.currentForm.values.isValidImage = action.payload.isValidImage;
+    },
+    setImg: (state, action: PayloadAction<string>) => {
+      state.currentForm.values.img = [
+        ...state.currentForm.values.img,
+        action.payload,
+      ];
     },
     resetArrForms: () => initialState,
     setArrFormState: (state) => {

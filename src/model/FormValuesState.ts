@@ -14,13 +14,14 @@ interface IFormValues {
 
 type FormValuesState = {
   name: string;
-  age: number;
+  age: string;
   email: string;
   passwordOne: string;
   passwordTwo: string;
-  gender: 'male' | 'female' | 'other';
+  gender: string;
   acceptTC: boolean;
   image: string;
+  img: string[];
   isValidImage: boolean;
   countries: string[];
   selectedCountry: string;

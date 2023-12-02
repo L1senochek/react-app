@@ -1,14 +1,18 @@
 import { useForm, FormProvider, Control, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '@/store/hooks';
 import {
+  setAge,
   setArrFormState,
+  setEmail,
+  setGender,
   setImage,
+  setImg,
   setName,
+  setPasswordOne,
 } from '@/store/slices/reactHookFormSlice';
 import { FC, useState } from 'react';
 import styles from './react-hook-form.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { IFormValues } from '@/model/FormValuesState';
 import AutoCompleteHook from '@/components/AutocompleteHook/AutoCompleteHook';
 import schema from '@/utils/validation/schema';
@@ -29,16 +33,27 @@ const ReactHookForm: FC = (): JSX.Element => {
     reader.onloadend = () => {
       const base64Image = reader.result as string;
       dispatch(setImage({ image: base64Image, isValidImage: true }));
+      dispatch(setImg(reader.result as string));
     };
 
     if (data.image instanceof FileList) {
       reader.readAsDataURL(data.image[0]);
     }
 
-    console.log(data);
-    if (data.name) {
+    if (
+      data.name &&
+      data.age &&
+      data.email &&
+      data.passwordOne &&
+      data.gender
+    ) {
       dispatch(setName(data.name));
+      dispatch(setAge(data.age));
+      dispatch(setEmail(data.email));
+      dispatch(setPasswordOne(data.passwordOne));
+      dispatch(setGender(data.gender));
     }
+
     dispatch(setArrFormState());
   };
 
