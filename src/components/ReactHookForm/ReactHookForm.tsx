@@ -10,18 +10,19 @@ import styles from './react-hook-form.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { IFormValues } from '@/model/FormValuesState';
-import AutoCompleteHook from '../AutocompleteHook/AutoCompleteHook';
+import AutoCompleteHook from '@/components/AutocompleteHook/AutoCompleteHook';
 import schema from '@/utils/validation/schema';
+import EyeOff from '@/components/EyeForPassword/EyeOff';
+import EyeOn from '@/components/EyeForPassword/EyeOn';
 
 const ReactHookForm: FC = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useAppDispatch();
-  const methods = useForm();
-
-  const { register, handleSubmit, formState, control } = useForm({
+  const methods = useForm({
     resolver: yupResolver(schema),
   });
+  const { register, handleSubmit, formState, control } = methods;
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     const reader = new FileReader();
@@ -46,113 +47,166 @@ const ReactHookForm: FC = (): JSX.Element => {
       <h2 onClick={() => dispatch(setArrFormState())}>ReactHookForm</h2>
       <FormProvider {...methods}>
         <form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
-          <label>Name:</label>
-          <input placeholder={'Name'} {...register('name')} />
-          <span className="error">
+          <label className={styles['form__label']}>Name:</label>
+          <input
+            className={`${styles['form__input']} ${
+              formState.errors.name ? styles['error-input'] : ''
+            }`}
+            placeholder={'Name'}
+            {...register('name')}
+          />
+          <p className={styles['form__error']}>
             {formState.errors.name && (
-              <span>{formState.errors.name.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.name.message}
+              </span>
             )}
-          </span>
-          <label>Age:</label>
-          <input placeholder={'Age'} {...register('age')} type="number" />
-          <span className="error">
+          </p>
+          <label className={styles['form__label']}>Age:</label>
+          <input
+            placeholder={'Age'}
+            {...register('age')}
+            type="number"
+            className={`${styles['form__input']} ${
+              formState.errors.age ? styles['error-input'] : ''
+            }`}
+          />
+          <p className={styles['form__error']}>
             {formState.errors.age && (
-              <span>{formState.errors.age.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.age.message}
+              </span>
             )}
-          </span>
-          <label>Email:</label>
-          <input placeholder={'Email'} {...register('email')} />
-          <span className="error">
+          </p>
+          <label className={styles['form__label']}>Email:</label>
+          <input
+            placeholder={'Email'}
+            {...register('email')}
+            className={`${styles['form__input']} ${
+              formState.errors.email ? styles['error-input'] : ''
+            }`}
+          />
+          <p className={styles['form__error']}>
             {formState.errors.email && (
-              <span>{formState.errors.email.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.email.message}
+              </span>
             )}
-          </span>
-          <label>Password</label>
-          <div>
+          </p>
+          <label className={styles['form__label']}>Password</label>
+          <div
+            className={`${styles['form__password']} ${
+              formState.errors.email ? styles['error-input'] : ''
+            }`}
+          >
             <input
               {...register('passwordOne')}
               type={showPassword ? 'text' : 'password'}
               placeholder={'Password'}
               autoComplete="false"
+              className={styles['form__password_input']}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
+              className={styles['form__password_btn']}
             >
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? <EyeOn /> : <EyeOff />}
             </button>
           </div>
-          <span className="error">
+          <p className={styles['form__error']}>
             {formState.errors.passwordOne && (
-              <span>{formState.errors.passwordOne.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.passwordOne.message}
+              </span>
             )}
-          </span>
-          <label>Confirm Password</label>
-          <div>
+          </p>
+          <label className={styles['form__label']}>Confirm Password</label>
+          <div
+            className={`${styles['form__password']} ${
+              formState.errors.email ? styles['error-input'] : ''
+            }`}
+          >
             <input
               {...register('passwordTwo')}
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder={'Confirm Password'}
               autoComplete="false"
+              className={styles['form__password_input']}
             />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className={styles['form__password_btn']}
             >
-              {showConfirmPassword ? 'Hide' : 'Show'}
+              {showConfirmPassword ? <EyeOn /> : <EyeOff />}
             </button>
           </div>
-          <span className="error">
+          <p className={styles['form__error']}>
             {formState.errors.passwordTwo && (
-              <span>{formState.errors.passwordTwo.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.passwordTwo.message}
+              </span>
             )}
-          </span>
-          <div>
-            <label>
+          </p>
+          <div className={styles['form__gender']}>
+            <label className={styles['form__gender_item']}>
               Male
               <input type="radio" value="male" {...register('gender')} />
             </label>
-            <label>
+            <label className={styles['form__gender_item']}>
               Female
               <input type="radio" value="female" {...register('gender')} />
             </label>
-            <label>
+            <label className={styles['form__gender_item']}>
               Other
               <input type="radio" value="other" {...register('gender')} />
             </label>
           </div>
-          <span className="error">
+          <p className={styles['form__error']}>
             {formState.errors.gender && (
-              <span>{formState.errors.gender.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.gender.message}
+              </span>
             )}
-          </span>
-          <label>
+          </p>
+          <label className={styles['form__label']}>
             Accept Terms & Conditions
             <input type="checkbox" {...register('acceptTC')} />
           </label>
-          <label>Image:</label>
+          <label className={styles['form__label']}>Image:</label>
           <input
             {...register('image')}
             type="file"
             accept="image/jpeg, image/png"
+            className={styles['form__img']}
           />
-          <span className="error">
+          <p className={styles['form__error']}>
             {formState.errors.image && (
-              <span>{formState.errors.image.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.image.message}
+              </span>
             )}
-          </span>
+          </p>
           <AutoCompleteHook
             label="Country"
             name="selectedCountry"
             control={control as Control<IFormValues>}
             rules={{ required: 'Country is required' }}
+            error={formState.errors.selectedCountry}
           />
-          <span className="error">
+          <p className={styles['form__error']}>
             {formState.errors.selectedCountry && (
-              <span>{formState.errors.selectedCountry.message}</span>
+              <span className={styles['form__error_message']}>
+                {formState.errors.selectedCountry.message}
+              </span>
             )}
-          </span>
-          <input type="submit" value={'submit'} />
+          </p>
+          <input
+            className={styles['form__submit']}
+            type="submit"
+            value={'submit'}
+          />
         </form>
       </FormProvider>
     </div>

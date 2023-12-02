@@ -1,21 +1,23 @@
-import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, useEffect, KeyboardEvent, ChangeEvent, useRef } from 'react';
 import { useController } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setSelectedCountry } from '@/store/slices/reactHookFormSlice';
 import IAutoCompleteHookProps from '@/model/components/AutoCompleteHook/AutoCompleteHook';
+import styles from './auto-complete-hook.module.scss';
 
 const AutoCompleteHook = ({
   label,
   name,
   control,
   rules,
+  error,
   ...rest
 }: IAutoCompleteHookProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const [isOptionsVisible, setOptionsVisible] = useState(false);
+  const optionsRef = useRef<HTMLDivElement>(null);
   const countries = useAppSelector(
     (state) => state.reactHookForm.currentForm.values.countries
   );
@@ -32,6 +34,18 @@ const AutoCompleteHook = ({
     );
     setFilteredOptions(filtered);
   }, [searchTerm, countries]);
+
+  useEffect(() => {
+    if (optionsRef.current && focusedIndex !== null) {
+      const focusedItem = optionsRef.current.children[focusedIndex];
+      if (focusedItem) {
+        focusedItem.scrollIntoView({
+          block: 'nearest',
+          inline: 'nearest',
+        });
+      }
+    }
+  }, [focusedIndex]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -68,8 +82,8 @@ const AutoCompleteHook = ({
   };
 
   return (
-    <>
-      <label>{label}</label>
+    <div className={styles['auto-complete-hook']}>
+      <label className={styles['auto-complete-hook__label']}>{label}</label>
       <input
         {...field}
         {...rest}
@@ -77,23 +91,26 @@ const AutoCompleteHook = ({
         autoComplete="off"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        onFocus={() => setOptionsVisible(true)}
-        onBlur={() => setOptionsVisible(false)}
+        className={`${styles['auto-complete-hook__input']} ${
+          error ? styles['error-input'] : ''
+        }`}
       />
-      {isOptionsVisible && filteredOptions.length > 0 && (
-        <div>
+      {filteredOptions.length > 0 && (
+        <div className={styles['auto-complete-hook__option']} ref={optionsRef}>
           {filteredOptions.map((option, index) => (
             <div
               key={option}
               onClick={() => handleOptionClick(option)}
-              className={index === focusedIndex ? 'focused' : ''}
+              className={`${styles['auto-complete-hook__item']} ${
+                index === focusedIndex ? styles['focused'] : ''
+              }`}
             >
               {option}
             </div>
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
