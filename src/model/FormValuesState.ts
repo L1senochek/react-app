@@ -1,3 +1,17 @@
+type AnyPresentValue = object;
+
+interface IFormValues {
+  acceptTC?: boolean;
+  image?: AnyPresentValue | FileList | undefined;
+  name?: string;
+  age?: string;
+  email?: string;
+  passwordOne?: string;
+  passwordTwo?: string;
+  gender?: string;
+  selectedCountry?: string;
+}
+
 type FormValuesState = {
   name: string;
   age: number;
@@ -8,7 +22,8 @@ type FormValuesState = {
   acceptTC: boolean;
   image: string;
   isValidImage: boolean;
-  country: string;
+  countries: string[];
+  selectedCountry: string;
 };
 
 type FormErrors = {
@@ -46,6 +61,7 @@ type FormArrState = {
 };
 
 export type {
+  IFormValues,
   FormValuesState,
   FormErrors,
   FormValidation,

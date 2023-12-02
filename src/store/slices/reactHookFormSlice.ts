@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormArrState, FormState } from '@/model/FormValuesState';
+import { initialCountries } from '@/utils/constants/constants';
 
 const initialCurrentForm: FormState = {
   values: {
@@ -12,7 +13,8 @@ const initialCurrentForm: FormState = {
     acceptTC: false,
     image: '',
     isValidImage: false,
-    country: '',
+    countries: initialCountries,
+    selectedCountry: '',
   },
   errors: {},
   isSubmitting: false,
@@ -55,8 +57,11 @@ const reactHookFormSlice = createSlice({
     setAcceptTC: (state, action: PayloadAction<boolean>) => {
       state.currentForm.values.acceptTC = action.payload;
     },
-    setCountry: (state, action: PayloadAction<string>) => {
-      state.currentForm.values.country = action.payload;
+    setSelectedCountry: (state, action: PayloadAction<string>) => {
+      state.currentForm.values.selectedCountry = action.payload;
+    },
+    clearSelectedCountry: (state) => {
+      state.currentForm.values.selectedCountry = '';
     },
     setImage: (
       state,
@@ -83,7 +88,8 @@ export const {
   setPasswordTwo,
   setGender,
   setAcceptTC,
-  setCountry,
+  setSelectedCountry,
+  clearSelectedCountry,
   setImage,
   resetArrForms,
   setArrFormState,

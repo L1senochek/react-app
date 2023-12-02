@@ -15,6 +15,9 @@ const MainPage: FC = (): JSX.Element => {
   const reactHookFormValue = useAppSelector(
     (state: RootState) => state.reactHookForm.arrFormState
   );
+  const image = useAppSelector(
+    (state) => state.reactHookForm.currentForm.values.image
+  );
 
   useEffect(() => {
     console.log(ucontroledFormValue, reactHookFormValue);
@@ -27,6 +30,7 @@ const MainPage: FC = (): JSX.Element => {
         <Link to={PATH_REACT_HOOK_FORM}>React Hook Form</Link>
       </div>
       <div className={styles['submit-info']}>Submit info</div>
+      {image && <img src={image} alt="image" style={{ width: '5vw' }} />}
     </>
   );
 };
