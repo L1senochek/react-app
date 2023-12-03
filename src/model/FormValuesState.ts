@@ -61,6 +61,11 @@ type FormArrState = {
   indexArrFormState: number | null;
 };
 
+type ImageType = 'png' | 'jpeg';
+
+type Base64<imageType extends ImageType> =
+  `data:image/${imageType};base64${string}`;
+
 export type {
   IFormValues,
   FormValuesState,
@@ -70,4 +75,5 @@ export type {
   RootState,
   FormState,
   FormArrState,
+  Base64,
 };

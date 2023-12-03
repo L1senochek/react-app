@@ -275,11 +275,9 @@ const ReactHookForm: FC = (): JSX.Element => {
               </span>
             )}
           </p>
-          <input
-            className={styles['form__submit']}
-            type="submit"
-            value={'submit'}
-          />
+          <button className={`${styles['form__submit']} btn`} type="submit">
+            Submit
+          </button>
         </form>
       </FormProvider>
     </div>
