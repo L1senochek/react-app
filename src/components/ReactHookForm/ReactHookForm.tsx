@@ -38,7 +38,6 @@ const ReactHookForm: FC = (): JSX.Element => {
     e.preventDefault();
     const password = e.target.value;
     setPasswordValue(password);
-    console.log(passwordValue);
     const result = await validatePassword(password);
     if (typeof result === 'string') {
       setErrors([]);

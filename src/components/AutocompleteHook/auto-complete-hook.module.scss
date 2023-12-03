@@ -30,12 +30,12 @@
     position: absolute;
     width: 15vw;
     padding: 5px;
-    background-color: rgb(46 46 46 );
+    background-color: rgb(46 46 46);
     border: 2px solid #66fcf145;
     border-top: none;
     z-index: 10;
     margin-top: 63px;
-    transition: max-height 1s ease; 
+    transition: max-height 1s ease;
   }
   &__item {
     display: flex;

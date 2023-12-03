@@ -75,13 +75,11 @@ const UncontroledForm: FC = (): JSX.Element => {
     schemaUncontrol
       .validate(data, { abortEarly: false })
       .then((validData) => {
-        console.log(validData, 'validData11111');
         const file = validData.image;
         const reader = new FileReader();
 
         reader.onload = (event) => {
           const base64String = event.target?.result;
-          console.log(base64String);
           dispatch(setImg(base64String as string));
         };
         reader.readAsDataURL(file!);

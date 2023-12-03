@@ -25,7 +25,6 @@ const SubmitInfo: FC = (): JSX.Element => {
   );
 
   useEffect(() => {
-    console.log(ucontroledFormValue, reactHookFormValue, ucontroledImage);
     setReactHookFormArr([...reactHookFormValue].reverse());
     setReactHookFormImgArr([...reactHookFormImage].reverse());
     setUncontroledFormArr([...ucontroledFormValue].reverse());
