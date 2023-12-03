@@ -7,6 +7,7 @@ import styles from './uncontroled-form.module.scss';
 import validatePassword from '@/utils/validation/validatePassword';
 import schemaUncontrol from '@/utils/validation/schemaUncontrol';
 import IFormErrors from '@/model/components/UncontroledForm/UncontroledForm';
+import AutocompleteHookUncontroled from '../AutocompleteHookUncontroled/AutocompleteHookUncontroled';
 
 const UncontroledForm: FC = (): JSX.Element => {
   const formRef = useRef(null);
@@ -58,8 +59,9 @@ const UncontroledForm: FC = (): JSX.Element => {
         validated(value as string);
       }
       data[key] = value;
-      console.log(value, key, data, 'value');
     });
+
+    console.log('data', data);
 
     schemaUncontrol
       .validate(data, { abortEarly: false })
@@ -209,6 +211,8 @@ const UncontroledForm: FC = (): JSX.Element => {
             </span>
           )}
         </p>
+        <AutocompleteHookUncontroled label="Country" name="country" />
+        <p className={styles['form__error']}></p>
 
         <button
           className={`${styles['form__submit']} btn`}
