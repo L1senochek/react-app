@@ -98,6 +98,7 @@ export const {
   setSelectedCountry,
   clearSelectedCountry,
   setImage,
+  setImg,
   resetArrForms,
   setArrFormState,
   setIndexArrFormState,

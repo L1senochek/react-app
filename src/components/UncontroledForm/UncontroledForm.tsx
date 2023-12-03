@@ -1,5 +1,14 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setArrFormState, setName } from '@/store/slices/uncontroledFormSlice';
+import {
+  setAge,
+  setArrFormState,
+  setEmail,
+  setGender,
+  setImg,
+  setName,
+  setPasswordOne,
+  setSelectedCountry,
+} from '@/store/slices/uncontroledFormSlice';
 import { RootState } from '@/store/store';
 import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
@@ -8,6 +17,7 @@ import validatePassword from '@/utils/validation/validatePassword';
 import schemaUncontrol from '@/utils/validation/schemaUncontrol';
 import IFormErrors from '@/model/components/UncontroledForm/UncontroledForm';
 import AutocompleteHookUncontroled from '../AutocompleteHookUncontroled/AutocompleteHookUncontroled';
+import { useNavigate } from 'react-router';
 
 const UncontroledForm: FC = (): JSX.Element => {
   const formRef = useRef(null);
@@ -19,6 +29,7 @@ const UncontroledForm: FC = (): JSX.Element => {
     (state: RootState) => state.ucontroledForm.currentForm
   );
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setName('UncontroledForm'));
@@ -61,12 +72,29 @@ const UncontroledForm: FC = (): JSX.Element => {
       data[key] = value;
     });
 
-    console.log('data', data);
-
     schemaUncontrol
       .validate(data, { abortEarly: false })
       .then((validData) => {
         console.log(validData, 'validData11111');
+        const file = validData.image;
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          const base64String = event.target?.result;
+          console.log(base64String);
+          dispatch(setImg(base64String as string));
+        };
+        reader.readAsDataURL(file!);
+
+        dispatch(setName(validData.name));
+        dispatch(setAge(validData.age));
+        dispatch(setEmail(validData.email));
+        dispatch(setPasswordOne(validData.passwordOne));
+        dispatch(setGender(validData.gender));
+        dispatch(setSelectedCountry(validData.selectedCountry));
+
+        dispatch(setArrFormState());
+        navigate('/');
       })
       .catch((validationErrors) => {
         setFormErrors(
@@ -83,7 +111,7 @@ const UncontroledForm: FC = (): JSX.Element => {
 
   return (
     <div className={styles['uncontrolled-form']}>
-      <h2 onClick={() => dispatch(setArrFormState())}>UncontroledForm</h2>
+      <h2>UncontroledForm</h2>
       <form className={styles['form']} ref={formRef}>
         <label className={styles['form__label']}>Name:</label>
         <input
@@ -211,7 +239,7 @@ const UncontroledForm: FC = (): JSX.Element => {
             </span>
           )}
         </p>
-        <AutocompleteHookUncontroled label="Country" name="country" />
+        <AutocompleteHookUncontroled label="Country" name="selectedCountry" />
         <p className={styles['form__error']}></p>
 
         <button
