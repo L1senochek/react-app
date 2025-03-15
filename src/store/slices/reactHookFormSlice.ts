@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormArrState, FormState } from '@/model/FormValuesState';
-import { initialCountries } from '@/utils/constants/constants';
 
 const initialCurrentForm: FormState = {
   values: {
@@ -14,7 +13,6 @@ const initialCurrentForm: FormState = {
     image: '',
     img: [],
     isValidImage: false,
-    countries: initialCountries,
     selectedCountry: '',
   },
   errors: {},

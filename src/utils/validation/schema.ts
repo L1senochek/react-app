@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { initialCountries } from '@/utils/constants/constants.ts';
 
 export const passwordOne = yup
   .string()
@@ -50,7 +51,7 @@ const schema = yup
     selectedCountry: yup
       .string()
       .required('Country is required')
-      .matches(/^[a-zA-Z]+$/, 'Should selected country'),
+      .oneOf(initialCountries, 'Should selected country'),
   })
   .required();
 

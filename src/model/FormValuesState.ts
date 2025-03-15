@@ -23,7 +23,6 @@ type FormValuesState = {
   image: string;
   img: string[];
   isValidImage: boolean;
-  countries: string[];
   selectedCountry: string;
 };
 

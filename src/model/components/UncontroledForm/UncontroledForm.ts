@@ -7,6 +7,7 @@ interface IFormErrors {
   gender?: string;
   acceptTC?: string;
   image?: string;
+  selectedCountry?: string;
 }
 
 export default IFormErrors;

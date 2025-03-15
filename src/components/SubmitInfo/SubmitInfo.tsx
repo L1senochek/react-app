@@ -8,14 +8,14 @@ import { FormState } from '@/model/FormValuesState';
 const SubmitInfo: FC = (): JSX.Element => {
   const [reactHookFormArr, setReactHookFormArr] = useState<FormState[]>();
   const [reactHookFormImgArr, setReactHookFormImgArr] = useState<string[]>();
-  const [uncontroledFormArr, setUncontroledFormArr] = useState<FormState[]>();
-  const [uncontroledFormImgArr, setUncontroledFormImgArr] =
+  const [uncontrolledFormArr, setUncontrolledFormArr] = useState<FormState[]>();
+  const [uncontrolledFormImgArr, setUncontrolledFormImgArr] =
     useState<string[]>();
-  const ucontroledFormValue = useAppSelector(
-    (state: RootState) => state.ucontroledForm.arrFormState
+  const uncontrolledFormValue = useAppSelector(
+    (state: RootState) => state.uncontrolledForm.arrFormState
   );
-  const ucontroledImage = useAppSelector(
-    (state) => state.ucontroledForm.currentForm.values.img
+  const uncontrolledImage = useAppSelector(
+    (state) => state.uncontrolledForm.currentForm.values.img
   );
   const reactHookFormValue = useAppSelector(
     (state: RootState) => state.reactHookForm.arrFormState
@@ -27,13 +27,13 @@ const SubmitInfo: FC = (): JSX.Element => {
   useEffect(() => {
     setReactHookFormArr([...reactHookFormValue].reverse());
     setReactHookFormImgArr([...reactHookFormImage].reverse());
-    setUncontroledFormArr([...ucontroledFormValue].reverse());
-    setUncontroledFormImgArr([...ucontroledImage].reverse());
+    setUncontrolledFormArr([...uncontrolledFormValue].reverse());
+    setUncontrolledFormImgArr([...uncontrolledImage].reverse());
   }, [
     reactHookFormImage,
     reactHookFormValue,
-    ucontroledFormValue,
-    ucontroledImage,
+    uncontrolledFormValue,
+    uncontrolledImage,
   ]);
 
   return (
@@ -43,15 +43,15 @@ const SubmitInfo: FC = (): JSX.Element => {
         <div className={styles['submit-info__wrapper']}>
           <div className={styles['submit-info__form']}>
             <h4 className={styles['submit-info__form_title']}>
-              Uncontroled form submit info:
+              Uncontrolled form submit info:
             </h4>
-            {uncontroledFormImgArr &&
-              uncontroledFormArr?.map((formValue, index) => (
+            {uncontrolledFormImgArr &&
+              uncontrolledFormArr?.map((formValue, index) => (
                 <SubmitCardDescription
                   key={index}
                   title={`Card ${index + 1}`}
                   description={formValue}
-                  image={uncontroledFormImgArr[index]}
+                  image={uncontrolledFormImgArr[index]}
                   LastClassName={index === 0 ? 'last-card' : ''}
                 />
               ))}

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormArrState, FormState } from '@/model/FormValuesState';
-import { initialCountries } from '@/utils/constants/constants';
 
 const initialCurrentForm: FormState = {
   values: {
@@ -14,7 +13,6 @@ const initialCurrentForm: FormState = {
     image: '',
     img: [],
     isValidImage: false,
-    countries: initialCountries,
     selectedCountry: '',
   },
   errors: {},
@@ -33,8 +31,8 @@ const initialState: FormArrState = {
   indexArrFormState: 0,
 };
 
-const uncontroledFormSlice = createSlice({
-  name: 'ucontroledFormValue',
+const uncontrolledFormSlice = createSlice({
+  name: 'uncontrolledFormValue',
   initialState,
   reducers: {
     setName: (state, action: PayloadAction<string>) => {
@@ -102,5 +100,5 @@ export const {
   resetArrForms,
   setArrFormState,
   setIndexArrFormState,
-} = uncontroledFormSlice.actions;
-export default uncontroledFormSlice;
+} = uncontrolledFormSlice.actions;
+export default uncontrolledFormSlice;

@@ -93,6 +93,14 @@
     border-width: 2px;
     border-style: solid;
     background-color: #00242b;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      &:hover {
+        border-color: #66fcf145;
+      }
+    }
   }
   &__error {
     margin: 0;

@@ -10,7 +10,7 @@ import {
   PATH_REACT_HOOK_FORM,
 } from '@/utils/constants/constants';
 import NotFound from '@/components/NotFound/NotFound';
-import UncontroledForm from '@/components/UncontroledForm/UncontroledForm';
+import UncontrolledForm from '@/components/UncontrolledForm/UncontrolledForm.tsx';
 import ReactHookForm from '@/components/ReactHookForm/ReactHookForm';
 import MainPage from '@/pages/MainPage';
 
@@ -19,7 +19,7 @@ const Router = createBrowserRouter(
     <>
       <Route path="/" element={<Layout />} errorElement={<ErrorMessage />}>
         <Route path={'/'} element={<MainPage />} />
-        <Route path={PATH_UNCONTROLED_FORM} element={<UncontroledForm />} />
+        <Route path={PATH_UNCONTROLED_FORM} element={<UncontrolledForm />} />
         <Route path={PATH_REACT_HOOK_FORM} element={<ReactHookForm />} />
         <Route path="*" element={<NotFound />} />
         <Route path="not-found" element={<NotFound />} />

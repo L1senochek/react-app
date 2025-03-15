@@ -1,5 +1,5 @@
-import { useForm, FormProvider, Control, SubmitHandler } from 'react-hook-form';
-import { useAppDispatch } from '@/store/hooks';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   setAge,
   setArrFormState,
@@ -9,12 +9,12 @@ import {
   setImg,
   setName,
   setPasswordOne,
+  setSelectedCountry,
 } from '@/store/slices/reactHookFormSlice';
 import { ChangeEvent, FC, useState, useEffect } from 'react';
 import styles from './react-hook-form.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IFormValues } from '@/model/FormValuesState';
-import AutoCompleteHook from '@/components/AutocompleteHook/AutoCompleteHook';
 import schema from '@/utils/validation/schema';
 import EyeOff from '@/components/EyeForPassword/EyeOff';
 import EyeOn from '@/components/EyeForPassword/EyeOn';
@@ -32,7 +32,8 @@ const ReactHookForm: FC = (): JSX.Element => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const { register, handleSubmit, formState, control, setError } = methods;
+  const countries = useAppSelector((state) => state.countries.countries);
+  const { register, handleSubmit, formState, setError } = methods;
 
   const validated = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
     e.preventDefault();
@@ -82,13 +83,15 @@ const ReactHookForm: FC = (): JSX.Element => {
       data.age &&
       data.email &&
       data.passwordOne &&
-      data.gender
+      data.gender &&
+      data.selectedCountry
     ) {
       dispatch(setName(data.name));
       dispatch(setAge(data.age));
       dispatch(setEmail(data.email));
       dispatch(setPasswordOne(data.passwordOne));
       dispatch(setGender(data.gender));
+      dispatch(setSelectedCountry(data.selectedCountry));
     }
 
     dispatch(setArrFormState());
@@ -260,13 +263,24 @@ const ReactHookForm: FC = (): JSX.Element => {
               </span>
             )}
           </p>
-          <AutoCompleteHook
-            label="Country"
-            name="selectedCountry"
-            control={control as Control<IFormValues>}
-            rules={{ required: 'Country is required' }}
-            error={formState.errors.selectedCountry}
-          />
+          <label className={styles['form__label']}>
+            Country
+            <input
+              className={`${styles['form__input']} ${
+                formState.errors.selectedCountry ? styles['error-input'] : ''
+              }`}
+              {...register('selectedCountry')}
+              name="selectedCountry"
+              list={'countries-list'}
+            />
+          </label>
+          <datalist id={'countries-list'}>
+            {countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </datalist>
           <p className={styles['form__error']}>
             {formState.errors.selectedCountry && (
               <span className={styles['form__error_message']}>
@@ -274,7 +288,11 @@ const ReactHookForm: FC = (): JSX.Element => {
               </span>
             )}
           </p>
-          <button className={`${styles['form__submit']} btn`} type="submit">
+          <button
+            className={`${styles['form__submit']} btn`}
+            type="submit"
+            disabled={!methods.formState.isValid}
+          >
             Submit
           </button>
         </form>

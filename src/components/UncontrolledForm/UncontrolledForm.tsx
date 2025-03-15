@@ -8,32 +8,32 @@ import {
   setName,
   setPasswordOne,
   setSelectedCountry,
-} from '@/store/slices/uncontroledFormSlice';
+} from '@/store/slices/uncontrolledFormSlice.ts';
 import { RootState } from '@/store/store';
 import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
-import styles from './uncontroled-form.module.scss';
+import styles from './uncontrolled-form.module.scss';
 import validatePassword from '@/utils/validation/validatePassword';
 import schemaUncontrol from '@/utils/validation/schemaUncontrol';
 import IFormErrors from '@/model/components/UncontroledForm/UncontroledForm';
-import AutocompleteHookUncontroled from '../AutocompleteHookUncontroled/AutocompleteHookUncontroled';
 import { useNavigate } from 'react-router';
 
-const UncontroledForm: FC = (): JSX.Element => {
+const UncontrolledForm: FC = (): JSX.Element => {
   const formRef = useRef(null);
   const [formErrors, setFormErrors] = useState<IFormErrors>({});
   const [errorsPassword, setErrorsPassword] = useState<string[]>([]);
   const [passwordValue, setPasswordValue] = useState('');
+  const countries = useAppSelector((state) => state.countries.countries);
 
-  const uncontroledFormValue = useAppSelector(
-    (state: RootState) => state.ucontroledForm.currentForm
+  const uncontrolledFormValue = useAppSelector(
+    (state: RootState) => state.uncontrolledForm.currentForm
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(setName('UncontroledForm'));
-  }, [dispatch, uncontroledFormValue]);
+    dispatch(setName('UncontrolledForm'));
+  }, [dispatch, uncontrolledFormValue]);
 
   const strongPassword = () => {
     if (errorsPassword.length <= 0) {
@@ -109,7 +109,7 @@ const UncontroledForm: FC = (): JSX.Element => {
 
   return (
     <div className={styles['uncontrolled-form']}>
-      <h2>UncontroledForm</h2>
+      <h2>UncontrolledForm</h2>
       <form className={styles['form']} ref={formRef}>
         <label className={styles['form__label']}>Name:</label>
         <input
@@ -237,7 +237,31 @@ const UncontroledForm: FC = (): JSX.Element => {
             </span>
           )}
         </p>
-        <AutocompleteHookUncontroled label="Country" name="selectedCountry" />
+        <label className={styles['form__label']}>
+          Country
+          <input
+            className={`${styles['form__input']} ${
+              formErrors.selectedCountry ? styles['error-input'] : ''
+            }`}
+            name="selectedCountry"
+            list={'countries-list'}
+          />
+        </label>
+        <datalist id={'countries-list'}>
+          {countries.map((country) => (
+            <option key={country} value={country}>
+              {country}
+            </option>
+          ))}
+        </datalist>
+        <p className={styles['form__error']}>
+          {formErrors.selectedCountry && (
+            <span className={styles['form__error_message']}>
+              {formErrors.selectedCountry}
+            </span>
+          )}
+        </p>
+        {/*<AutocompleteHookUncontroled label="Country" name="selectedCountry" />*/}
         <p className={styles['form__error']}></p>
 
         <button
@@ -252,4 +276,4 @@ const UncontroledForm: FC = (): JSX.Element => {
   );
 };
 
-export default UncontroledForm;
+export default UncontrolledForm;
